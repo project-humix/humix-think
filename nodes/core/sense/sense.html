@@ -1,0 +1,56 @@
+
+<script type="text/x-red" data-template-name="sense event">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-senseid"><i class="fa fa-tag"></i> Sense ID</label>
+        <input type="text" id="node-input-senseid" placeholder="Sense ID">
+    </div>
+</script>
+
+<script type="text/x-red" data-template-name="sense command">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-senseid"><i class="fa fa-tag"></i> Sense ID</label>
+        <input type="text" id="node-input-senseid" placeholder="Sense ID">
+    </div>
+</script>
+
+<script type="text/javascript">
+
+    RED.nodes.registerType('sense event', {
+        category: 'input',
+        color: "rgb(231, 231, 174)",
+        defaults: {
+            name: {value: ""},
+            senseid: {value: "", required: true}
+        },
+        inputs: 0,
+        outputs: 1,
+        icon: "white-globe.png",
+        label: function() {
+            return this.name || 'Sense Event';
+        }
+    });
+
+    RED.nodes.registerType('sense command', {
+        category: 'output',
+        color: "rgb(231, 231, 174)",
+        defaults: {
+            name: {value: ""},
+            senseid: {value: "", required: true}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "white-globe.png",
+        label: function() {
+            return this.name || 'Sense Command';
+        }
+    });
+
+</script>

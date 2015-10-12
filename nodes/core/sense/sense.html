@@ -8,6 +8,10 @@
         <label for="node-input-senseid"><i class="fa fa-tag"></i> Sense ID</label>
         <input type="text" id="node-input-senseid" placeholder="Sense ID">
     </div>
+    <div class="form-row">
+        <label for="node-input-eventtype"><i class="fa fa-tag"></i> Type</label>
+        <input type="text" id="node-input-eventtype" placeholder="Type">
+    </div>
 </script>
 
 <script type="text/x-red" data-template-name="sense command">
@@ -19,6 +23,10 @@
         <label for="node-input-senseid"><i class="fa fa-tag"></i> Sense ID</label>
         <input type="text" id="node-input-senseid" placeholder="Sense ID">
     </div>
+    <div class="form-row">
+        <label for="node-input-commandtype"><i class="fa fa-tag"></i> Type</label>
+        <input type="text" id="node-input-commandtype" placeholder="Type">
+    </div>
 </script>
 
 <script type="text/javascript">
@@ -28,7 +36,8 @@
         color: "rgb(231, 231, 174)",
         defaults: {
             name: {value: ""},
-            senseid: {value: "", required: true}
+            senseid: {value: "", required: true},
+            eventtype: {value: "", required: true}
         },
         inputs: 0,
         outputs: 1,
@@ -43,7 +52,8 @@
         color: "rgb(231, 231, 174)",
         defaults: {
             name: {value: ""},
-            senseid: {value: "", required: true}
+            senseid: {value: "", required: true},
+            commandtype: {value: "", required: true}
         },
         inputs: 1,
         outputs: 0,

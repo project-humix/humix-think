@@ -32,6 +32,7 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,n);
         var senseId = n.senseid,
             commandType = n.commandtype,
+            commandName = n.commandname,
             node = this;
 
         node.on('input', function(msg) {
@@ -45,8 +46,9 @@ module.exports = function(RED) {
                     type: 'modules'
                 },
                 payload: {
-                    type: commandType,
-                    command: msg.payload
+                    commandType: commandType,
+                    commandName: commandName,
+                    commandData: msg.payload
                 }
             };
             RED.comms.publish(senseId, message, true);

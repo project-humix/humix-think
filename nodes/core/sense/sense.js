@@ -6,6 +6,7 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,n);
         var senseId = n.senseid,
             eventType = n.eventtype,
+            eventName = n.eventname,
             node = this;
 
         RED.comms.subscribe(senseId, function(data) {
@@ -16,7 +17,8 @@ module.exports = function(RED) {
                 } else {
                     event = data;
                 }
-                if (event.topic === eventType) {
+                
+                if (event.eventType === eventType && event.eventName === eventName) {
                     node.send({
                         payload: event.message
                     });

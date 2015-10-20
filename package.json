@@ -54,7 +54,9 @@
         "node-red-node-feedparser":"0.1.*",
         "node-red-node-email":"0.1.*",
         "node-red-node-twitter":"0.1.*",
-        "node-red-node-rbe":"0.1.*"
+        "node-red-node-rbe":"0.1.*",
+        "body-parser": "latest",
+        "needle": "latest"
     },
     "optionalDependencies": {
         "node-red-node-serialport":"0.0.*",

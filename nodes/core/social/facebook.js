@@ -1,6 +1,5 @@
 var bodyParser = require('body-parser'),
-    needle = require('needle'),
-    appEnv = require('cfenv').getAppEnv();
+    needle = require('needle');
 
 var FB_URL = "https://graph.facebook.com/v2.3/";
 

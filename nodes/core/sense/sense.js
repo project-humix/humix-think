@@ -4,12 +4,12 @@ module.exports = function(RED) {
 
     function SenseEvent(n) {
         RED.nodes.createNode(this,n);
-        var senseId = n.senseid,
+        var node = this,
+            senseId = n.senseid,
             eventType = n.eventtype,
-            eventName = n.eventname,
-            node = this;
+            eventName = n.eventname;
 
-        RED.comms.subscribe(senseId, function(data) {
+        var eventHandler = function(data) {
             try {
                 var event;
                 if (typeof data === 'string') {
@@ -17,7 +17,7 @@ module.exports = function(RED) {
                 } else {
                     event = data;
                 }
-                
+
                 if (event.eventType === eventType && event.eventName === eventName) {
                     node.send({
                         payload: event.message
@@ -26,6 +26,12 @@ module.exports = function(RED) {
             } catch (e) {
                 node.error('Error: '+e);
             }
+        };
+
+        RED.comms.subscribe(senseId, eventHandler);
+
+        node.on('close', function() {
+            RED.comms.unsubscribe(senseId, eventHandler);
         });
     }
     RED.nodes.registerType("sense event", SenseEvent);

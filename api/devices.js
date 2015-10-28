@@ -46,7 +46,7 @@ module.exports = {
             Object.keys(reply).forEach(function(key) {
                 list.push({
                     senseId: key,
-                    senseIcon: reply[key]
+                    senseIcon: JSON.parse(reply[key]).senseIcon
                 });
             });
             res.send({result: JSON.stringify(list)});

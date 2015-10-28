@@ -10,7 +10,7 @@ var app = module.exports = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '..', 'frontend/dist')));
 
 var port = process.env.PORT || 3000,
     httpServer = http.createServer(app);

@@ -34,5 +34,16 @@ module.exports = {
             }
             res.send({result: JSON.stringify(reply)});
         });
+    },
+
+    getDevice: function(req, res) {
+        var senseId = req.params.senseId;
+        client.get(senseId, function(err, reply) {
+            if (err) {
+                log.error(err);
+                return res.status(500).send({error: err});
+            }
+            res.send({result: JSON.stringify(reply)});
+        });
     }
 };

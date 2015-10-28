@@ -7,6 +7,7 @@ function init(adminApp) {
     apiRoutes.post  ('/registerDevice', devices.register);
     apiRoutes.delete('/devices/:senseId', devices.unregister);
     apiRoutes.get   ('/devices', devices.getDeviceList);
+    apiRoutes.get   ('/devices/:senseId', devices.getDevice);
 
     adminApp.use('/api', apiRoutes);
 }

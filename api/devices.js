@@ -26,11 +26,21 @@ module.exports = {
         res.send({result: 'OK'});
     },
 
-    getDeviceList: function(req, res) {
+    unregisterall: function(req, res) {
+        var senseId = req.params.senseId;
+        log.info('Unregistering all devices');
+        client.del('humix');
+        res.send({result: 'OK'});
+    },
+
+    getAllDevices: function(req, res) {
         client.hgetall('humix', function(err, reply) {
             if (err) {
                 log.error(err);
                 return res.status(500).send({error: err});
+            }
+            if (!reply) {
+                return res.send({result: []});
             }
             var list = [];
             Object.keys(reply).forEach(function(key) {

@@ -4,8 +4,9 @@ var apiRoutes = require('express').Router(),
 
 function init(adminApp) {
     // Devices
-    apiRoutes.post('/registerDevice', devices.register);
-    apiRoutes.delete('/device/:senseId', devices.unregister);
+    apiRoutes.post  ('/registerDevice', devices.register);
+    apiRoutes.delete('/devices/:senseId', devices.unregister);
+    apiRoutes.get   ('/devices', devices.getDeviceList);
 
     adminApp.use('/api', apiRoutes);
 }

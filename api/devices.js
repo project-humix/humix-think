@@ -24,5 +24,15 @@ module.exports = {
         log.info('Unregistering device: '+senseId);
         client.del(senseId);
         res.send({result: 'OK'});
+    },
+
+    getDeviceList: function(req, res) {
+        client.keys('*', function(err, reply) {
+            if (err) {
+                log.error(err);
+                return res.status(500).send({error: err});
+            }
+            res.send({result: JSON.stringify(reply)});
+        });
     }
 };

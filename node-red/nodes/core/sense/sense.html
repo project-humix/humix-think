@@ -1,12 +1,12 @@
 
-<script type="text/x-red" data-template-name="sense event">
+<script class="sense" type="text/x-red" data-template-name="sense event">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
         <label for="node-input-senseid"><i class="fa fa-tag"></i> Sense ID</label>
-        <input type="text" id="node-input-senseid" placeholder="Sense ID">
+		<select id="node-input-senseid"></select>
     </div>
     <div class="form-row">
         <label for="node-input-eventtype"><i class="fa fa-tag"></i> Type</label>
@@ -19,14 +19,14 @@
 
 </script>
 
-<script type="text/x-red" data-template-name="sense command">
+<script class="sense" type="text/x-red" data-template-name="sense command">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
         <label for="node-input-senseid"><i class="fa fa-tag"></i> Sense ID</label>
-        <input type="text" id="node-input-senseid" placeholder="Sense ID">
+		<select id="node-input-senseid"></select>
     </div>
     <div class="form-row">
         <label for="node-input-commandtype"><i class="fa fa-tag"></i> Type</label>
@@ -39,7 +39,33 @@
 </script>
 
 <script type="text/javascript">
+	
+	var defaultID = { value: ''};
+    $.ajax({
+        method: 'GET',
+        url: '/api/devices',
+        success: function(jsonObj){
+			jsonObj = $.parseJSON(jsonObj.result);
+            var templateElem = $('.sense');
+            var tmpTemplate = $(templateElem.html());
+            var selectElem = tmpTemplate.find('#node-input-senseid');
 
+            for(var i=0; i<jsonObj.length; i++){
+                var optionElem = '<option value="' + jsonObj[i].senseId + '">' +  jsonObj[i].senseId + '</option>';
+                selectElem.append(optionElem);
+            }
+
+            var firstOption = selectElem.find('option:first');
+            firstOption.attr('selected', 'selected');
+            firstOption.prop('selected', true);
+
+            defaultID.value = firstOption.val();
+            selectElem.val(defaultID.value);
+            
+            templateElem.html(tmpTemplate);        
+        }
+    });
+	
     RED.nodes.registerType('sense event', {
         category: 'input',
         color: "rgb(231, 231, 174)",

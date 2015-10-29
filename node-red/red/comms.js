@@ -73,14 +73,15 @@ function start() {
                     if (!pendingAuth) {
                         if (msg.subscribe) {
                             handleRemoteSubscription(ws,msg.subscribe);
-                        } else if (msg.topic){
+                        } else if (msg.senseId){
                             for (var t in subscriptions) {
                                 if (subscriptions.hasOwnProperty(t)) {
                                     var re = new RegExp("^"+t.replace(/([\[\]\?\(\)\\\\$\^\*\.|])/g,"\\$1").replace(/\+/g,"[^/]+").replace(/\/#$/,"(\/.*)?")+"$");
-                                    if (re.test(msg.topic)) {
+                                    if (re.test(msg.senseId) || t === '*') {
+                                        console.log('message: '+JSON.stringify(msg.data));
                                         var subscribers = subscriptions[t];
                                         for (var i=0;i<subscribers.length;i++) {
-                                            subscribers[i](msg.data);
+                                            subscribers[i]({senseId: msg.senseId, data: msg.data});
                                         }
                                     }
                                 }

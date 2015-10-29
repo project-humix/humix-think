@@ -56,7 +56,8 @@
         "node-red-node-twitter":"0.1.*",
         "node-red-node-rbe":"0.1.*",
         "body-parser": "latest",
-        "needle": "latest"
+        "needle": "latest",
+        "redis": "2.2.5"
     },
     "optionalDependencies": {
         "node-red-node-serialport":"0.0.*",

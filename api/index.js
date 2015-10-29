@@ -9,6 +9,9 @@ function init(adminApp) {
     apiRoutes.delete('/devices/:senseId',   devices.unregister);
     apiRoutes.get   ('/devices',            devices.getAllDevices);
     apiRoutes.get   ('/devices/:senseId',   devices.getDevice);
+    apiRoutes.get   ('/devices/:senseId/modules',   devices.getDeviceModules);
+    apiRoutes.get   ('/devices/:senseId/modules/:moduleName/events',   devices.getDeviceModuleEvents);
+    apiRoutes.get   ('/devices/:senseId/modules/:moduleName/commands',   devices.getDeviceModuleCommands);
 
     adminApp.use('/api', apiRoutes);
 }

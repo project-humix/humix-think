@@ -1,3 +1,5 @@
+var redis = require('redis'),
+    client = redis.createClient();
 
 module.exports = function(RED) {
     "use strict";
@@ -9,18 +11,18 @@ module.exports = function(RED) {
             eventType = n.eventtype,
             eventName = n.eventname;
 
-        var eventHandler = function(data) {
+        var eventHandler = function(event) {
             try {
-                var event;
-                if (typeof data === 'string') {
-                    event = JSON.parse(data);
+                var json;
+                if (typeof event === 'string') {
+                    json = JSON.parse(event).data;
                 } else {
-                    event = data;
+                    json = event.data;
                 }
 
-                if (event.eventType === eventType && event.eventName === eventName) {
+                if (json.eventType === eventType && json.eventName === eventName) {
                     node.send({
-                        payload: event.message
+                        payload: json.message
                     });
                 }
             } catch (e) {

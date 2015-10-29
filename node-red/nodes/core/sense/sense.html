@@ -1,20 +1,20 @@
 
-<script type="text/x-red" data-template-name="sense event">
+<script id="sensein" type="text/x-red" data-template-name="sense event">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
         <label for="node-input-senseid"><i class="fa fa-tag"></i> Sense ID</label>
-        <input type="text" id="node-input-senseid" placeholder="Sense ID">
+        <select id="node-input-senseid" onclick="getEventTypes(this.value)" placeholder="Sense ID"></select>
     </div>
     <div class="form-row">
         <label for="node-input-eventtype"><i class="fa fa-tag"></i> Type</label>
-        <input type="text" id="node-input-eventtype" placeholder="Type">
+        <select id="node-input-eventtype" onclick="getEventNames(this.value)" placeholder="Type"></select>
     </div>
     <div class="form-row">
         <label for="node-input-eventname"><i class="fa fa-tag"></i> Event Name</label>
-        <input type="text" id="node-input-eventname" placeholder="Event Name">
+        <select id="node-input-eventname" placeholder="Event Name"></select>
     </div>
 
 </script>
@@ -40,12 +40,16 @@
 
 <script type="text/javascript">
 
+    var curSenseIDList = [], curSenseID = '',
+        curEventTypeList = [], curEventType = '',
+        curEventNameList = [], curEventName = '';
+
     RED.nodes.registerType('sense event', {
         category: 'input',
         color: "rgb(231, 231, 174)",
         defaults: {
             name: {value: ""},
-            senseid: {value: "", required: true},
+            senseid: {value: curSenseID, required: true},
             eventtype: {value: "", required: true},
             eventname: {value: "", required: true}
         },
@@ -54,6 +58,50 @@
         icon: "white-globe.png",
         label: function() {
             return this.name || 'Sense Event';
+        },
+        oneditprepare: function() {
+            $.ajax({
+                method: 'GET',
+                url: 'http://localhost:3000/api/devices',
+                success: function(jsonObj) {
+                    var result = JSON.parse(jsonObj.result);
+
+                    // remove the old options
+                    $("#node-input-senseid").find('option').remove();
+
+                    // update with the new options
+                    for (var i=0; i<result.length; i++) {
+                        var optionElem = '<option value="'+result[i].senseId+'">'+result[i].senseId+'</option>';
+                        $("#node-input-senseid").append(optionElem);
+                        $("#node-input-senseid").val('');
+                    }
+
+                    if (curSenseID !== '') {
+                        console.log('curSenseID: '+curSenseID);
+                        $("#node-input-senseid").val(curSenseID);
+                    }
+                    if (curEventType !== '' && curEventTypeList.length > 0) {
+                        console.log('curEventType: '+curEventType);
+                        for (var i=0; i < curEventTypeList.length; i++) {
+                            $("#node-input-eventtype").append('<option value="'+curEventTypeList[i]+'">'+curEventTypeList[i]+'</option>');
+                        }
+                        $("#node-input-eventtype").val(curEventType);
+                    }
+                    if (curEventName !== '' && curEventNameList.length > 0) {
+                        console.log('curEventName: '+curEventName);
+                        for (var i=0; i < curEventNameList.length; i++) {
+                            $("#node-input-eventname").append('<option value="'+curEventNameList[i]+'">'+curEventNameList[i]+'</option>');
+                        }
+                        $("#node-input-eventname").val(curEventName);
+                    }
+                }
+            });
+
+        },
+        oneditsave: function() {
+            curSenseID = $("#node-input-senseid").val();
+            curEventType = $("#node-input-eventtype").val();
+            curEventName = $("#node-input-eventname").val();
         }
     });
 
@@ -74,4 +122,69 @@
         }
     });
 
+    function getEventTypes(senseid) {
+        console.log('in getEventTypes: '+senseid);
+        if (senseid) {
+            $.ajax({
+                method: 'GET',
+                url: 'http://localhost:3000/api/devices/'+senseid+'/modules',
+                success: function(jsonObj) {
+                    console.log('got event types: '+JSON.stringify(jsonObj));
+                    var result = JSON.parse(jsonObj.result);
+
+                    // remove the old options
+                    $("#node-input-eventtype").find('option').remove();
+
+                    // update the new options
+                    var curExisted = false;
+                    for (var i=0; i<result.length; i++) {
+                        if (result[i] === curEventType) {
+                            curExisted = true;
+                        }
+                        var optionElem = '<option value="'+result[i]+'">'+result[i]+'</option>';
+                        $("#node-input-eventtype").append(optionElem);
+                        $("#node-input-eventtype").val('');
+                    }
+                    curEventTypeList = result;
+                    if (curEventType !== '' && curExisted) {
+                        console.log('curEventType: '+curEventType);
+                        $("#node-input-eventtype").val(curEventType);
+                    }
+                }
+            });
+        }
+    }
+
+    function getEventNames(type) {
+        if (type) {
+            console.log('in getEventNames: '+$("#node-input-senseid").val());
+            $.ajax({
+                method: 'GET',
+                url: 'http://localhost:3000/api/devices/'+$("#node-input-senseid").val()+'/modules/'+type+'/events',
+                success: function(jsonObj) {
+                    console.log('got event types: '+JSON.stringify(jsonObj));
+                    var result = JSON.parse(jsonObj.result);
+
+                    // remove the old options
+                    $("#node-input-eventname").find('option').remove();
+
+                    // update the new options
+                    var curExisted = false;
+                    for (var i=0; i<result.length; i++) {
+                        if (result[i] === curEventType) {
+                            curExisted = true;
+                        }
+                        var optionElem = '<option value="'+result[i]+'">'+result[i]+'</option>';
+                        $("#node-input-eventname").append(optionElem);
+                        $("#node-input-eventname").val('');
+                    }
+                    curEventNameList = result;
+                    if (curEventName !== '' && curExisted) {
+                        console.log('curEventName: '+curEventName);
+                        $("#node-input-eventname").val(curEventName);
+                    }
+                }
+            });
+        }
+    }
 </script>

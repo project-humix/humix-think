@@ -22,6 +22,7 @@ var fs = require("fs");
 
 var redNodes = require("./nodes");
 var comms = require("./comms");
+var sense = require("./sense");
 var storage = require("./storage");
 var log = require("./log");
 var i18n = require("./i18n");
@@ -109,6 +110,7 @@ function start() {
                 log.info(log._("runtime.paths.settings",{path:settings.settingsFile}));
                 redNodes.loadFlows();
                 comms.start();
+                sense.start();
             }).otherwise(function(err) {
                 console.log(err);
             });
@@ -264,6 +266,7 @@ function stop() {
     }
     redNodes.stopFlows();
     comms.stop();
+    sense.stop();
 }
 
 var serverAPI = module.exports = {

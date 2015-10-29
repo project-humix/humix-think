@@ -13,6 +13,15 @@
         templateUrl: 'app/main/main.html',
         controller: 'MainController',
         controllerAs: 'main'
+      })
+      .state('think', {
+        url: "/think",
+        templateUrl: "app/node-red/node-red.html"
+      })
+      .state('sense', {
+        url: "/sense",
+        templateUrl: "app/main/main.html",
+        controller: 'MainController'
       });
 
     $urlRouterProvider.otherwise('/');

@@ -27,6 +27,14 @@ $icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/"
   }
 }
 
+html, body {
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+}
+
 
 /**
  *  Do not remove the comments below. It's the markers used by gulp-inject to inject

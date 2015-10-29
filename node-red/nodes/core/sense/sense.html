@@ -26,15 +26,15 @@
     </div>
     <div class="form-row">
         <label for="node-input-senseid"><i class="fa fa-tag"></i> Sense ID</label>
-		<select id="node-input-senseid"></select>
+        <select id="node-input-senseid" onclick="getCommandTypes(this.value)" placeholder="Sense ID"></select>
     </div>
     <div class="form-row">
         <label for="node-input-commandtype"><i class="fa fa-tag"></i> Type</label>
-        <input type="text" id="node-input-commandtype" placeholder="Type">
+        <select id="node-input-commandtype" onclick="getCommandNames(this.value)" placeholder="Type"></select>
     </div>
     <div class="form-row">
         <label for="node-input-commandname"><i class="fa fa-tag"></i> Command Name</label>
-        <input type="text" id="node-input-commandname" placeholder="Command Name">
+        <select id="node-input-commandname" placeholder="Event Name"></select>
     </div>
 </script>
 
@@ -42,7 +42,9 @@
 
     var curSenseIDList = [], curSenseID = '',
         curEventTypeList = [], curEventType = '',
-        curEventNameList = [], curEventName = '';
+        curEventNameList = [], curEventName = '',
+        curCommandTypeList = [], curCommandType = '',
+        curCommandNameList = [], curCommandName = '';
 
     RED.nodes.registerType('sense event', {
         category: 'input',
@@ -119,6 +121,50 @@
         icon: "white-globe.png",
         label: function() {
             return this.name || 'Sense Command';
+        },
+        oneditprepare: function() {
+            $.ajax({
+                method: 'GET',
+                url: 'http://localhost:3000/api/devices',
+                success: function(jsonObj) {
+                    var result = JSON.parse(jsonObj.result);
+
+                    // remove the old options
+                    $("#node-input-senseid").find('option').remove();
+
+                    // update with the new options
+                    for (var i=0; i<result.length; i++) {
+                        var optionElem = '<option value="'+result[i].senseId+'">'+result[i].senseId+'</option>';
+                        $("#node-input-senseid").append(optionElem);
+                        $("#node-input-senseid").val('');
+                    }
+
+                    if (curSenseID !== '') {
+                        console.log('curSenseID: '+curSenseID);
+                        $("#node-input-senseid").val(curSenseID);
+                    }
+                    if (curCommandType !== '' && curCommandTypeList.length > 0) {
+                        console.log('curCommandType: '+curCommandType);
+                        for (var i=0; i < curCommandTypeList.length; i++) {
+                            $("#node-input-commandtype").append('<option value="'+curCommandTypeList[i]+'">'+curCommandTypeList[i]+'</option>');
+                        }
+                        $("#node-input-commandtype").val(curCommandType);
+                    }
+                    if (curCommandName !== '' && curCommandNameList.length > 0) {
+                        console.log('curCommandName: '+curCommandName);
+                        for (var i=0; i < curCommandNameList.length; i++) {
+                            $("#node-input-commandname").append('<option value="'+curCommandNameList[i]+'">'+curCommandNameList[i]+'</option>');
+                        }
+                        $("#node-input-commandname").val(curCommandName);
+                    }
+                }
+            });
+
+        },
+        oneditsave: function() {
+            curSenseID = $("#node-input-senseid").val();
+            curCommandType = $("#node-input-commandtype").val();
+            curCommandName = $("#node-input-commandname").val();
         }
     });
 
@@ -129,7 +175,6 @@
                 method: 'GET',
                 url: 'http://localhost:3000/api/devices/'+senseid+'/modules',
                 success: function(jsonObj) {
-                    console.log('got event types: '+JSON.stringify(jsonObj));
                     var result = JSON.parse(jsonObj.result);
 
                     // remove the old options
@@ -162,7 +207,6 @@
                 method: 'GET',
                 url: 'http://localhost:3000/api/devices/'+$("#node-input-senseid").val()+'/modules/'+type+'/events',
                 success: function(jsonObj) {
-                    console.log('got event types: '+JSON.stringify(jsonObj));
                     var result = JSON.parse(jsonObj.result);
 
                     // remove the old options
@@ -187,4 +231,69 @@
             });
         }
     }
+
+    function getCommandTypes(senseid) {
+        console.log('in getCommandTypes: '+senseid);
+        if (senseid) {
+            $.ajax({
+                method: 'GET',
+                url: 'http://localhost:3000/api/devices/'+senseid+'/modules',
+                success: function(jsonObj) {
+                    var result = JSON.parse(jsonObj.result);
+
+                    // remove the old options
+                    $("#node-input-commandtype").find('option').remove();
+
+                    // update the new options
+                    var curExisted = false;
+                    for (var i=0; i<result.length; i++) {
+                        if (result[i] === curCommandType) {
+                            curExisted = true;
+                        }
+                        var optionElem = '<option value="'+result[i]+'">'+result[i]+'</option>';
+                        $("#node-input-commandtype").append(optionElem);
+                        $("#node-input-commandtype").val('');
+                    }
+                    curCommandTypeList = result;
+                    if (curCommandType !== '' && curExisted) {
+                        console.log('curCommandType: '+curCommandType);
+                        $("#node-input-commandtype").val(curCommandType);
+                    }
+                }
+            });
+        }
+    }
+
+    function getCommandNames(type) {
+        if (type) {
+            console.log('in getCommandNames: '+$("#node-input-senseid").val());
+            $.ajax({
+                method: 'GET',
+                url: 'http://localhost:3000/api/devices/'+$("#node-input-senseid").val()+'/modules/'+type+'/commands',
+                success: function(jsonObj) {
+                    var result = JSON.parse(jsonObj.result);
+
+                    // remove the old options
+                    $("#node-input-commandname").find('option').remove();
+
+                    // update the new options
+                    var curExisted = false;
+                    for (var i=0; i<result.length; i++) {
+                        if (result[i] === curCommandType) {
+                            curExisted = true;
+                        }
+                        var optionElem = '<option value="'+result[i]+'">'+result[i]+'</option>';
+                        $("#node-input-commandname").append(optionElem);
+                        $("#node-input-commandname").val('');
+                    }
+                    curCommandNameList = result;
+                    if (curCommandName !== '' && curExisted) {
+                        console.log('curCommandName: '+curCommandName);
+                        $("#node-input-commandname").val(curCommandName);
+                    }
+                }
+            });
+        }
+    }
+
 </script>

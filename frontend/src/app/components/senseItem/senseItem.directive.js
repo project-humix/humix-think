@@ -3,7 +3,7 @@
 
   angular
     .module('public')
-    .directive('ngSenseItem', ['deviceList',ngSenseItem]);
+    .directive('ngSenseItem', ngSenseItem);
 
   /** @ngInject */
   function ngSenseItem(deviceList) {

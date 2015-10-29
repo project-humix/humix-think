@@ -1,0 +1,39 @@
+<div>
+  <div class="title">
+  	<button class="btn btn-default" ng-click="vm.open()">Add Sense</button>
+  	<hr>
+  </div>
+
+  <div class="row">
+  	<ng-sense-item class="col-md-4" ng-repeat="(key, val) in vm.getDevices()" sense-id="{{ key }}" img-id="{{ val }}"></ng-sense-item>
+  </div>
+
+  <!-- <div class="row empty-text" ng-show="vm.deviceEmpty">
+      You have not yet registered any Humix Sense. 
+  </div> -->
+
+</div>
+
+
+<script type="text/ng-template" id="addModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Add Sencse</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+        	<div class="form-group">
+        		<div class="col-sm-3 modal-thumbnail-block">
+        			<img ng-src="assets/images/bluemix-icon-list/i-appicon-{{ vm.imgId }}-50.png" class="img-thumbnail" alt="thumbnail" />
+    			</div>
+        		<label class="col-sm-1 control-label" for="sense-id">ID: </label>
+        		<div class="col-sm-8">
+        			<input type="text" id="sense-id" class="form-control" placeholder="Humix-Godzilla" ng-model="vm.senseId"/>
+    			</div>
+    		</div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="vm.ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</script>

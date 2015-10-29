@@ -1,5 +1,5 @@
 
-<script id="sensein" type="text/x-red" data-template-name="sense event">
+<script class="sense" type="text/x-red" data-template-name="sense event">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -19,14 +19,14 @@
 
 </script>
 
-<script type="text/x-red" data-template-name="sense command">
+<script class="sense" type="text/x-red" data-template-name="sense command">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
         <label for="node-input-senseid"><i class="fa fa-tag"></i> Sense ID</label>
-        <input type="text" id="node-input-senseid" placeholder="Sense ID">
+		<select id="node-input-senseid"></select>
     </div>
     <div class="form-row">
         <label for="node-input-commandtype"><i class="fa fa-tag"></i> Type</label>

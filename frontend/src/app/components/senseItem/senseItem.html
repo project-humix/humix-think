@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+  <div class="row panel-heading">
+      <div class="col-md-10">Sense</div>
+      <div class="col-md-2">
+        <input type="image" src="assets/images/trash.png" ng-click="delDevice(sense.senseId)">
+      </div>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-4">
+      	<img ng-src="assets/images/bluemix-icon-list/i-appicon-{{ sense.imgId }}-50.png" class="img-thumbnail" alt="thumbnail" />
+      </div>
+      <div class="col-md-8">
+		<div class="input-group">
+		  <span class="input-group-addon" id="sizing-addon2">ID</span>
+		  <input type="text" class="form-control" ng-model=sense.senseId>
+		</div>
+      </div>
+    </div>
+  </div>
+</div>

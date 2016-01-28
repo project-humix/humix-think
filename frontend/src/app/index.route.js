@@ -22,8 +22,8 @@
         url: "/404",
         templateUrl: "app/exception/404.html"
       });
-
-    $urlRouterProvider.otherwise('/404')
+      $urlRouterProvider.when('', '/sense');
+      $urlRouterProvider.otherwise('404');
   }
 
 })();

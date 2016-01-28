@@ -3,9 +3,10 @@ applications:
   memory: 512M
   instances: 1
   domain: mybluemix.net
-  name: humix-community-test
-  host: humix-community-test
+  name: <your_app_name> 
+  host: <your_app_name>
   disk_quota: 1024M
   services:
-  - humix-community-cloudantNoSQLDB
+  - <cloudant_service_name>
+  - <speech_recognition_service_name>
   command: node --max-old-space-size=384 app.js --settings ./bluemix-settings.js -v

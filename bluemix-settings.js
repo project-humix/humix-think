@@ -96,10 +96,11 @@ if (process.env.NODE_RED_USERNAME && process.env.NODE_RED_PASSWORD) {
 
 
 
-//settings.couchAppname = process.env.NODE_RED_APPLICATION_NAME || VCAP_APPLICATION['application_name'];
-settings.couchAppname = 'humix-commnity';
+settings.couchAppname = process.env.NODE_RED_APPLICATION_NAME || VCAP_APPLICATION['application_name'];
+//settings.couchAppname = 'humix-commnity';
 
-var storageServiceName = process.env.NODE_RED_STORAGE_NAME || new RegExp("^"+settings.couchAppname+".cloudantNoSQLDB");
+//var storageServiceName = process.env.NODE_RED_STORAGE_NAME || new RegExp("^"+settings.couchAppname+".cloudantNoSQLDB");
+var storageServiceName = '<cloudant_service_name>' 
 var couchService = appEnv.getService(storageServiceName);
 
 
@@ -113,5 +114,4 @@ if (!couchService) {
 
 settings.couchUrl = couchService.credentials.url;
 
-//settings.couchUrl = "https://0ae934ac-4c77-409d-8d94-0e1c04de16a5-bluemix:a747ede677ef41173f98b55601a89d57ddf5ac5af29a8b52ba40ef8ce5e5d737@0ae934ac-4c77-409d-8d94-0e1c04de16a5-bluemix.cloudant.com";
 

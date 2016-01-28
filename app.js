@@ -6,6 +6,8 @@ var express = require('express'),
     http = require('http'),
     api = require('./api');
 
+var bluemixNodeRedSettings = require('./bluemix-settings.js');
+
 var app = module.exports = express();
 
 app.use(bodyParser.json());
@@ -16,19 +18,22 @@ var port = process.env.PORT || 3000,
     httpServer = http.createServer(app);
 
 // node-red init
-var nodeRedSettings = {
-    httpAdminRoot: '/node-red',
-    httpNodeRoot: '/node-red',
-    mqttReconnectTime: 15000,
-    serialReconnectTime: 15000,
-    debugMaxLength: 1000,
-    userDir: process.env.PWD + '/node-red',
-    uiPort: port,
-};
+// var nodeRedSettings = {
+//     httpAdminRoot: '/node-red',
+//     httpNodeRoot: '/node-red',
+//     mqttReconnectTime: 15000,
+//     serialReconnectTime: 15000,
+//     debugMaxLength: 1000,
+//     userDir: process.env.PWD + '/node-red',
+//     uiPort: port,
+// };
 
-RED.init(httpServer, nodeRedSettings);
-app.use(nodeRedSettings.httpAdminRoot, RED.httpAdmin);
-app.use(nodeRedSettings.httpNodeRoot, RED.httpNode);
+//RED.init(httpServer, nodeRedSettings);
+
+RED.init(httpServer, bluemixNodeRedSettings);
+
+app.use(bluemixNodeRedSettings.httpAdminRoot, RED.httpAdmin);
+app.use(bluemixNodeRedSettings.httpNodeRoot, RED.httpNode);
 
 // api init
 api.init(app);

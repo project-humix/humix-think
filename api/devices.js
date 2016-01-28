@@ -1,11 +1,9 @@
 var log = require('logule').init(module, 'Device'),
-    redis = require('redis'),
     async = require('async'),
-    client = redis.createClient();
-
-client.on('error', function(err) {
-    log.error(err);
-});
+    settings = require('../bluemix-settings.js'),
+    nano = require('nano')(settings.couchUrl);
+ 
+ var humixdb = nano.db.use('humix');
 
 var senseIdPrefix = 'SenseId:';
 function SenseId(senseId) {
@@ -27,134 +25,135 @@ module.exports = {
             }
         });
         log.info('Registering device: '+senseId);
-        client.hmset(SenseId(senseId), data, function(err) {
-            if (err) {
-                log.error(err);
-                return res.status(500).send({error: err});
+        
+        humixdb.insert(req.body, function(err){
+            
+            if(err){
+                log.err('failed to register humix:'+senseId);
+            }else{
+                log.info('humix:'+senseId+' registered');
             }
-            res.send({result: 'OK'});
         });
+       
     },
 
     unregister: function(req, res) {
         var senseId = req.params.senseId;
         log.info('Unregistering device: '+senseId);
-        client.hdel(SenseId(senseId), function(err) {
-            if (err) {
-                log.error(err);
-                return res.status(500).send({error: err});
-            }
-            res.send({result: 'OK'});
-        });
+        
+        // TODO Delete devices
+        
     },
 
     unregisterall: function(req, res) {
         log.info('Unregistering all devices');
-        client.keys(senseIdPrefix+'*', function(err, reply) {
-            if (err) {
-                log.error(err);
-                return res.status(500).send({error: err});
-            }
-            async.each(reply, function(key, callback) {
-                client.del(key, function(err) {
-                    if (err) {
-                        log.error(err);
-                        return callback(err);
-                    }
-                    callback();
-                });
-            }, function(err) {
-                if (err) {
-                    return res.status(500).send({error: err});
-                }
-                res.send({result: 'OK'});
-            });
-        });
+        
     },
 
     getAllDevices: function(req, res) {
-        client.keys(senseIdPrefix+'*', function(err, reply) {
-            if (err) {
-                log.error(err);
-                return res.status(500).send({error: err});
-            }
-            async.concat(reply, function(key, callback) {
-                client.hgetall(key, function(err, reply) {
-                    if (err) {
-                        log.error(err);
-                        return callback(err);
-                    }
-                    if (!reply) {
-                        return callback(null, []);
-                    }
-                    var item = { senseId: key.split(':')[1] };
-                    Object.keys(reply).forEach(function(itemKey) {
-                        item[itemKey] = reply[itemKey];
-                    });
-                    callback(null, [item]);
-                });
-            }, function(err, result) {
-                if (err) {
-                    return res.status(500).send({error: err});
-                }
-                res.send({result: JSON.stringify(result)});
-            });
+
+        log.info('get all devices invoked');
+        
+        humixdb.view('module', 'get_senseIds', function(err, docs){
+            
+            console.log('doc:'+JSON.stringify(docs));
+            
+               var devices = [];
+               docs.rows.forEach(function(doc) {        
+                     devices.push(doc.value);
+                     
+               });
+            res.send({result: JSON.stringify(devices)});
         });
+        
     },
 
     getDevice: function(req, res) {
+
+        log.info('get device invoked');
+
         var senseId = req.params.senseId;
-        client.hgetall(senseId, function(err, reply) {
-            if (err) {
-                log.error(err);
-                return res.status(500).send({error: err});
-            }
-            res.send({result: reply ? JSON.stringify(reply) : null});
+        
+        humixdb.view('module', 'get_senseIds',{key:senseId}, function(err, docs){
+            
+            console.log('doc:'+JSON.stringify(docs));
+            
+               var devices = [];
+               docs.rows.forEach(function(doc) {        
+                     devices.push(doc.value);
+                     
+               });
+            res.send({result: JSON.stringify(devices)});
         });
+        
+     
     },
 
     getDeviceModules: function(req, res) {
+        log.info('get device modules invoked');
+
         var senseId = req.params.senseId;
-        client.keys('module:*:'+senseId, function(err, reply) {
-            if (err) {
-                log.error(err);
-                return res.status(500).send({error: err});
-            }
-            var list = [];
-            reply.forEach(function(key) {
-                list.push(key.split(':')[1]);
-            });
-            res.send({result: JSON.stringify(list)});
+        
+        humixdb.view('module', 'get_module_by_senseID',{key:senseId}, function(err, docs){
+            
+            console.log('doc:'+JSON.stringify(docs));
+            var modules = [];
+            docs.rows.forEach(function(doc) {        
+                     modules.push(doc.value);
+                     
+             });
+            res.send({result: JSON.stringify(modules)});
         });
+       
     },
 
     getDeviceModuleEvents: function(req, res) {
+        log.info('get device module events invoked');
+
         var senseId = req.params.senseId,
             moduleName = req.params.moduleName;
-        client.hgetall('module:'+moduleName+':'+senseId, function(err, reply) {
-            if (err) {
-                log.error(err);
-                return res.status(500).send({error: err});
-            }
-            if (!reply) {
-                return res.send({result: []});
-            }
-            res.send({result: JSON.stringify(reply.events.split(','))});
+            
+        var keys = [senseId, moduleName];
+        
+        humixdb.view('module','get_module_by_senseID_and_moduleID',{key: keys},function(err, docs){
+            
+            console.log('doc:'+JSON.stringify(docs));
+            
+            var events = [];
+            docs.rows.forEach(function(doc) {        
+                     
+               if(doc.value)
+                   events = doc.value.events;
+                     
+             });
+            
+            res.send({result: JSON.stringify(events)});
         });
+        
     },
 
     getDeviceModuleCommands: function(req, res) {
+
+        log.info('get device module commands invoked');
+        
         var senseId = req.params.senseId,
             moduleName = req.params.moduleName;
-        client.hgetall('module:'+moduleName+':'+senseId, function(err, reply) {
-            if (err) {
-                log.error(err);
-                return res.status(500).send({error: err});
-            }
-            if (!reply) {
-                return res.send({result: []});
-            }
-            res.send({result: JSON.stringify(reply.commands.split(','))});
+        var keys = [senseId, moduleName];
+        
+        humixdb.view('module','get_module_by_senseID_and_moduleID',{key: keys},function(err, docs){
+            
+           var commands = [];
+            docs.rows.forEach(function(doc) {        
+                     
+               if(doc.value)
+                   commands = doc.value.commands;
+                     
+             });
+            
+            res.send({result: JSON.stringify(commands)});
         });
+        
+        
+       
     }
 };

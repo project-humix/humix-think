@@ -1,0 +1,11 @@
+applications:
+- path: .
+  memory: 512M
+  instances: 1
+  domain: mybluemix.net
+  name: humix-community-test
+  host: humix-community-test
+  disk_quota: 1024M
+  services:
+  - humix-community-cloudantNoSQLDB
+  command: node --max-old-space-size=384 app.js --settings ./bluemix-settings.js -v

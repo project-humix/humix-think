@@ -1,5 +1,6 @@
 var apiRoutes = require('express').Router(),
     devices = require('./devices');
+   // weather = require('./weather');
 
 
 function init(adminApp) {
@@ -13,6 +14,14 @@ function init(adminApp) {
     apiRoutes.get   ('/devices/:senseId/modules/:moduleName/events',   devices.getDeviceModuleEvents);
     apiRoutes.get   ('/devices/:senseId/modules/:moduleName/commands',   devices.getDeviceModuleCommands);
 
+    // Weather
+    /*
+    apiRoutes.get   ('/weather/dashboard/:city',   weather.dashboard);
+    apiRoutes.get   ('/weather/sensor',            weather.sensor);
+    apiRoutes.get   ('/weather/forecast/:city',   weather.forecast);
+    apiRoutes.get   ('/weather/wps/:city', weather.wps);
+    */
+    
     adminApp.use('/api', apiRoutes);
 }
 

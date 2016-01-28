@@ -1,5 +1,5 @@
-var redis = require('redis'),
-    client = redis.createClient();
+//var redis = require('redis'),
+//    client = redis.createClient();
 
 module.exports = function(RED) {
     "use strict";

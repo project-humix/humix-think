@@ -22,9 +22,6 @@ var appEnv = cfenv.getAppEnv();
 
 
 
-var VCAP_APPLICATION = JSON.parse(process.env.VCAP_APPLICATION);
-var VCAP_SERVICES = JSON.parse(process.env.VCAP_SERVICES);
-
 
 var VCAP_APPLICATION;
 var VCAP_SERVICES;
@@ -35,6 +32,9 @@ if(process.env.VCAP_APPLICATION)
 if(process.env.VCAP_SERVICES)
     VCAP_SERVICES = JSON.parse(process.env.VCAP_SERVICES);
 
+
+console.log("vcap service:" + JSON.stringify(VCAP_SERVICES));
+console.log("vcap application:" + JSON.stringify(VCAP_APPLICATION));
 
 
 var settings = module.exports = {
@@ -97,10 +97,9 @@ if (process.env.NODE_RED_USERNAME && process.env.NODE_RED_PASSWORD) {
 
 
 settings.couchAppname = process.env.NODE_RED_APPLICATION_NAME || VCAP_APPLICATION['application_name'];
-//settings.couchAppname = 'humix-commnity';
 
 //var storageServiceName = process.env.NODE_RED_STORAGE_NAME || new RegExp("^"+settings.couchAppname+".cloudantNoSQLDB");
-var storageServiceName = '<cloudant_service_name>' 
+var storageServiceName = 'Humix-Cloudant-Service' 
 var couchService = appEnv.getService(storageServiceName);
 
 

@@ -29,12 +29,35 @@ var senseEventHandler = function(data) {
                         events: module.events
                     }
                     
-                    humixdb.insert(moduleData, function(err){
-                        
-                        if(!err){
-                            console.log('module:'+module.moduleName+' registered successfully');
+                    
+                    humixdb.view('module', 'get_module_by_senseID',{key:senseId}, function(err, docs){
+            
+                        if(err){
+                            console.log('Failed to check module ['+module.moduleName+'], error:'+err);    
                         }
-                    })
+                        else{
+                            console.log('doc:'+JSON.stringify(docs));
+                            if(docs.rows.length == 0 ){
+
+                                humixdb.insert(moduleData, function(err){
+                            
+                                    if(err){
+                                        console.log('Failed to register module ['+module.moduleName+'], error:'+err);
+                                    }
+                                    else{
+                                        console.log('Module []'+module.moduleName+'] registered successfully');
+                                    }
+                                });
+                                
+                            }else{                            
+                                console.log('Module ['+module.moduleName+'] already registered. Skip !');
+                            }
+                        }
+                        
+                    });
+                    
+                    
+                   
                     
                     /*
                     client.hmset('module:'+module.moduleName+':'+senseId, moduleData, function(err) {

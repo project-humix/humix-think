@@ -26,14 +26,42 @@ module.exports = {
         });
         log.info('Registering device: '+senseId);
         
-        humixdb.insert(req.body, function(err){
+        
+         humixdb.view('module', 'get_senseIds', function(err, docs){
             
-            if(err){
-                log.err('failed to register humix:'+senseId);
-            }else{
-                log.info('humix:'+senseId+' registered');
-            }
+            console.log('doc:'+JSON.stringify(docs));
+            
+               var devices = [];
+               
+               var exist = false;
+               
+               for(var i=0; i < docs.rows.length ; i++ ){
+                   
+                   var id = docs.rows[i].value;
+                   console.log('checking id :'+JSON.stringify(id));
+                    if(id.senseId == senseId){
+                         exist = true;
+                         console.log('SenseId ['+ senseId+'] already exist. Skip');
+                         break;
+                     }
+                   
+               }
+                              
+               if(!exist){
+                    humixdb.insert(req.body, function(err){
+                        if(err){
+                            log.err('failed to register humix:'+senseId);
+                        }else{
+                            log.info('humix:'+senseId+' registered');
+                        }
+                    });
+                   
+               }
+               
         });
+        
+        
+       
        
     },
 

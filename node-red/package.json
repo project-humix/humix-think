@@ -55,7 +55,6 @@
         "node-red-node-email":"0.1.*",
         "node-red-node-twitter":"0.1.*",
         "node-red-node-rbe":"0.1.*",
-        "node-red-contrib-watson-developer-cloud-nodes": "git://github.com/watson-developer-cloud/node-red-nodes.git",
         "body-parser": "latest",
         "needle": "latest",
         "redis": "2.2.5",

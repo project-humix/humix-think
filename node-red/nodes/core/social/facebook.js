@@ -1,191 +1,86 @@
-var bodyParser = require('body-parser'),
-    needle = require('needle');
-
-var FB_URL = "https://graph.facebook.com/v2.3/";
+var request = require('request')
 
 module.exports = function(RED) {
+  function FacebookMessageInNode(config) {
+    RED.nodes.createNode(this, config);
+    var node = this;
 
-    function FacebookMessageInNode(config) {
-        RED.nodes.createNode(this, config);
-        var node = this;
-    
-        // Compose conversation URL
-        var convURL = FB_URL + config.pageId + "/conversations?access_token=" + config.accessToken + "&debug=all&format=json&method=get&pretty=0&suppress_http_code=1";
-	    node.log("The FB URL to get conversations is " + convURL);
+    // For webhook setup
+    RED.httpNode.get('/fb/webhook', function (req, res) {
+      if (req.query['hub.verify_token'] === 'my_happy_is_my_password_joeyts') {
+        res.send(req.query['hub.challenge']);
+      }
+      res.send('Error, wrong validation token');
+    });
 
-        // Remember converstions we already handled
-        var convDB = [];
-        var page_name = null;
-        var first_time = true;
-        var new_conversation = true;
-        var new_obj = null;
-        var stop_getting = false;
-        var query_interval = 1000; // millisecond
+    // Handle messages sent by a certain sender
+    RED.httpNode.post('/fb/webhook', function (req, res) {
+      messaging_events = req.body.entry[0].messaging;
 
-        function getConversations(curl, callback) {
-            needle.get(curl, function(error, response) {
-                if (error != null) {
-                    node.error("[getConversations]: callback error: "+ error);
-                }
-                       
-                if ((response != null) && (response.body != null) && (response.body.data != null)) {                       
-                    for (var i = 0; i < response.body.data.length; i++) {
-                        new_conversation = true;
-                       
-                        for (var j = 0; j < convDB.length; j++) {
-                            // Existing converstions
-                            if (response.body.data[i].id == convDB[j].t_id) {
-                                var num_msg_to_handle = response.body.data[i].message_count - convDB[j].msg_count;
-                                //node.log("[ExistingConv]: The number of messages to send is " + num_msg_to_handle);
-                       
-                                if (num_msg_to_handle > 0) {
-                                    convDB[j].msg_count = response.body.data[i].message_count;
-                       
-                                    for (var k = (num_msg_to_handle - 1); k >= 0; k--) {
-                                        // Bypass messages that have been handled
-                                        if (response.body.data[i].messages.data[k].from.name != page_name) {
-                                            // Send out the received new message(s) to the next node
-                                            //node.log("[ExistingConv]: Send message (" + response.body.data[i].messages.data[k].message + ") to the next node.");
-                                            node.send({
-                                                facebook: {
-                                                    sender: response.body.data[i].messages.data[k].from.name || undefined,
-                                                    messageId: response.body.data[i].messages.data[k].id || undefined,
-                                                    conversationId: response.body.data[i].id || undefined,
-                                                    type: "message",
-                                                    pageName: page_name || undefined,
-                                                    pageId: config.pageId,
-                                                    accessToken: config.accessToken
-                                                },
-                                                payload: response.body.data[i].messages.data[k].message || ''
-                                            });
-                                        }
-                                    }
-                                }
-					   
-					   			new_conversation = false;
-					   			break;
-                            }
-                        }
-						
-						// Create new conversation
-                        if (new_conversation) {
-                            new_obj = {
-                                "t_id": response.body.data[i].id,
-                                "msg_count": response.body.data[i].message_count
-                            };
-                       
-                            convDB.push(new_obj);
-                       
-                            if (!first_time) {
-                                for (var l = (response.body.data[i].messages.data.length - 1); l >= 0; l--) {
-                                    if (response.body.data[i].messages.data[l].from.anme != page_name) {
-                                        // Send out the received new message(s) to the next node
-                                        //node.log("[NewConv]: Send message (" + response.body.data[i].messages.data[l].message + ")to the next node.");
-                                        node.send({
-                                            facebook: {
-                                                sender: response.body.data[i].messages.data[l].from.name || undefined,
-                                                messageId: response.body.data[i].messages.data[l].id || undefined,
-                                                conversationId: response.body.data[i].id || undefined,
-                                                type: "message",
-                                                pageName: page_name || undefined,
-                                                pageId: config.pageId,
-                                                accessToken: config.accessToken
-                                            },
-                                            payload: response.body.data[i].messages.data[l].message || ''
-                                        });
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    if (first_time) {
-                        first_time = false;
-                    }
-                }
+      for (i = 0; i < messaging_events.length; i++) {
+        event = req.body.entry[0].messaging[i];
+        senderID = event.sender.id;
+        node.log("Receiving messages from sender: " + senderID);
 
-                if (!stop_getting) {
-                    callback();
-                }          
-            });
+        if (event.message && event.message.text) {
+          messageText = event.message.text;
+          node.log("Receiving message text: " + messageText);
+
+          node.send({
+              facebook: {
+                  sender: senderID || undefined,
+                  //messageId: response.body.data[i].messages.data[l].id || undefined,
+                  //conversationId: response.body.data[i].id || undefined,
+                  type: "message",
+                  //pageName: page_name || undefined,
+                  pageId: config.pageId,
+                  accessToken: config.accessToken
+              },
+              payload: messageText || ''
+          });
         }
+      }
+      res.sendStatus(200);
+    });
+  }
 
-        function goC(curl) {
-            setTimeout(function () {
-                getConversations(curl, 
-                                 function() {goC(curl);});
-            },  query_interval);
+  RED.nodes.registerType('facebook message in', FacebookMessageInNode);
+
+  function FacebookMessageOutNode(config) {
+    RED.nodes.createNode(this, config);
+    var node = this;
+
+    // Send out text message
+    function sendTextMessage(sender, text, token) {
+      messageData = {
+        text:text
+      }
+
+      request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+          recipient: {id:sender},
+          message: messageData,
         }
-
-        this.on('close', function() {
-            // Stop the loop to get conversations from monitored page
-            stop_getting = true; 
-        });
-
-        // Start to get the conversations from the page
-        if (page_name == null) { // Get the page name first
-            var url = FB_URL + config.pageId + "/?access_token=" + config.accessToken;
-
-            needle.get(url, function(error, response) {
-                if ((response != null) && (response.body != null)) {
-                    node.log ("The page name is " + response.body.name);
-                    page_name = response.body.name;
-            
-                    goC(convURL);
-                }
-            });
+      }, function(error, response, body) {
+        if (error) {
+          node.log('Error sending text message: ', error);
+        } else if (response.body.error) {
+          node.log('Error: ', response.body.error);
         }
-        else {
-            goC(convURL);
-        }
+      });
     }
 
-    RED.nodes.registerType('facebook message in', FacebookMessageInNode);
+    node.on('input', function(msg) {
+        if (!msg.payload) {
+            node.error('Missing property!');
+            return;
+        }
 
-    function FacebookMessageOutNode(config) {
-        RED.nodes.createNode(this, config);
-        var node = this;
-
-        node.on('input', function(msg) {
-            //if (!msg.payload || !msg.facebook) {
-            if (!msg.payload) {
-                node.error('Missing property!');
-                return;
-            }
-
-            var body = {};
-            /*msg.payload.link = undefined;
-            if (msg.payload.link) {
-                node.log('link: '+msg.payload.link);
-                body = {
-                    access_token: 'CAAWy4kLZBfyMBAMw8gaOqFHZAdrKd64jUHGblLZBCtUVePaLZBotKy2fZBqudj2WDHXSdqe5vfBc2DIS9uSZACtht1EmLfraHfRmUVy1burdZBmVOQJf2O12pp4ZAR7U7xbzWFlbT6fWAbDsyH6MaD7r3pGRsDBPn6cgbTzVlaGfoO7MnCTzgLZAX',
-                    type: 'message',
-                    page_id: '816647205082726',
-                    message: msg.payload.text || 'Here is your picture',
-                    link: msg.payload.link
-                };
-            } else {*/
-                body = {
-                    t_id: msg.facebook.conversationId,
-                    access_token: msg.facebook.accessToken,
-                    type: msg.facebook.type,
-                    page_name: msg.facebook.pageName,
-                    page_id: msg.facebook.pageId,
-                    message: msg.payload || '',
-                    link: undefined
-                };
-            //}
-            
-            var encoded_msg = encodeURIComponent(body.message);
-            var postURL;
-
-            if (body.type == "message") {
-                postURL = FB_URL + body.t_id + "/messages?access_token=" + body.access_token + "&message=" + encoded_msg;
-                node.log(body.page_name + ": Reply to " + msg.facebook.sender + " with the message " + "\"" + body.message + "\".");
-            }
-
-            needle.post(postURL, {}, 
-                        function(err, resp, body){/*console.log(err);console.log(res);*/});
+        node.log("Sending back message: \"" + msg.payload + "\" to sender: " + msg.facebook.sender);
+        sendTextMessage(msg.facebook.sender, msg.payload, msg.facebook.accessToken);
         });
     }
 

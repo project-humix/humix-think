@@ -30,7 +30,7 @@ var senseEventHandler = function(data) {
                     }
                     
                     
-                    humixdb.view('module', 'get_module_by_senseID',{key:senseId}, function(err, docs){
+                    humixdb.view('module', 'get_module_by_senseID_and_moduleID',{key:[senseId, module.moduleName]}, function(err, docs){
             
                         if(err){
                             console.log('Failed to check module ['+module.moduleName+'], error:'+err);    

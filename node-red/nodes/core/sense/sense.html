@@ -6,11 +6,11 @@
     </div>
     <div class="form-row">
         <label for="node-input-senseid"><i class="fa fa-tag"></i> Sense ID</label>
-        <select id="node-input-senseid" onclick="getEventTypes(this.value)" placeholder="Sense ID"></select>
+        <select id="node-input-senseid" placeholder="Sense ID"></select>
     </div>
     <div class="form-row">
         <label for="node-input-eventtype"><i class="fa fa-tag"></i> Type</label>
-        <select id="node-input-eventtype" onclick="getEventNames(this.value)" placeholder="Type"></select>
+        <select id="node-input-eventtype" placeholder="Type"></select>
     </div>
     <div class="form-row">
         <label for="node-input-eventname"><i class="fa fa-tag"></i> Event Name</label>
@@ -26,11 +26,11 @@
     </div>
     <div class="form-row">
         <label for="node-input-senseid"><i class="fa fa-tag"></i> Sense ID</label>
-        <select id="node-input-senseid" onclick="getCommandTypes(this.value)" placeholder="Sense ID"></select>
+        <select id="node-input-senseid" placeholder="Sense ID"></select>
     </div>
     <div class="form-row">
         <label for="node-input-commandtype"><i class="fa fa-tag"></i> Type</label>
-        <select id="node-input-commandtype" onclick="getCommandNames(this.value)" placeholder="Type"></select>
+        <select id="node-input-commandtype" placeholder="Type"></select>
     </div>
     <div class="form-row">
         <label for="node-input-commandname"><i class="fa fa-tag"></i> Command Name</label>
@@ -40,7 +40,11 @@
 
 <script type="text/javascript">
 
-    var curSenseIDList = [], curSenseID = '',
+    var senseToEventTypeMap = {},               // sense id -> event type map
+        senseEventTypeToEventNameMap = {},      // sense id-event type -> event name map
+        senseToCommandTypeMap = {},             // sense id -> command type map
+        senseCommandTypeToCommandNameMap = {},  // sense id-command type -> command name map
+        curSenseIDList = [], curSenseID = '',
         curEventTypeList = [], curEventType = '',
         curEventNameList = [], curEventName = '',
         curCommandTypeList = [], curCommandType = '',
@@ -72,10 +76,16 @@
                     $("#node-input-senseid").find('option').remove();
 
                     // update with the new options
+                    senseToEventTypeMap = {};
+                    senseEventTypeToEventNameMap = {};
+                    curSenseIDList = [result.length];
                     for (var i=0; i<result.length; i++) {
                         var optionElem = '<option value="'+result[i].senseId+'">'+result[i].senseId+'</option>';
                         $("#node-input-senseid").append(optionElem);
                         $("#node-input-senseid").val('');
+                        curSenseIDList[i] = result[i].senseId;
+                        // cache Event Types & Event Names for each sense id at once
+                        loadSenseToEventTypeMap(curSenseIDList[i]);
                     }
 
                     if (curSenseID !== '') {
@@ -97,6 +107,18 @@
                         $("#node-input-eventname").val(curEventName);
                     }
                 }
+            });
+
+            $("#node-input-senseid").change(function(){
+                //getEventTypes(this.value)
+                if ($("#node-input-senseid").val() != '' && $("#node-input-senseid").val() != null) {
+                  getEventTypes(this.value)
+
+                }
+            });
+
+            $("#node-input-eventtype").change(function(){
+                getEventNames(this.value)
             });
 
         },
@@ -133,10 +155,16 @@
                     $("#node-input-senseid").find('option').remove();
 
                     // update with the new options
+                    senseToCommandTypeMap = {};
+                    senseCommandTypeToCommandNameMap = {};
+                    curSenseIDList = [result.length];
                     for (var i=0; i<result.length; i++) {
                         var optionElem = '<option value="'+result[i].senseId+'">'+result[i].senseId+'</option>';
                         $("#node-input-senseid").append(optionElem);
                         $("#node-input-senseid").val('');
+                        curSenseIDList[i] = result[i].senseId;
+                        // cache Command Types & Command Names for each sense id at once
+                        loadSenseToCommandTypeMap(curSenseIDList[i]);
                     }
 
                     if (curSenseID !== '') {
@@ -160,6 +188,15 @@
                 }
             });
 
+            $("#node-input-senseid").change(function(){
+              if ($("#node-input-senseid").val() != '' && $("#node-input-senseid").val() != null) {
+                getCommandTypes(this.value)
+              }
+            });
+
+            $("#node-input-commandtype").change(function(){
+                getCommandNames(this.value)
+            });
         },
         oneditsave: function() {
             curSenseID = $("#node-input-senseid").val();
@@ -171,129 +208,181 @@
     function getEventTypes(senseid) {
         console.log('in getEventTypes: '+senseid);
         if (senseid) {
-            $.ajax({
-                method: 'GET',
-                url: '/api/devices/'+senseid+'/modules',
-                success: function(jsonObj) {
-                    var result = JSON.parse(jsonObj.result);
-
-                    // remove the old options
-                    $("#node-input-eventtype").find('option').remove();
-
-                    // update the new options
-                    var curExisted = false;
-                    for (var i=0; i<result.length; i++) {
-                        if (result[i] === curEventType) {
-                            curExisted = true;
-                        }
-                        var optionElem = '<option value="'+result[i]+'">'+result[i]+'</option>';
-                        $("#node-input-eventtype").append(optionElem);
-                        $("#node-input-eventtype").val('');
+          curEventTypeList = senseToEventTypeMap[senseid];
+          // remove the old options
+          clearEventTypes();
+          clearEventNames();
+          if (curEventTypeList) {
+              // update the new options
+              var curExisted = false;
+                for (var i=0; i<curEventTypeList.length; i++) {
+                    if (curEventTypeList[i] === curEventType) {
+                        curExisted = true;
                     }
-                    curEventTypeList = result;
-                    if (curEventType !== '' && curExisted) {
-                        console.log('curEventType: '+curEventType);
-                        $("#node-input-eventtype").val(curEventType);
-                    }
+                    var optionElem = '<option value="'+curEventTypeList[i]+'">'+curEventTypeList[i]+'</option>';
+                    $("#node-input-eventtype").append(optionElem);
+                    $("#node-input-eventtype").val('');
                 }
-            });
+                if (curEventType !== '' && curExisted) {
+                    console.log('curEventType: '+curEventType);
+                    $("#node-input-eventtype").val(curEventType);
+                    getEventNames(curEventType);
+                }
+
+          }
         }
     }
 
     function getEventNames(type) {
         if (type) {
             console.log('in getEventNames: '+$("#node-input-senseid").val());
-            $.ajax({
-                method: 'GET',
-                url: '/api/devices/'+$("#node-input-senseid").val()+'/modules/'+type+'/events',
-                success: function(jsonObj) {
-                    var result = JSON.parse(jsonObj.result);
-
-                    // remove the old options
-                    $("#node-input-eventname").find('option').remove();
-
-                    // update the new options
-                    var curExisted = false;
-                    for (var i=0; i<result.length; i++) {
-                        if (result[i] === curEventType) {
-                            curExisted = true;
-                        }
-                        var optionElem = '<option value="'+result[i]+'">'+result[i]+'</option>';
-                        $("#node-input-eventname").append(optionElem);
-                        $("#node-input-eventname").val('');
-                    }
-                    curEventNameList = result;
-                    if (curEventName !== '' && curExisted) {
-                        console.log('curEventName: '+curEventName);
-                        $("#node-input-eventname").val(curEventName);
-                    }
-                }
-            });
+            curEventNameList = senseEventTypeToEventNameMap[$("#node-input-senseid").val()+'-'+type];
+            // remove the old options
+            clearEventNames();
+            if (curEventNameList) {
+              // update the new options
+              var curExisted = false;
+              for (var i=0; i<curEventNameList.length; i++) {
+                  if (curEventNameList[i] === curEventName) {
+                      curExisted = true;
+                  }
+                  var optionElem = '<option value="'+curEventNameList[i]+'">'+curEventNameList[i]+'</option>';
+                  $("#node-input-eventname").append(optionElem);
+                  $("#node-input-eventname").val('');
+              }
+              if (curEventName !== '' && curExisted) {
+                  console.log('curEventName: '+curEventName);
+                  $("#node-input-eventname").val(curEventName);
+              }
+            }
         }
     }
 
     function getCommandTypes(senseid) {
         console.log('in getCommandTypes: '+senseid);
         if (senseid) {
-            $.ajax({
-                method: 'GET',
-                url: '/api/devices/'+senseid+'/modules',
-                success: function(jsonObj) {
-                    var result = JSON.parse(jsonObj.result);
-
-                    // remove the old options
-                    $("#node-input-commandtype").find('option').remove();
-
-                    // update the new options
-                    var curExisted = false;
-                    for (var i=0; i<result.length; i++) {
-                        if (result[i] === curCommandType) {
-                            curExisted = true;
-                        }
-                        var optionElem = '<option value="'+result[i]+'">'+result[i]+'</option>';
-                        $("#node-input-commandtype").append(optionElem);
-                        $("#node-input-commandtype").val('');
-                    }
-                    curCommandTypeList = result;
-                    if (curCommandType !== '' && curExisted) {
-                        console.log('curCommandType: '+curCommandType);
-                        $("#node-input-commandtype").val(curCommandType);
-                    }
+          curCommandTypeList = senseToCommandTypeMap[senseid];
+          // remove the old options
+          clearCommandTypes();
+          clearCommandNames();
+          if (curCommandTypeList) {
+            // update the new options
+            var curExisted = false;
+            for (var i=0; i<curCommandTypeList.length; i++) {
+                if (curCommandTypeList[i] === curCommandType) {
+                    curExisted = true;
                 }
-            });
+                var optionElem = '<option value="'+curCommandTypeList[i]+'">'+curCommandTypeList[i]+'</option>';
+                $("#node-input-commandtype").append(optionElem);
+                $("#node-input-commandtype").val('');
+            }
+            if (curCommandType !== '' && curExisted) {
+                console.log('curCommandType: '+curCommandType);
+                $("#node-input-commandtype").val(curCommandType);
+                getCommandNames(curCommandType);
+            }
+          }
         }
     }
 
     function getCommandNames(type) {
         if (type) {
             console.log('in getCommandNames: '+$("#node-input-senseid").val());
+            curCommandNameList = senseCommandTypeToCommandNameMap[$("#node-input-senseid").val()+'-'+type];
+            // remove the old options
+            clearCommandNames();
+            if (curCommandNameList) {
+                // update the new options
+                var curExisted = false;
+                for (var i=0; i<curCommandNameList.length; i++) {
+                    if (curCommandNameList[i] === curCommandName) {
+                        curExisted = true;
+                    }
+                    var optionElem = '<option value="'+curCommandNameList[i]+'">'+curCommandNameList[i]+'</option>';
+                    $("#node-input-commandname").append(optionElem);
+                    $("#node-input-commandname").val('');
+                }
+                if (curCommandName !== '' && curExisted) {
+                    console.log('curCommandName: '+curCommandName);
+                    $("#node-input-commandname").val(curCommandName);
+                }
+            }
+        }
+    }
+
+    function loadSenseToEventTypeMap(senseid) {
+        if (senseid) {
+          $.ajax({
+              method: 'GET',
+              url: '/api/devices/'+senseid+'/modules',
+              success: function(jsonObj, textStats, jqXHR) {
+                  var result = JSON.parse(jsonObj.result);
+                  senseToEventTypeMap[senseid] = result;
+                  for (var i=0; i<result.length; i++) {
+                    loadSenseEventTypeToEventNameMap(senseid, result[i])
+                  }
+              }
+          });
+        }
+
+    }
+
+    function loadSenseEventTypeToEventNameMap(senseid, type) {
+        if (type) {
             $.ajax({
                 method: 'GET',
-                url: '/api/devices/'+$("#node-input-senseid").val()+'/modules/'+type+'/commands',
-                success: function(jsonObj) {
+                url: '/api/devices/'+senseid+'/modules/'+type+'/events',
+                success: function(jsonObj, textStats, jqXHR) {
                     var result = JSON.parse(jsonObj.result);
-
-                    // remove the old options
-                    $("#node-input-commandname").find('option').remove();
-
-                    // update the new options
-                    var curExisted = false;
-                    for (var i=0; i<result.length; i++) {
-                        if (result[i] === curCommandType) {
-                            curExisted = true;
-                        }
-                        var optionElem = '<option value="'+result[i]+'">'+result[i]+'</option>';
-                        $("#node-input-commandname").append(optionElem);
-                        $("#node-input-commandname").val('');
-                    }
-                    curCommandNameList = result;
-                    if (curCommandName !== '' && curExisted) {
-                        console.log('curCommandName: '+curCommandName);
-                        $("#node-input-commandname").val(curCommandName);
-                    }
+                    senseEventTypeToEventNameMap[senseid+'-'+type] = result;
                 }
             });
         }
+    }
+
+    function loadSenseToCommandTypeMap(senseid) {
+        if (senseid) {
+          $.ajax({
+              method: 'GET',
+              url: '/api/devices/'+senseid+'/modules',
+              success: function(jsonObj, textStats, jqXHR) {
+                  var result = JSON.parse(jsonObj.result);
+                  senseToCommandTypeMap[senseid] = result;
+                  for (var i=0; i<result.length; i++) {
+                    loadSenseCommandTypeToCommandNameMap(senseid, result[i])
+                  }
+              }
+          });
+        }
+    }
+
+    function loadSenseCommandTypeToCommandNameMap(senseid, type) {
+        if (type) {
+            $.ajax({
+                method: 'GET',
+                url: '/api/devices/'+senseid+'/modules/'+type+'/commands',
+                success: function(jsonObj, textStats, jqXHR) {
+                    var result = JSON.parse(jsonObj.result);
+                    senseCommandTypeToCommandNameMap[senseid+'-'+type] = result;
+                }
+            });
+        }
+    }
+
+    function clearEventTypes() {
+        $("#node-input-eventtype").find('option').remove();
+    }
+
+    function clearEventNames() {
+        $("#node-input-eventname").find('option').remove();
+    }
+
+    function clearCommandTypes() {
+        $("#node-input-commandtype").find('option').remove();
+    }
+
+    function clearCommandNames() {
+        $("#node-input-commandname").find('option').remove();
     }
 
 </script>

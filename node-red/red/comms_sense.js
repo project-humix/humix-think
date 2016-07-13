@@ -39,6 +39,8 @@ function init(_server,_settings) {
 
 
 function start() {
+  console.log('########## WebSocket start from sense trigger comms');
+
     var Tokens = require("./api/auth/tokens");
     var Users = require("./api/auth/users");
     var Permissions = require("./api/auth/permissions");
@@ -46,8 +48,8 @@ function start() {
         Users.default().then(function(anonymousUser) {
             var webSocketKeepAliveTime = settings.webSocketKeepAliveTime || 15000;
             var path = settings.httpAdminRoot || "/";
-            path = (path.slice(0,1) != "/" ? "/":"") + path + (path.slice(-1) == "/" ? "":"/") + "comms";
-            wsServer = new ws.Server({server:server,path:path});
+            path = (path.slice(0,1) != "/" ? "/":"") + path + (path.slice(-1) == "/" ? "":"/") + "comms_sense";
+            wsServer = new ws.Server({server:server,path:path,});
 
             wsServer.on('connection',function(ws) {
                 log.audit({event: "comms.open"});
@@ -73,6 +75,19 @@ function start() {
                     if (!pendingAuth) {
                         if (msg.subscribe) {
                             handleRemoteSubscription(ws,msg.subscribe);
+                        } else if (msg.senseId){
+                            for (var t in subscriptions) {
+                                if (subscriptions.hasOwnProperty(t)) {
+                                    var re = new RegExp("^"+t.replace(/([\[\]\?\(\)\\\\$\^\*\.|])/g,"\\$1").replace(/\+/g,"[^/]+").replace(/\/#$/,"(\/.*)?")+"$");
+                                    if (re.test(msg.senseId) || t === '*') {
+                                        console.log('message: '+JSON.stringify(msg.data));
+                                        var subscribers = subscriptions[t];
+                                        for (var i=0;i<subscribers.length;i++) {
+                                            subscribers[i]({senseId: msg.senseId, data: msg.data});
+                                        }
+                                    }
+                                }
+                            }
                         }
                     } else {
                         var completeConnection = function(userScope,sendAck) {
@@ -142,6 +157,8 @@ function start() {
 }
 
 function stop() {
+  console.log('########## WebSocket stop from sense trigger comms');
+
     if (heartbeatTimer) {
         clearInterval(heartbeatTimer);
         heartbeatTimer = null;

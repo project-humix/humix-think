@@ -22,6 +22,7 @@ var fs = require("fs");
 
 var redNodes = require("./nodes");
 var comms = require("./comms");
+var comms_sense = require("./comms_sense");
 var sense = require("./sense");
 var storage = require("./storage");
 var log = require("./log");
@@ -36,16 +37,19 @@ var runtimeMetricInterval = null;
 
 
 function init(_server,_settings) {
+  console.log('##### [RED] server.js, init()');
     server = _server;
     settings = _settings;
 
     comms.init(_server,_settings);
+    comms_sense.init(_server,_settings);
 
     nodeApp = express();
     app = express();
 }
 
 function start() {
+  console.log('##### [RED] server.js, start()');
     return i18n.init()
         .then(function() { return storage.init(settings)})
         .then(function() { return settings.load(storage)})
@@ -110,6 +114,7 @@ function start() {
                 log.info(log._("runtime.paths.settings",{path:settings.settingsFile}));
                 redNodes.loadFlows();
                 comms.start();
+                comms_sense.start();
                 sense.start();
             }).otherwise(function(err) {
                 console.log(err);

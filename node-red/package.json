@@ -53,6 +53,7 @@
     "media-typer": "0.3.0",
     "mqtt": "1.11.2",
     "mustache": "2.2.1",
+    "node-red-contrib-humix": "latest",
     "node-red-node-email": "0.1.*",
     "node-red-node-feedparser": "0.1.*",
     "node-red-node-rbe": "0.1.*",

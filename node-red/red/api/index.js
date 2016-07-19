@@ -76,7 +76,7 @@ function init(_server,_runtime) {
     if (settings.httpAdminRoot !== false) {
       console.log('#settings.httpAdminRoot');
         comms.init(server,runtime);
-        comms_sense.init(server,runtime);
+        //comms_sense.init(server,runtime);
         adminApp = express();
         auth.init(runtime);
         credentials.init(runtime);
@@ -165,14 +165,14 @@ function start() {
   console.log('##### [RED] server.js, start()');
     return i18n.registerMessageCatalog("editor",path.resolve(path.join(__dirname,"locales")),"editor.json").then(function(){
         comms.start();
-        comms_sense.start();
-        sense.start();
+        //comms_sense.start();
+        //sense.start();
     });
 }
 function stop() {
     comms.stop();
-    comms_sense.stop();
-    sense.stop();
+    //comms_sense.stop();
+    //sense.stop();
     return when.resolve();
 }
 module.exports = {

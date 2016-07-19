@@ -1,0 +1,115 @@
+<!--
+  Copyright 2013,2015 IBM Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/x-red" data-template-name="fb messenger in">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-webhookURI"><i class="fa fa-tag"></i> Webhook URI</label>
+        <input type="text" id="node-input-webhookURI" placeholder="Webhook URI">
+    </div>
+    <div class="form-row">
+        <label for="node-input-verifyToken"><i class="fa fa-tag"></i> Verify Token</label>
+        <input type="text" id="node-input-verifyToken" placeholder="Verify Token">
+    </div>
+    <div class="form-tips" id="node-missing-service-warning" style="display: none"><i class="fa fa-warning"></i><b> Warning:</b> There is no Facebook Page connected.
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="fb messenger in">
+    <p>This node can connect to a Facebook Page and receive text messages from its inbox via Facebook Messenger Platform APIs.</p>
+    <p>To set up the node, you need to provide:</p>
+    <ul>
+        <li>The<b> Webhook URI</b> to compose the complete webhook URL. The complete webhook URL would be "https://YourAppHostName/node-red" plus this URI.</li>
+        <li>The<b> Verify Token</b> for one-time webhook url verificaton purpose.</li>
+    </ul>
+    <p>You can find more information about how to set up your Facebook Page and Messenger Platform hook-up in https://developers.facebook.com/docs/messenger-platform/quickstart.</p>
+    <p>Text messages to the page will be passed in <b>msg.facebook.msgText</b> with other metadata in <b>msg.facebook</b>.</p>
+</script>
+
+<script type="text/x-red" data-template-name="fb messenger out">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-accessToken"><i class="fa fa-tag"></i> Page Access Token</label>
+        <input type="text" id="node-input-accessToken" placeholder="Page Access Token">
+    </div>
+    <div class="form-tips" id="node-missing-service-warning" style="display: none"><i class="fa fa-warning"></i><b> Warning:</b> There is no Facebook Page connected
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="fb messenger out">
+    <p>This node can be used to send messages to Facebook users on behave of a Facebook Page.</p>
+    <li>The<b> Page Access Token</b> is required to send messages to other Facebook users.</li>
+    <br/>
+    <p>The Facebook user ID of the message recipient should be set in <b>msg.facebook.peerId</b>.</p>
+    <p>Two message types are supported: <b>text</b> and <b>image</b> and should be set in <b>msg.facebook.msgType</b></p>
+    <p>The content of a text message should be set in <b>msg.facebook.msgText</b>.</p>
+    <p>The image url for an image message should be set in <b>msg.facebook.msgImageURL</b>.</p>
+</script>
+
+<script type="text/javascript">
+    (function() {
+
+        RED.nodes.registerType('fb messenger in', {
+            category: 'input',
+            defaults: {
+                name: {value: ""},
+                webhookURI: {value: ""},
+                verifyToken: {value: ""}
+            },
+            color: "rgb(32, 178, 239)",
+            inputs: 0,
+            outputs: 1,
+            icon: "iotcloud-icon.png",
+            paletteLabel: "FB Messenger In",
+            label: function() {
+                return this.name || "fb messenger in";
+            },
+            labelStyle: function() {
+                return this.name ? "node_label_italic" : "";
+            }
+        });
+    })();
+</script>
+
+<script type="text/javascript">
+    (function() {
+
+        RED.nodes.registerType('fb messenger out', {
+            category: 'output',
+            defaults: {
+                name: {value: ""},
+                accessToken: {value: ""}
+            },
+            color: "rgb(32, 178, 239)",
+            inputs: 1,
+            outputs: 0,
+            icon: "iotcloud-icon.png",
+            paletteLabel: "FB Messenger Out",
+            label: function() {
+                return this.name || "fb messenger out";
+            },
+            labelStyle: function() {
+                return this.name ? "node_label_italic" : "";
+            }
+        });
+    })();
+</script>

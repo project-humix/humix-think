@@ -31,10 +31,11 @@ module.exports = function(RED) {
             }
         };
 
-        //RED.comms_sense.subscribe(senseId, eventHandler);
+        // RED.comms_sense.subscribe(senseId, eventHandler);
+        RED.comms.subscribe(senseId, eventHandler);
 
         node.on('close', function() {
-            //RED.comms_sense.unsubscribe(senseId, eventHandler);
+            RED.comms.unsubscribe(senseId, eventHandler);
         });
     }
     RED.nodes.registerType("sense event", SenseEvent);
@@ -47,7 +48,7 @@ module.exports = function(RED) {
             node = this;
 
         node.on('input', function(msg) {
-          console.log('#### inputnode: ' + msg);
+          console.log('#### inputnode: ' + JSON.stringify(msg));
             if (!msg.payload) {
                 node.error('Missing property: msg.payload');
                 return;
@@ -63,9 +64,12 @@ module.exports = function(RED) {
                     commandData: msg.payload
                 }
             };
-            console.log('#### inputnode, message= ' + message.payload.commandType);
+            console.log('#### inputnode, commandType= ' + message.payload.commandType + ', commandData= ' + message.payload.commandData );
 
+            node.log(message.payload);
             RED.comms.publish(senseId, message, true);
+            //RED.comms_sense.publish(senseId, message, true);
+
         });
     }
     RED.nodes.registerType("sense command", SenseCommand);

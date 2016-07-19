@@ -1,4 +1,5 @@
-var comms_sense = require('./comms_sense');
+// var comms_sense = require('./comms_sense');
+var comms_sense = require('./comms');
 
 /* TODO : replace with cloudant
     redis = require('redis'),

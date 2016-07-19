@@ -185,16 +185,18 @@ module.exports = {
     auth: {
         needsPermission: auth.needsPermission
     },
+    // comms: {
+    //     publish: comms.publish
+    // },
+    // comms: {
+    //     publish: comms_sense.publish,
+    //     subscribe: comms_sense.subscribe,
+    //     unsubscribe: comms_sense.unsubscribe
+    // },
     comms: {
-        publish: comms.publish
-    },
-    comms_sense: {
-        publish: comms_sense.publish
-
-        // Do we really need subscribe?
-        // ,
-        // subscribe: comms_sense.subscribe,
-        // unsubscribe: comms_sense.unsubscribe
+        publish: comms.publish,
+        subscribe: comms.subscribe,
+        unsubscribe: comms.unsubscribe
     },
     get adminApp() { return adminApp; },
     get nodeApp() { return nodeApp; },

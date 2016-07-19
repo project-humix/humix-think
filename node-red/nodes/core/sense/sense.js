@@ -19,6 +19,7 @@ module.exports = function(RED) {
                 } else {
                     json = event.data;
                 }
+                console.log('#### ' + json);
 
                 if (json.eventType === eventType && json.eventName === eventName) {
                     node.send({
@@ -30,10 +31,10 @@ module.exports = function(RED) {
             }
         };
 
-        RED.comms.subscribe(senseId, eventHandler);
+        //RED.comms_sense.subscribe(senseId, eventHandler);
 
         node.on('close', function() {
-            RED.comms.unsubscribe(senseId, eventHandler);
+            //RED.comms_sense.unsubscribe(senseId, eventHandler);
         });
     }
     RED.nodes.registerType("sense event", SenseEvent);
@@ -46,6 +47,7 @@ module.exports = function(RED) {
             node = this;
 
         node.on('input', function(msg) {
+          console.log('#### inputnode: ' + msg);
             if (!msg.payload) {
                 node.error('Missing property: msg.payload');
                 return;
@@ -61,6 +63,8 @@ module.exports = function(RED) {
                     commandData: msg.payload
                 }
             };
+            console.log('#### inputnode, message= ' + message.payload.commandType);
+
             RED.comms.publish(senseId, message, true);
         });
     }

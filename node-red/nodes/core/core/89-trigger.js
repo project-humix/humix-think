@@ -21,10 +21,32 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,n);
         this.op1 = n.op1 || "1";
         this.op2 = n.op2 || "0";
-        this.op1type = n.op1type || "val";
-        this.op2type = n.op2type || "val";
+        this.op1type = n.op1type || "str";
+        this.op2type = n.op2type || "str";
+
+        if (this.op1type === 'val') {
+            if (this.op1 === 'true' || this.op1 === 'false') {
+                this.op1type = 'bool'
+            } else if (this.op1 === 'null') {
+                this.op1type = 'null';
+                this.op1 = null;
+            } else {
+                this.op1type = 'str';
+            }
+        }
+        if (this.op2type === 'val') {
+            if (this.op2 === 'true' || this.op2 === 'false') {
+                this.op2type = 'bool'
+            } else if (this.op2 === 'null') {
+                this.op2type = 'null';
+                this.op2 = null;
+            } else {
+                this.op2type = 'str';
+            }
+        }
         this.extend = n.extend || "false";
         this.units = n.units || "ms";
+        this.reset = n.reset || '';
         this.duration = n.duration || 250;
         if (this.duration <= 0) { this.duration = 0; }
         else {
@@ -32,59 +54,84 @@ module.exports = function(RED) {
             if (this.units == "min") { this.duration = this.duration * 1000 * 60; }
             if (this.units == "hr") { this.duration = this.duration * 1000 *60 * 60; }
         }
-        this.op1Templated = this.op1.indexOf("{{") != -1;
-        this.op2Templated = this.op2.indexOf("{{") != -1;
-        if (!isNaN(this.op1)) { this.op1 = Number(this.op1); }
-        if (!isNaN(this.op2)) { this.op2 = Number(this.op2); }
-        if (this.op1 == "true") { this.op1 = true; }
-        if (this.op2 == "true") { this.op2 = true; }
-        if (this.op1 == "false") { this.op1 = false; }
-        if (this.op2 == "false") { this.op2 = false; }
+        this.op1Templated = (this.op1type === 'str' && this.op1.indexOf("{{") != -1);
+        this.op2Templated = (this.op2type === 'str' && this.op2.indexOf("{{") != -1);
+        if ((this.op1type === "num") && (!isNaN(this.op1))) { this.op1 = Number(this.op1); }
+        if ((this.op2type === "num") && (!isNaN(this.op2))) { this.op2 = Number(this.op2); }
         if (this.op1 == "null") { this.op1 = null; }
         if (this.op2 == "null") { this.op2 = null; }
-        try { this.op1 = JSON.parse(this.op1); }
-        catch(e) { this.op1 = this.op1; }
-        try { this.op2 = JSON.parse(this.op2); }
-        catch(e) { this.op2 = this.op2; }
+        //try { this.op1 = JSON.parse(this.op1); }
+        //catch(e) { this.op1 = this.op1; }
+        //try { this.op2 = JSON.parse(this.op2); }
+        //catch(e) { this.op2 = this.op2; }
 
         var node = this;
         var tout = null;
         var m2;
         this.on("input", function(msg) {
-            if (msg.hasOwnProperty("reset")) {
+            if (msg.hasOwnProperty("reset") || ((node.reset !== '')&&(msg.payload == node.reset)) ) {
                 clearTimeout(tout);
                 tout = null;
+                node.status({});
             }
             else {
-                if (!tout) {
-                    if (node.op2type === "pay") { m2 = msg.payload; }
+                if ((!tout) && (tout !== 0)) {
+                    if (node.op2type === "pay" || node.op2type === "payl") { m2 = msg.payload; }
                     else if (node.op2Templated) { m2 = mustache.render(node.op2,msg); }
-                    else { m2 = node.op2; }
+                    else if (node.op2type !== "nul") {
+                        m2 = RED.util.evaluateNodeProperty(node.op2,node.op2type,node,msg);
+                    }
+
                     if (node.op1type === "pay") { }
                     else if (node.op1Templated) { msg.payload = mustache.render(node.op1,msg); }
-                    else { msg.payload = node.op1; }
+                    else if (node.op1type !== "nul") {
+                        msg.payload = RED.util.evaluateNodeProperty(node.op1,node.op1type,node,msg);
+                    }
+
                     if (node.op1type !== "nul") { node.send(msg); }
+
                     if (node.duration === 0) { tout = 0; }
                     else {
                         tout = setTimeout(function() {
-                            msg.payload = m2;
-                            if (node.op2type !== "nul") { node.send(msg); }
+                            if (node.op2type !== "nul") {
+                                var msg2 = RED.util.cloneMessage(msg);
+                                if (node.op2type === "flow" || node.op2type === "global") {
+                                    m2 = RED.util.evaluateNodeProperty(node.op2,node.op2type,node,msg);
+                                }
+                                msg2.payload = m2;
+                                node.send(msg2);
+                            }
                             tout = null;
+                            node.status({});
                         },node.duration);
                     }
+                    node.status({fill:"blue",shape:"dot",text:" "});
                 }
                 else if ((node.extend === "true" || node.extend === true) && (node.duration > 0)) {
                     clearTimeout(tout);
+                    if (node.op2type === "payl") { m2 = msg.payload; }
                     tout = setTimeout(function() {
-                        msg.payload = m2;
-                        if (node.op2type !== "nul") { node.send(msg); }
+                        if (node.op2type !== "nul") {
+                            var msg2 = RED.util.cloneMessage(msg);
+                            if (node.op2type === "flow" || node.op2type === "global") {
+                                m2 = RED.util.evaluateNodeProperty(node.op2,node.op2type,node,msg);
+                            }
+                            msg2.payload = m2;
+                            node.send(msg2);
+                        }
                         tout = null;
+                        node.status({});
                     },node.duration);
+                } else {
+                    if (node.op2type === "payl") { m2 = msg.payload; }
                 }
             }
         });
         this.on("close", function() {
-            if (tout) { clearTimeout(tout); }
+            if (tout) {
+                clearTimeout(tout);
+            }
+            node.status({});
         });
     }
     RED.nodes.registerType("trigger",TriggerNode);

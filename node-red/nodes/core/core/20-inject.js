@@ -1,5 +1,5 @@
 /**
- * Copyright 2013, 2015 IBM Corp.
+ * Copyright 2013, 2016 IBM Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,20 +46,26 @@ module.exports = function(RED) {
         }
 
         if (this.once) {
-            setTimeout( function(){ node.emit("input",{}); }, 100);
+            setTimeout( function() { node.emit("input",{}); }, 100 );
         }
 
         this.on("input",function(msg) {
-            var msg = {topic:this.topic};
-            if ( (this.payloadType == null && this.payload === "") || this.payloadType === "date") {
-                msg.payload = Date.now();
-            } else if (this.payloadType == null || this.payloadType === "string") {
-                msg.payload = this.payload;
-            } else {
-                msg.payload = "";
+            try {
+                msg.topic = this.topic;
+                if ( (this.payloadType == null && this.payload === "") || this.payloadType === "date") {
+                    msg.payload = Date.now();
+                } else if (this.payloadType == null) {
+                    msg.payload = this.payload;
+                } else if (this.payloadType == 'none') {
+                    msg.payload = "";
+                } else {
+                    msg.payload = RED.util.evaluateNodeProperty(this.payload,this.payloadType,this,msg);
+                }
+                this.send(msg);
+                msg = null;
+            } catch(err) {
+                this.error(err,msg);
             }
-            this.send(msg);
-            msg = null;
         });
     }
 
@@ -81,13 +87,13 @@ module.exports = function(RED) {
         if (node != null) {
             try {
                 node.receive();
-                res.send(200);
+                res.sendStatus(200);
             } catch(err) {
-                res.send(500);
+                res.sendStatus(500);
                 node.error(RED._("inject.failed",{error:err.toString()}));
             }
         } else {
-            res.send(404);
+            res.sendStatus(404);
         }
     });
 }

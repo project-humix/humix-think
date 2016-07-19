@@ -25,7 +25,7 @@ var permissions = require("./permissions");
 var theme = require("../theme");
 
 var settings = null;
-var log = require("../../log");
+var log = null
 
 
 passport.use(strategies.bearerStrategy.BearerStrategy);
@@ -36,11 +36,13 @@ var server = oauth2orize.createServer();
 
 server.exchange(oauth2orize.exchange.password(strategies.passwordTokenExchange));
 
-function init(_settings,storage) {
-    settings = _settings;
+function init(runtime) {
+    settings = runtime.settings;
+    log = runtime.log;
     if (settings.adminAuth) {
         Users.init(settings.adminAuth);
-        Tokens.init(settings.adminAuth,storage);
+        Tokens.init(settings.adminAuth,runtime.storage);
+        strategies.init(runtime);
     }
 }
 
@@ -54,8 +56,8 @@ function needsPermission(permission) {
                 if (permissions.hasPermission(req.authInfo.scope,permission)) {
                     return next();
                 }
-                log.audit({event: "permission.fail"},req);
-                return res.send(401);
+                log.audit({event: "permission.fail", permissions: permission},req);
+                return res.status(401).end();
             });
         } else {
             next();
@@ -95,7 +97,7 @@ function revoke(req,res) {
     // TODO: audit log
     Tokens.revoke(token).then(function() {
         log.audit({event: "auth.login.revoke"},req);
-        res.send(200);
+        res.status(200).end();
     });
 }
 

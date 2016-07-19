@@ -1,5 +1,5 @@
-// var comms_sense = require('./comms_sense');
-var comms_sense = require('./comms');
+var comms = require('./comms_sense');
+// var comms_sense = require('./comms');
 
 /* TODO : replace with cloudant
     redis = require('redis'),
@@ -120,9 +120,9 @@ module.exports = {
         });
 
         console.log('subscription start');
-        comms_sense.subscribe('*', senseEventHandler);
+        comms.subscribe('*', senseEventHandler);
     },
     stop: function() {
-        comms_sense.unsubscribe('*', senseEventHandler);
+        comms.unsubscribe('*', senseEventHandler);
     }
 };

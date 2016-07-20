@@ -1,5 +1,5 @@
 /**
- * Copyright 2013 IBM Corp.
+ * Copyright 2013,2016 IBM Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 module.exports = function(RED) {
     "use strict";
     var dgram = require('dgram');
+    var udpInputPortsInUse = {};
 
     // The Input Node
     function UDPin(n) {
@@ -28,8 +29,16 @@ module.exports = function(RED) {
         this.multicast = n.multicast;
         this.ipv = n.ipv || "udp4";
         var node = this;
+        if (!udpInputPortsInUse.hasOwnProperty(this.port)) {
+            udpInputPortsInUse[this.port] = n.id;
+        }
+        else {
+            node.warn(RED._("udp.errors.alreadyused",node.port));
+        }
 
-        var server = dgram.createSocket(node.ipv);  // default to ipv4
+        var opts = {type:node.ipv, reuseAddr:true};
+        if (process.version.indexOf("v0.10") === 0) { opts = node.ipv; }
+        var server = dgram.createSocket(opts);  // default to udp4
 
         server.on("error", function (err) {
             if ((err.code == "EACCES") && (node.port < 1024)) {
@@ -74,6 +83,9 @@ module.exports = function(RED) {
         });
 
         node.on("close", function() {
+            if (udpInputPortsInUse[node.port] === node.id) {
+                delete udpInputPortsInUse[node.port];
+            }
             try {
                 server.close();
                 node.log(RED._("udp.status.listener-stopped"));
@@ -82,12 +94,12 @@ module.exports = function(RED) {
             }
         });
 
-        // Hack for when you have both in and out udp nodes sharing a port
-        //   if udp in starts last it shares better - so give it a chance to be last
-        setTimeout( function() { server.bind(node.port,node.iface); }, 250);
+        server.bind(node.port,node.iface);
     }
+    RED.httpAdmin.get('/udp-ports/:id', RED.auth.needsPermission('udp-in.read'), function(req,res) {
+        res.json(udpInputPortsInUse);
+    });
     RED.nodes.registerType("udp in",UDPin);
-
 
     // The Output Node
     function UDPout(n) {
@@ -102,8 +114,10 @@ module.exports = function(RED) {
         this.ipv = n.ipv || "udp4";
         var node = this;
 
-        var sock = dgram.createSocket(node.ipv);  // default to ipv4
-        
+        var opts = {type:node.ipv, reuseAddr:true};
+        if (process.version.indexOf("v0.10") === 0) { opts = node.ipv; }
+        var sock = dgram.createSocket(opts);  // default to udp4
+
         sock.on("error", function(err) {
             // Any async error will also get reported in the sock.send call.
             // This handler is needed to ensure the error marked as handled to
@@ -133,10 +147,12 @@ module.exports = function(RED) {
                 }
             });
         } else if (node.outport != "") {
-            sock.bind(node.outport);
-            node.log(RED._("udp.errors.ready",{outport:node.outport,host:node.addr,port:node.port}));
+            setTimeout( function() {
+                sock.bind(node.outport);
+                node.log(RED._("udp.status.ready",{outport:node.outport,host:node.addr,port:node.port}));
+            }, 250);
         } else {
-            node.log(RED._("udp.errors.ready-nolocal",{host:node.addr,port:node.port}));
+            node.log(RED._("udp.status.ready-nolocal",{host:node.addr,port:node.port}));
         }
 
         node.on("input", function(msg) {

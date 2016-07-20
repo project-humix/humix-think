@@ -20,13 +20,17 @@ RED.sidebar = (function() {
         id:"sidebar-tabs",
         onchange:function(tab) {
             $("#sidebar-content").children().hide();
+            $("#sidebar-footer").children().hide();
             if (tab.onchange) {
                 tab.onchange.call(tab);
             }
-            $(tab.content).show();
+            $(tab.wrapper).show();
+            if (tab.toolbar) {
+                $(tab.toolbar).show();
+            }
         },
         onremove: function(tab) {
-            $(tab.content).hide();
+            $(tab.wrapper).hide();
             if (tab.onremove) {
                 tab.onremove.call(tab);
             }
@@ -54,14 +58,22 @@ RED.sidebar = (function() {
             options = title;
         }
 
+        options.wrapper = $('<div>',{style:"height:100%"}).appendTo("#sidebar-content")
+        options.wrapper.append(options.content);
+        options.wrapper.hide();
 
+        if (!options.enableOnEdit) {
+            options.shade = $('<div>',{class:"sidebar-shade hide"}).appendTo(options.wrapper);
+        }
 
-        $("#sidebar-content").append(options.content);
-        $(options.content).hide();
+        if (options.toolbar) {
+            $("#sidebar-footer").append(options.toolbar);
+            $(options.toolbar).hide();
+        }
         var id = options.id;
 
-        RED.menu.addItem("menu-item-sidebar-menu",{
-            id:"menu-item-sidebar-menu-"+options.id,
+        RED.menu.addItem("menu-item-view-menu",{
+            id:"menu-item-view-menu-"+options.id,
             label:options.name,
             onselect:function() {
                 showSidebar(options.id);
@@ -78,9 +90,12 @@ RED.sidebar = (function() {
 
     function removeTab(id) {
         sidebar_tabs.removeTab(id);
-        $(knownTabs[id].content).remove();
+        $(knownTabs[id].wrapper).remove();
+        if (knownTabs[id].footer) {
+            knownTabs[id].footer.remove();
+        }
         delete knownTabs[id];
-        RED.menu.removeItem("menu-item-sidebar-menu-"+id);
+        RED.menu.removeItem("menu-item-view-menu-"+id);
     }
 
     var sidebarSeparator =  {};
@@ -94,12 +109,12 @@ RED.sidebar = (function() {
                 sidebarSeparator.chartWidth = $("#workspace").width();
                 sidebarSeparator.chartRight = winWidth-$("#workspace").width()-$("#workspace").offset().left-2;
 
-
                 if (!RED.menu.isSelected("menu-item-sidebar")) {
                     sidebarSeparator.opening = true;
                     var newChartRight = 7;
                     $("#sidebar").addClass("closing");
                     $("#workspace").css("right",newChartRight);
+                    $("#editor-stack").css("right",newChartRight+1);
                     $("#sidebar").width(0);
                     RED.menu.setSelected("menu-item-sidebar",true);
                     RED.events.emit("sidebar:resize");
@@ -138,6 +153,7 @@ RED.sidebar = (function() {
 
                 var newChartRight = sidebarSeparator.chartRight-d;
                 $("#workspace").css("right",newChartRight);
+                $("#editor-stack").css("right",newChartRight+1);
                 $("#sidebar").width(newSidebarWidth);
 
                 sidebar_tabs.resize();
@@ -150,6 +166,7 @@ RED.sidebar = (function() {
                     if ($("#sidebar").width() < 180) {
                         $("#sidebar").width(180);
                         $("#workspace").css("right",187);
+                        $("#editor-stack").css("right",188);
                     }
                 }
                 $("#sidebar-separator").css("left","auto");
@@ -185,7 +202,7 @@ RED.sidebar = (function() {
     }
 
     function init () {
-        RED.keyboard.add(/* SPACE */ 32,{ctrl:true},function(){RED.menu.setSelected("menu-item-sidebar",!RED.menu.isSelected("menu-item-sidebar"));d3.event.preventDefault();});
+        RED.keyboard.add("*",/* SPACE */ 32,{ctrl:true},function(){RED.menu.setSelected("menu-item-sidebar",!RED.menu.isSelected("menu-item-sidebar"));d3.event.preventDefault();});
         showSidebar();
         RED.sidebar.info.init();
         RED.sidebar.config.init();

@@ -114,11 +114,16 @@
 }
 
 .palette-header {
+    position: relative;
     background: $palette-header-background;
     cursor: pointer;
     text-align: left;
     padding: 9px;
     font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
 }
 .palette-header i {
     margin: 3px 10px 3px 3px;
@@ -200,7 +205,7 @@
     left: auto;
     right: 0;
     border-right: none;
-    border-left: 2px solid rgba(0,0,0,0.1);
+    border-left: 1px solid rgba(0,0,0,0.1);
 }
 .palette_icon {
     display: inline-block;

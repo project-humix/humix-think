@@ -1,5 +1,5 @@
 /**
- * Copyright 2013, 2015 IBM Corp.
+ * Copyright 2013, 2016 IBM Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,16 @@
  **/
 RED.history = (function() {
     var undo_history = [];
-    
+
     return {
         //TODO: this function is a placeholder until there is a 'save' event that can be listened to
         markAllDirty: function() {
             for (var i=0;i<undo_history.length;i++) {
                 undo_history[i].dirty = true;
             }
+        },
+        list: function() {
+            return undo_history
         },
         depth: function() {
             return undo_history.length;
@@ -33,6 +36,7 @@ RED.history = (function() {
             var ev = undo_history.pop();
             var i;
             var node;
+            var subflow;
             var modifiedTabs = {};
             if (ev) {
                 if (ev.t == 'add') {
@@ -62,6 +66,29 @@ RED.history = (function() {
                             RED.workspaces.remove(ev.subflows[i]);
                         }
                     }
+                    if (ev.subflow) {
+                        if (ev.subflow.instances) {
+                            ev.subflow.instances.forEach(function(n) {
+                                var node = RED.nodes.node(n.id);
+                                if (node) {
+                                    node.changed = n.changed;
+                                    node.dirty = true;
+                                }
+                            });
+                        }
+                        if (ev.subflow.hasOwnProperty('changed')) {
+                            subflow = RED.nodes.subflow(ev.subflow.id);
+                            if (subflow) {
+                                subflow.changed = ev.subflow.changed;
+                            }
+                        }
+                    }
+                    if (ev.removedLinks) {
+                        for (i=0;i<ev.removedLinks.length;i++) {
+                            RED.nodes.addLink(ev.removedLinks[i]);
+                        }
+                    }
+
                 } else if (ev.t == "delete") {
                     if (ev.workspaces) {
                         for (i=0;i<ev.workspaces.length;i++) {
@@ -69,10 +96,9 @@ RED.history = (function() {
                             RED.workspaces.add(ev.workspaces[i]);
                         }
                     }
-                    if (ev.subflow) {
-                        RED.nodes.addSubflow(ev.subflow);
+                    if (ev.subflow && ev.subflow.subflow) {
+                        RED.nodes.addSubflow(ev.subflow.subflow);
                     }
-                    var subflow;
                     if (ev.subflowInputs && ev.subflowInputs.length > 0) {
                         subflow = RED.nodes.subflow(ev.subflowInputs[0].z);
                         subflow.in.push(ev.subflowInputs[0]);
@@ -97,9 +123,17 @@ RED.history = (function() {
                             });
                         }
                     }
+                    if (ev.subflow && ev.subflow.hasOwnProperty('instances')) {
+                        ev.subflow.instances.forEach(function(n) {
+                            var node = RED.nodes.node(n.id);
+                            if (node) {
+                                node.changed = n.changed;
+                                node.dirty = true;
+                            }
+                        });
+                    }
                     if (subflow) {
                         RED.nodes.filterNodes({type:"subflow:"+subflow.id}).forEach(function(n) {
-                            n.changed = true;
                             n.inputs = subflow.in.length;
                             n.outputs = subflow.out.length;
                             while (n.outputs > n.ports.length) {
@@ -120,6 +154,22 @@ RED.history = (function() {
                             RED.nodes.addLink(ev.links[i]);
                         }
                     }
+                    if (ev.changes) {
+                        for (i in ev.changes) {
+                            if (ev.changes.hasOwnProperty(i)) {
+                                node = RED.nodes.node(i);
+                                if (node) {
+                                    for (var d in ev.changes[i]) {
+                                        if (ev.changes[i].hasOwnProperty(d)) {
+                                            node[d] = ev.changes[i][d];
+                                        }
+                                    }
+                                    node.dirty = true;
+                                }
+                            }
+                        }
+
+                    }
                 } else if (ev.t == "move") {
                     for (i=0;i<ev.nodes.length;i++) {
                         var n = ev.nodes[i];
@@ -127,9 +177,31 @@ RED.history = (function() {
                         n.n.y = n.oy;
                         n.n.dirty = true;
                     }
+                    // A move could have caused a link splice
+                    if (ev.links) {
+                        for (i=0;i<ev.links.length;i++) {
+                            RED.nodes.removeLink(ev.links[i]);
+                        }
+                    }
+                    if (ev.removedLinks) {
+                        for (i=0;i<ev.removedLinks.length;i++) {
+                            RED.nodes.addLink(ev.removedLinks[i]);
+                        }
+                    }
                 } else if (ev.t == "edit") {
                     for (i in ev.changes) {
                         if (ev.changes.hasOwnProperty(i)) {
+                            if (ev.node._def.defaults[i].type) {
+                                // This is a config node property
+                                var currentConfigNode = RED.nodes.node(ev.node[i]);
+                                if (currentConfigNode) {
+                                    currentConfigNode.users.splice(currentConfigNode.users.indexOf(ev.node),1);
+                                }
+                                var newConfigNode = RED.nodes.node(ev.changes[i]);
+                                if (newConfigNode) {
+                                    newConfigNode.users.push(ev.node);
+                                }
+                            }
                             ev.node[i] = ev.changes[i];
                         }
                     }
@@ -148,14 +220,24 @@ RED.history = (function() {
                                 ev.node.out = ev.node.out.concat(ev.subflow.outputs);
                             }
                         }
+                        if (ev.subflow.hasOwnProperty('instances')) {
+                            ev.subflow.instances.forEach(function(n) {
+                                var node = RED.nodes.node(n.id);
+                                if (node) {
+                                    node.changed = n.changed;
+                                    node.dirty = true;
+                                }
+                            });
+                        }
                         RED.nodes.filterNodes({type:"subflow:"+ev.node.id}).forEach(function(n) {
-                            n.changed = ev.changed;
                             n.inputs = ev.node.in.length;
                             n.outputs = ev.node.out.length;
                             RED.editor.updateNodeProperties(n);
                         });
-                        
-                        RED.palette.refresh();
+
+                        if (ev.node.type === 'subflow') {
+                            $("#menu-item-workspace-menu-"+ev.node.id.replace(".","-")).text(ev.node.name);
+                        }
                     } else {
                         RED.editor.updateNodeProperties(ev.node);
                         RED.editor.validateNode(ev.node);
@@ -169,7 +251,7 @@ RED.history = (function() {
                     ev.node.changed = ev.changed;
                 } else if (ev.t == "createSubflow") {
                     if (ev.nodes) {
-                        RED.nodes.filterNodes({z:ev.subflow.id}).forEach(function(n) {
+                        RED.nodes.filterNodes({z:ev.subflow.subflow.id}).forEach(function(n) {
                             n.z = ev.activeWorkspace;
                             n.dirty = true;
                         });
@@ -182,14 +264,18 @@ RED.history = (function() {
                             RED.nodes.removeLink(ev.links[i]);
                         }
                     }
-                    
-                    RED.nodes.removeSubflow(ev.subflow);
-                    RED.workspaces.remove(ev.subflow);
-                    
+
+                    RED.nodes.removeSubflow(ev.subflow.subflow);
+                    RED.workspaces.remove(ev.subflow.subflow);
+
                     if (ev.removedLinks) {
                         for (i=0;i<ev.removedLinks.length;i++) {
                             RED.nodes.addLink(ev.removedLinks[i]);
                         }
+                    }
+                } else if (ev.t == "reorder") {
+                    if (ev.order) {
+                        RED.workspaces.order(ev.order);
                     }
                 }
                 Object.keys(modifiedTabs).forEach(function(id) {
@@ -199,11 +285,15 @@ RED.history = (function() {
                     }
                 });
 
-                
                 RED.nodes.dirty(ev.dirty);
                 RED.view.redraw(true);
                 RED.palette.refresh();
+                RED.workspaces.refresh();
+                RED.sidebar.config.refresh();
             }
+        },
+        peek: function() {
+            return undo_history[undo_history.length-1];
         }
     }
 

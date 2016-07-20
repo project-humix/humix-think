@@ -1,5 +1,5 @@
 /**
- * Copyright 2013, 2015 IBM Corp.
+ * Copyright 2013, 2016 IBM Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 
 module.exports = {
     // the tcp port that the Node-RED web server is listening on
-    uiPort: 1880,
+    uiPort: process.env.PORT || 1880,
 
     // By default, the Node-RED UI accepts connections on all IPv4 interfaces.
     // The following property can be used to listen on a specific interface. For
@@ -39,6 +39,10 @@ module.exports = {
     // Timeout in milliseconds for TCP server socket connections
     //  defaults to no timeout
     //socketTimeout: 120000,
+
+    // Timeout in milliseconds for HTTP request connections
+    //  defaults to 120 seconds
+    //httpRequestTimeout: 120000,
 
     // The maximum length, in characters, of any message sent to the debug sidebar tab
     debugMaxLength: 1000,
@@ -63,42 +67,40 @@ module.exports = {
     // If set to false, this is disabled.
     //httpAdminRoot: '/admin',
 
-    // You can protect the user interface with a userid and password by using the following property.
-    // The password must be an md5 hash  eg.. 5f4dcc3b5aa765d61d8327deb882cf99 ('password')
-    //httpAdminAuth: {user:"user",pass:"5f4dcc3b5aa765d61d8327deb882cf99"},
-
     // Some nodes, such as HTTP In, can be used to listen for incoming http requests.
     // By default, these are served relative to '/'. The following property
     // can be used to specifiy a different root path. If set to false, this is
     // disabled.
-    //httpNodeRoot: '/nodes',
+    //httpNodeRoot: '/red-nodes',
 
-    // To password protect the node-defined HTTP endpoints, the following property
-    // can be used.
-    // The password must be an md5 hash  eg.. 5f4dcc3b5aa765d61d8327deb882cf99 ('password')
-    //httpNodeAuth: {user:"user",pass:"5f4dcc3b5aa765d61d8327deb882cf99"},
+    // The following property can be used in place of 'httpAdminRoot' and 'httpNodeRoot',
+    // to apply the same root to both parts.
+    //httpRoot: '/red',
 
     // When httpAdminRoot is used to move the UI to a different root path, the
     // following property can be used to identify a directory of static content
     // that should be served at http://localhost:1880/.
-    //httpStatic: '/home/nol/node-red-dashboard/',
+    //httpStatic: '/home/nol/node-red-static/',
 
-    // To password protect the static content, the following property can be used.
-    // The password must be an md5 hash  eg.. 5f4dcc3b5aa765d61d8327deb882cf99 ('password')
-    //httpStaticAuth: {user:"user",pass:"5f4dcc3b5aa765d61d8327deb882cf99"},
+    // Securing Node-RED
+    // -----------------
+    // To password protect the Node-RED editor and admin API, the following
+    // property can be used. See http://nodered.org/docs/security.html for details.
+    //adminAuth: {
+    //    type: "credentials",
+    //    users: [{
+    //        username: "admin",
+    //        password: "$2a$08$zZWtXTja0fB1pzD4sHCMyOCMYz2Z6dNbM6tl8sJogENOMcxWV9DN.",
+    //        permissions: "*"
+    //    }]
+    //},
 
-    // The following property can be used in place of 'httpAdminRoot' and 'httpNodeRoot',
-    // to apply the same root to both parts.
-    httpRoot: '/flow',
-
-    // The following property can be used in place of 'httpAdminAuth' and 'httpNodeAuth',
-    // to apply the same authentication to both parts.
-    //httpAuth: {user:"user",pass:"5f4dcc3b5aa765d61d8327deb882cf99"},
-
-    // The following property can be used to disable the editor. The admin API
-    // is not affected by this option. To disable both the editor and the admin
-    // API, use either the httpRoot or httpAdminRoot properties
-    //disableEditor: false,
+    // To password protect the node-defined HTTP endpoints (httpNodeRoot), or
+    // the static content (httpStatic), the following properties can be used.
+    // The pass field is a bcrypt hash of the password.
+    // See http://nodered.org/docs/security.html#generating-the-password-hash
+    //httpNodeAuth: {user:"user",pass:"$2a$08$zZWtXTja0fB1pzD4sHCMyOCMYz2Z6dNbM6tl8sJogENOMcxWV9DN."},
+    //httpStaticAuth: {user:"user",pass:"$2a$08$zZWtXTja0fB1pzD4sHCMyOCMYz2Z6dNbM6tl8sJogENOMcxWV9DN."},
 
     // The following property can be used to enable HTTPS
     // See http://nodejs.org/api/https.html#https_https_createserver_options_requestlistener
@@ -110,6 +112,11 @@ module.exports = {
     //    key: fs.readFileSync('privatekey.pem'),
     //    cert: fs.readFileSync('certificate.pem')
     //},
+
+    // The following property can be used to disable the editor. The admin API
+    // is not affected by this option. To disable both the editor and the admin
+    // API, use either the httpRoot or httpAdminRoot properties
+    //disableEditor: false,
 
     // The following property can be used to configure cross-origin resource sharing
     // in the HTTP nodes.
@@ -145,7 +152,7 @@ module.exports = {
 
     functionGlobalContext: {
         // os:require('os'),
-        // bonescript:require('bonescript'),
+        // octalbonescript:require('octalbonescript'),
         // jfive:require("johnny-five"),
         // j5board:require("johnny-five").Board({repl:false})
     },
@@ -168,9 +175,10 @@ module.exports = {
             // debug - record information which is more verbose than info + info + warn + error + fatal errors
             // trace - record very detailed logging + debug + info + warn + error + fatal errors
             level: "info",
-
             // Whether or not to include metric events in the log output
-            metrics: false
+            metrics: false,
+            // Whether or not to include audit events in the log output
+            audit: false
         }
     }
 }

@@ -24,9 +24,10 @@
    left:0px;
    right:0px;
    box-sizing:border-box;
+   transition: right 0.2s ease;
 }
 
-#chart svg:focus {
+#chart:focus {
     outline: none;
 }
 
@@ -48,6 +49,8 @@
 #workspace-tabs {
     margin-right: 35px;
 }
+
+
 
 #workspace-add-tab {
     position: absolute;

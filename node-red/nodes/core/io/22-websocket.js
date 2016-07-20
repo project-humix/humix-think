@@ -1,5 +1,5 @@
 /**
- * Copyright 2013,2015 IBM Corp.
+ * Copyright 2013, 2016 IBM Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 module.exports = function(RED) {
     "use strict";
     var ws = require("ws");
-    var inspect = require("sys").inspect;
+    var inspect = require("util").inspect;
 
     // A node red node that sets up a local websocket server
     function WebSocketListenerNode(n) {
@@ -48,7 +48,7 @@ module.exports = function(RED) {
                 if (!node.isServer) { node.emit('opened',''); }
             });
             socket.on('close',function() {
-                if (node.isServer) { delete node._clients[id]; node.emit('opened',Object.keys(node._clients).length); }
+                if (node.isServer) { delete node._clients[id]; node.emit('closed',Object.keys(node._clients).length); }
                 else { node.emit('closed'); }
                 if (!node.closing && !node.isServer) {
                     node.tout = setTimeout(function(){ startconn(); }, 3000); // try to reconnect every 3 secs... bit fast ?
@@ -82,7 +82,15 @@ module.exports = function(RED) {
             RED.server.addListener('newListener',storeListener);
 
             // Create a WebSocket Server
-            node.server = new ws.Server({server:RED.server,path:path});
+            node.server = new ws.Server({
+                server:RED.server,
+                path:path,
+                // Disable the deflate option due to this issue
+                //  https://github.com/websockets/ws/pull/632
+                // that is fixed in the 1.x release of the ws module
+                // that we cannot currently pickup as it drops node 0.10 support
+                perMessageDeflate: false
+            });
 
             // Workaround https://github.com/einaros/ws/pull/253
             // Stop listening for new listener events
@@ -115,7 +123,7 @@ module.exports = function(RED) {
             else {
                 node.closing = true;
                 node.server.close();
-                if (node.tout) { clearTimeout(tout); }
+                if (node.tout) { clearTimeout(node.tout); }
             }
         });
     }
@@ -124,6 +132,14 @@ module.exports = function(RED) {
 
     WebSocketListenerNode.prototype.registerInputNode = function(/*Node*/handler) {
         this._inputNodes.push(handler);
+    }
+
+    WebSocketListenerNode.prototype.removeInputNode = function(/*Node*/handler) {
+        this._inputNodes.forEach(function(node, i, inputNodes) {
+            if (node === handler) {
+                inputNodes.splice(i, 1);
+            }
+        });
     }
 
     WebSocketListenerNode.prototype.handleEvent = function(id,/*socket*/socket,/*String*/event,/*Object*/data,/*Object*/flags){
@@ -187,6 +203,11 @@ module.exports = function(RED) {
         } else {
             this.error(RED._("websocket.errors.missing-conf"));
         }
+
+        this.on('close', function() {
+            node.serverConfig.removeInputNode(node);
+        });
+
     }
     RED.nodes.registerType("websocket in",WebSocketInNode);
 

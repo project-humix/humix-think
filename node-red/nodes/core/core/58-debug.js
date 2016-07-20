@@ -50,12 +50,9 @@ module.exports = function(RED) {
                 var output = msg[property];
                 if (this.complete !== "false" && typeof this.complete !== "undefined") {
                     property = this.complete;
-                    var propertyParts = property.split(".");
                     try {
-                        output = propertyParts.reduce(function (obj, i) {
-                            return obj[i];
-                        }, msg);
-                    } catch (err) {
+                        output = RED.util.getMessageProperty(msg,this.complete);
+                    } catch(err) {
                         output = undefined;
                     }
                 }
@@ -69,7 +66,7 @@ module.exports = function(RED) {
                     }
                 }
                 if (this.active) {
-                    sendDebug({id:this.id,name:this.name,topic:msg.topic,property:property,msg:output,_path:msg._path});
+                    sendDebug({id:this.id,z:this.z,name:this.name,topic:msg.topic,property:property,msg:output,_path:msg._path});
                 }
             }
         });
@@ -84,19 +81,25 @@ module.exports = function(RED) {
         } else if (msg.msg instanceof Buffer) {
             msg.format = "buffer ["+msg.msg.length+"]";
             msg.msg = msg.msg.toString('hex');
-        } else if (typeof msg.msg === 'object') {
+        } else if (msg.msg && typeof msg.msg === 'object') {
             var seen = [];
-            msg.format = "object";
-            if (util.isArray(msg.msg)) {
+            msg.format = msg.msg.constructor.name || "Object";
+            var isArray = util.isArray(msg.msg);
+            if (isArray) {
                 msg.format = "array ["+msg.msg.length+"]";
             }
-            msg.msg = JSON.stringify(msg.msg, function(key, value) {
-                if (typeof value === 'object' && value !== null) {
-                    if (seen.indexOf(value) !== -1) { return "[circular]"; }
-                    seen.push(value);
-                }
-                return value;
-            }," ");
+            if (isArray || (msg.format === "Object")) {
+                msg.msg = JSON.stringify(msg.msg, function(key, value) {
+                    if (typeof value === 'object' && value !== null) {
+                        if (seen.indexOf(value) !== -1) { return "[circular]"; }
+                        seen.push(value);
+                    }
+                    return value;
+                }," ");
+            } else {
+                try { msg.msg = msg.msg.toString(); }
+                catch(e) { msg.msg = "[Type not printable]"; }
+            }
             seen = null;
         } else if (typeof msg.msg === "boolean") {
             msg.format = "boolean";
@@ -118,7 +121,6 @@ module.exports = function(RED) {
         if (msg.msg.length > debuglength) {
             msg.msg = msg.msg.substr(0,debuglength) +" ....";
         }
-
         RED.comms.publish("debug",msg);
     }
 
@@ -136,15 +138,15 @@ module.exports = function(RED) {
         if (node !== null && typeof node !== "undefined" ) {
             if (state === "enable") {
                 node.active = true;
-                res.send(200);
+                res.sendStatus(200);
             } else if (state === "disable") {
                 node.active = false;
-                res.send(201);
+                res.sendStatus(201);
             } else {
-                res.send(404);
+                res.sendStatus(404);
             }
         } else {
-            res.send(404);
+            res.sendStatus(404);
         }
     });
 };

@@ -21,13 +21,10 @@ ul.red-ui-tabs {
     display: block;
     height: 35px;
     box-sizing:border-box;
+    white-space: nowrap;
     border-bottom: 1px solid $primary-border-color;
     background: #fff;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    @include disable-selection;
 }
 
 ul.red-ui-tabs li {
@@ -49,6 +46,7 @@ ul.red-ui-tabs li {
 
 ul.red-ui-tabs li a.red-ui-tab-label {
     display: block;
+    font-size: 14px;
     padding-left: 12px;
     width: 100%;
     height: 100%;
@@ -57,7 +55,29 @@ ul.red-ui-tabs li a.red-ui-tab-label {
 ul.red-ui-tabs li {
     position: relative;
 }
+.red-ui-tabs-badges {
+    position: absolute;
+    top:2px;
+    right:2px;
+}
+.red-ui-tab-closeable .red-ui-tabs-badges {
+    right: 22px;
+}
 
+.red-ui-tab.node_changed img.node_changed {
+    display: inline-block;
+}
+.red-ui-tab.node_error img.node_error {
+    display: inline-block;
+}
+
+.red-ui-tabs-badges img {
+    width: 10px;
+    height: 10px;
+    margin-right: 2px;
+    vertical-align: top;
+
+}
 .red-ui-tab-close {
     background: $tab-background-inactive;
     opacity: 0.8;
@@ -106,7 +126,21 @@ ul.red-ui-tabs li.active {
     background: $tab-background-active;
     font-weight: bold;
     border-bottom: 1px solid #fff;
+    z-index: 2;
 }
 ul.red-ui-tabs li.active a {
     color: #333;
+}
+
+.red-ui-tab-icon {
+    margin-left: -8px;
+    margin-right: 3px;
+    margin-top: -2px;
+    opacity: 0.1;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+ul.red-ui-tabs li.active .red-ui-tab-icon {
+    opacity: 0.2;
 }

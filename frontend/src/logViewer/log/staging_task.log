@@ -1,0 +1,831 @@
+2016-07-11T17:09:18.242+0800[API/1]OUTUpdated app with guid ebed8991-19f1-4fc1-8354-c53c09350c17 ({"name"=>"humix-cflin"})
+2016-07-11T17:09:46.000+0800[RTR/0]OUThumix-cflin.mybluemix.net - [11/07/2016:09:09:45.536 +0000] "GET / HTTP/1.1" 200 0 669 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.153:25862 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:a4b314e2-5496-4d21-69b1-3f003d1ff520 response_time:0.464006783 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"502295021"
+2016-07-11T17:09:46.388+0800[RTR/1]OUThumix-cflin.mybluemix.net - [11/07/2016:09:09:46.351 +0000] "GET /styles/vendor-c2769e81fe.css HTTP/1.1" 200 0 60713 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.154:35039 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:b53dbdf6-9c51-4a5e-50f6-5a363cdd52a5 response_time:0.03602767 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"3903924967"
+2016-07-11T17:09:46.390+0800[RTR/2]OUThumix-cflin.mybluemix.net - [11/07/2016:09:09:46.354 +0000] "GET /styles/app-111ebc2cd1.css HTTP/1.1" 200 0 116708 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.151:14403 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:4b9218e1-ece1-4088-7a2a-22f20ea6f4b2 response_time:0.034798063 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"1646834351"
+2016-07-11T17:09:46.555+0800[RTR/3]OUThumix-cflin.mybluemix.net - [11/07/2016:09:09:46.534 +0000] "GET /scripts/app-9b6f1fc715.js HTTP/1.1" 304 0 0 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.156:51885 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:2321d8da-583f-4369-4218-6e685cfde76e response_time:0.020588976 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"1627143951"
+2016-07-11T17:09:46.560+0800[RTR/1]OUThumix-cflin.mybluemix.net - [11/07/2016:09:09:46.535 +0000] "GET /scripts/vendor-aa7446ec01.js HTTP/1.1" 304 0 0 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.154:54165 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:1f1397be-d791-48a5-5874-9171e78dff0d response_time:0.024134504 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"502296077"
+2016-07-11T17:09:48.285+0800[App/0]OUT[90m9:09:48 AM[39m[32m - [39mINFO [32m - [39m[34m[1mAPP[22m[39m[32m - [39m[34m[1mDevice[22m[39m[32m - [39mget all devices invoked
+2016-07-11T17:09:48.562+0800[App/0]OUTdoc:{"total_rows":4,"offset":0,"rows":[{"id":"72bae4f75b7b3c963fc3925708ca5517","key":"cheryl-sense","value":{"senseId":"cheryl-sense","senseIcon":54}},{"id":"476cfce4d0e0119827c51c83bf89e0d1","key":"e","value":{"senseId":"e","senseIcon":44}},{"id":"519aed3007b4952f70afb8a5b5d19c3c","key":"Humix-pepper","value":{"senseId":"Humix-pepper","senseIcon":46}},{"id":"46b6d3883b46ccc62e38cd01dfd71507","key":"jimmy-sense","value":{"senseId":"jimmy-sense","senseIcon":36}}]}
+2016-07-11T17:09:48.620+0800[RTR/1]OUThumix-cflin.mybluemix.net - [11/07/2016:09:09:48.026 +0000] "GET /assets/images/IBM_IoT_cloud2.png HTTP/1.1" 200 0 8286 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.154:54165 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:68a2c682-aaf9-4337-57d0-b715a9d594dd response_time:0.593019026 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"2332938735"
+2016-07-11T17:09:48.773+0800[RTR/1]OUThumix-cflin.mybluemix.net - [11/07/2016:09:09:48.011 +0000] "GET /api/devices HTTP/1.1" 200 0 194 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.152:21608 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:4f8c4030-bf3d-4477-4482-b6fc9d3a46b4 response_time:0.762204309 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"2091470915"
+2016-07-11T17:09:49.030+0800[RTR/0]OUThumix-cflin.mybluemix.net - [11/07/2016:09:09:49.011 +0000] "GET /assets/images/bluemix-icon-list/i-appicon-54-50.png HTTP/1.1" 200 0 1243 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.151:26513 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:72ad840c-8c3e-4d01-5ab3-2fda80eae91f response_time:0.018269915 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"3331570573"
+2016-07-11T17:09:49.035+0800[RTR/2]OUThumix-cflin.mybluemix.net - [11/07/2016:09:09:49.012 +0000] "GET /assets/images/bluemix-icon-list/i-appicon-44-50.png HTTP/1.1" 200 0 1005 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.153:17945 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:eb768305-0218-402e-6670-56b220c4ad0b response_time:0.022042428 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"1568699235"
+2016-07-11T17:09:49.038+0800[RTR/1]OUThumix-cflin.mybluemix.net - [11/07/2016:09:09:49.010 +0000] "GET /assets/images/bluemix-icon-list/i-appicon-46-50.png HTTP/1.1" 200 0 1091 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.154:38484 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:f619851b-c899-4ccb-4546-fb1fd6a6c4b9 response_time:0.027205356 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"1130375569"
+2016-07-11T17:09:49.041+0800[RTR/1]OUThumix-cflin.mybluemix.net - [11/07/2016:09:09:49.015 +0000] "GET /assets/images/bluemix-icon-list/i-appicon-36-50.png HTTP/1.1" 200 0 1057 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.156:14294 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:d05e4267-cb83-4714-6689-14e03f181929 response_time:0.025429218 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"2181525457"
+2016-07-11T17:09:49.204+0800[RTR/0]OUThumix-cflin.mybluemix.net - [11/07/2016:09:09:49.185 +0000] "GET /assets/images/trash.png HTTP/1.1" 200 0 214 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.153:50904 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:0ea5d140-ba78-47ae-5a9c-3c114a589227 response_time:0.018080686 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"1130378113"
+2016-07-11T17:10:11.461+0800[RTR/3]OUThumix-cflin.mybluemix.net - [11/07/2016:09:10:11.448 +0000] "GET / HTTP/1.1" 304 0 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.154:28761 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:78e5bfc8-19db-4bbe-6f0d-b3f703c570cd response_time:0.012570681 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"502300477"
+2016-07-11T17:10:11.848+0800[RTR/0]OUThumix-cflin.mybluemix.net - [11/07/2016:09:10:11.820 +0000] "GET /styles/vendor-c2769e81fe.css HTTP/1.1" 304 0 0 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.153:25053 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:a8c22780-40aa-43c8-414c-edfb01497689 response_time:0.027862366 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"3904093895"
+2016-07-11T17:10:11.849+0800[RTR/2]OUThumix-cflin.mybluemix.net - [11/07/2016:09:10:11.821 +0000] "GET /scripts/app-9b6f1fc715.js HTTP/1.1" 304 0 0 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.153:18221 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:1aba5b01-3b52-4c33-7866-5b226dc98ec1 response_time:0.02781644 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"1130377937"
+2016-07-11T17:10:11.850+0800[RTR/0]OUThumix-cflin.mybluemix.net - [11/07/2016:09:10:11.822 +0000] "GET /styles/app-111ebc2cd1.css HTTP/1.1" 304 0 0 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.153:24051 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:c3b058ac-dd2d-4d6a-56d4-255131e4eacb response_time:0.027257807 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"502300253"
+2016-07-11T17:10:11.851+0800[RTR/0]OUThumix-cflin.mybluemix.net - [11/07/2016:09:10:11.820 +0000] "GET /scripts/vendor-aa7446ec01.js HTTP/1.1" 304 0 0 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.155:55959 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:e2e01572-395c-45e4-45cd-f9e2c8838fef response_time:0.030049728 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"3070700141"
+2016-07-11T17:10:12.386+0800[RTR/2]OUThumix-cflin.mybluemix.net - [11/07/2016:09:10:12.378 +0000] "GET /assets/images/IBM_IoT_cloud2.png HTTP/1.1" 304 0 0 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.153:18477 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:257cff8a-ef28-4a6b-58b3-6888f1264b2d response_time:0.007363265 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"1693126825"
+2016-07-11T17:10:12.424+0800[App/0]OUT[90m9:10:12 AM[39m[32m - [39mINFO [32m - [39m[34m[1mAPP[22m[39m[32m - [39m[34m[1mDevice[22m[39m[32m - [39mget all devices invoked
+2016-07-11T17:10:12.457+0800[App/0]OUTdoc:{"total_rows":4,"offset":0,"rows":[{"id":"72bae4f75b7b3c963fc3925708ca5517","key":"cheryl-sense","value":{"senseId":"cheryl-sense","senseIcon":54}},{"id":"476cfce4d0e0119827c51c83bf89e0d1","key":"e","value":{"senseId":"e","senseIcon":44}},{"id":"519aed3007b4952f70afb8a5b5d19c3c","key":"Humix-pepper","value":{"senseId":"Humix-pepper","senseIcon":46}},{"id":"46b6d3883b46ccc62e38cd01dfd71507","key":"jimmy-sense","value":{"senseId":"jimmy-sense","senseIcon":36}}]}
+2016-07-11T17:10:12.459+0800[RTR/2]OUThumix-cflin.mybluemix.net - [11/07/2016:09:10:12.414 +0000] "GET /api/devices HTTP/1.1" 304 0 0 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.155:23618 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:1cf95d2a-b902-4dd0-7dc3-d53e9feb8f27 response_time:0.043894912 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"2138846899"
+2016-07-11T17:10:12.672+0800[RTR/0]OUThumix-cflin.mybluemix.net - [11/07/2016:09:10:12.658 +0000] "GET /assets/images/trash.png HTTP/1.1" 304 0 0 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.151:25773 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:c09966f4-887e-4f6f-7870-9839d0665eb7 response_time:0.013490864 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"1646837295"
+2016-07-11T17:10:12.672+0800[RTR/1]OUThumix-cflin.mybluemix.net - [11/07/2016:09:10:12.656 +0000] "GET /assets/images/bluemix-icon-list/i-appicon-46-50.png HTTP/1.1" 304 0 0 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.154:54385 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:88156098-45cb-4040-4aef-616447d6dca3 response_time:0.015070255 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"3904101719"
+2016-07-11T17:10:12.804+0800[RTR/3]OUThumix-cflin.mybluemix.net - [11/07/2016:09:10:12.654 +0000] "GET /assets/images/bluemix-icon-list/i-appicon-36-50.png HTTP/1.1" 304 0 0 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.154:28761 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:b4244aa2-64a9-46af-59d7-b44aba4ce34a response_time:0.149250081 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"1130447457"
+2016-07-11T17:10:12.804+0800[RTR/3]OUThumix-cflin.mybluemix.net - [11/07/2016:09:10:12.651 +0000] "GET /assets/images/bluemix-icon-list/i-appicon-54-50.png HTTP/1.1" 304 0 0 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.156:52711 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:ad45ea19-293f-42bb-7577-d4cceb3bc367 response_time:0.150640615 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"3070970781"
+2016-07-11T17:10:13.020+0800[RTR/3]OUThumix-cflin.mybluemix.net - [11/07/2016:09:10:12.654 +0000] "GET /assets/images/bluemix-icon-list/i-appicon-44-50.png HTTP/1.1" 304 0 0 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.154:28762 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:5483fee4-f643-42e7-40c3-83fbc6f36817 response_time:0.365536368 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"2332970511"
+2016-07-11T17:10:25.237+0800[API/1]OUTUpdated app with guid ebed8991-19f1-4fc1-8354-c53c09350c17 ({"state"=>"STOPPED"})
+2016-07-11T17:10:26.586+0800[DEA/29]OUTStopping app instance (index 0) with guid ebed8991-19f1-4fc1-8354-c53c09350c17
+2016-07-11T17:10:26.587+0800[DEA/29]OUTStopped app instance (index 0) with guid ebed8991-19f1-4fc1-8354-c53c09350c17
+2016-07-11T17:10:29.739+0800[DEA/106]OUTGot staging request for app with id ebed8991-19f1-4fc1-8354-c53c09350c17
+2016-07-11T17:10:37.179+0800[API/5]OUTUpdated app with guid ebed8991-19f1-4fc1-8354-c53c09350c17 ({"state"=>"STARTED"})
+2016-07-11T17:10:38.046+0800[STG/106]OUT-----> Downloaded app package (14M)
+2016-07-11T17:10:38.827+0800[STG/106]OUT-----> Downloaded app buildpack cache (7.9M)
+2016-07-11T17:10:42.412+0800[STG/0]OUTStaging failed: An application could not be detected by any available buildpack
+2016-07-11T17:10:42.416+0800[STG/0]ERR
+2016-07-11T17:10:42.592+0800[API/5]ERRencountered error: An app was not successfully detected by any available buildpack
+2016-07-11T17:12:16.353+0800[API/4]OUTUpdated app with guid ebed8991-19f1-4fc1-8354-c53c09350c17 ({"name"=>"humix-cflin"})
+2016-07-11T17:13:34.140+0800[API/1]OUTUpdated app with guid ebed8991-19f1-4fc1-8354-c53c09350c17 ({"state"=>"STOPPED"})
+2016-07-11T17:13:38.651+0800[DEA/113]OUTGot staging request for app with id ebed8991-19f1-4fc1-8354-c53c09350c17
+2016-07-11T17:13:47.515+0800[API/8]OUTUpdated app with guid ebed8991-19f1-4fc1-8354-c53c09350c17 ({"state"=>"STARTED"})
+2016-07-11T17:13:48.614+0800[STG/113]OUT-----> Downloaded app package (14M)
+2016-07-11T17:13:50.006+0800[STG/113]OUT-----> Downloaded app buildpack cache (7.9M)
+2016-07-11T17:13:54.325+0800[STG/0]OUTStaging failed: An application could not be detected by any available buildpack
+2016-07-11T17:13:54.328+0800[STG/0]ERR
+2016-07-11T17:13:54.569+0800[API/8]ERRencountered error: An app was not successfully detected by any available buildpack
+2016-07-11T17:30:00.488+0800[API/6]OUTUpdated app with guid ebed8991-19f1-4fc1-8354-c53c09350c17 ({"name"=>"humix-cflin"})
+2016-07-11T17:31:08.055+0800[API/2]OUTUpdated app with guid ebed8991-19f1-4fc1-8354-c53c09350c17 ({"state"=>"STOPPED"})
+2016-07-11T17:31:12.953+0800[DEA/114]OUTGot staging request for app with id ebed8991-19f1-4fc1-8354-c53c09350c17
+2016-07-11T17:31:22.152+0800[API/10]OUTUpdated app with guid ebed8991-19f1-4fc1-8354-c53c09350c17 ({"state"=>"STARTED"})
+2016-07-11T17:31:23.165+0800[STG/114]OUT-----> Downloaded app package (14M)
+2016-07-11T17:31:24.230+0800[STG/114]OUT-----> Downloaded app buildpack cache (7.9M)
+2016-07-11T17:31:28.946+0800[STG/0]OUTStaging failed: An application could not be detected by any available buildpack
+2016-07-11T17:31:28.949+0800[STG/0]ERR
+2016-07-11T17:31:29.152+0800[API/10]ERRencountered error: An app was not successfully detected by any available buildpack
+2016-07-11T17:33:00.803+0800[API/1]OUTUpdated app with guid ebed8991-19f1-4fc1-8354-c53c09350c17 ({"name"=>"humix-cflin", "command"=>"PRIVATE DATA HIDDEN", "instances"=>1, "memory"=>512, "disk_quota"=>1024, "environment_json"=>"PRIVATE DATA HIDDEN"})
+2016-07-11T17:54:37.368+0800[API/0]OUTUpdated app with guid ebed8991-19f1-4fc1-8354-c53c09350c17 ({"state"=>"STOPPED"})
+2016-07-11T17:54:42.315+0800[DEA/105]OUTGot staging request for app with id ebed8991-19f1-4fc1-8354-c53c09350c17
+2016-07-11T17:54:52.750+0800[API/1]OUTUpdated app with guid ebed8991-19f1-4fc1-8354-c53c09350c17 ({"state"=>"STARTED"})
+2016-07-11T17:55:07.035+0800[STG/105]OUT-----> Downloaded app package (91M)
+2016-07-11T17:55:08.054+0800[STG/105]OUT-----> Downloaded app buildpack cache (7.9M)
+2016-07-11T17:55:33.127+0800[STG/0]OUT
+2016-07-11T17:55:33.127+0800[STG/0]OUT-----> IBM SDK for Node.js Buildpack v3.5-20160609-1608
+2016-07-11T17:55:33.134+0800[STG/0]OUT Based on Cloud Foundry Node.js Buildpack v1.5.14
+2016-07-11T17:55:33.143+0800[STG/0]OUT-----> Creating runtime environment
+2016-07-11T17:55:33.160+0800[STG/0]OUT NPM_CONFIG_LOGLEVEL=error
+2016-07-11T17:55:33.161+0800[STG/0]OUT NPM_CONFIG_PRODUCTION=true
+2016-07-11T17:55:33.165+0800[STG/0]OUT NODE_ENV=production
+2016-07-11T17:55:33.165+0800[STG/0]OUT NODE_MODULES_CACHE=true
+2016-07-11T17:55:33.174+0800[STG/0]OUT-----> Installing binaries
+2016-07-11T17:55:33.205+0800[STG/0]OUT engines.node (package.json): >=4.2
+2016-07-11T17:55:33.207+0800[STG/0]OUT engines.npm (package.json): unspecified (use default)
+2016-07-11T17:55:33.207+0800[STG/0]OUT Resolving node version >=4.2 via 'node-version-resolver'
+2016-07-11T17:55:33.454+0800[STG/0]OUT Installing IBM SDK for Node.js (4.4.5) from cache
+2016-07-11T17:55:34.591+0800[STG/0]OUT Using default npm version: 2.15.5
+2016-07-11T17:55:34.890+0800[STG/0]OUT-----> Restoring cache
+2016-07-11T17:55:35.239+0800[STG/0]OUT Loading 2 from cacheDirectories (default):
+2016-07-11T17:55:35.241+0800[STG/0]OUT-----> Checking and configuring service extensions before installing dependencies
+2016-07-11T17:55:35.240+0800[STG/0]OUT - bower_components (not cached - skipping)
+2016-07-11T17:55:35.240+0800[STG/0]OUT - node_modules (exists - skipping)
+2016-07-11T17:55:35.695+0800[STG/0]OUT Prebuild detected (node_modules already exists)
+2016-07-11T17:55:35.695+0800[STG/0]OUT-----> Building dependencies
+2016-07-11T17:55:40.913+0800[STG/0]OUT body-parser@1.15.1 /tmp/staged/app/node_modules/body-parser
+2016-07-11T17:55:40.913+0800[STG/0]OUT content-type@1.0.2 /tmp/staged/app/node_modules/content-type
+2016-07-11T17:55:40.913+0800[STG/0]OUT depd@1.1.0 /tmp/staged/app/node_modules/depd
+2016-07-11T17:55:40.913+0800[STG/0]OUT debug@2.2.0 /tmp/staged/app/node_modules/debug
+2016-07-11T17:55:40.913+0800[STG/0]OUT bytes@2.3.0 /tmp/staged/app/node_modules/bytes
+2016-07-11T17:55:40.913+0800[STG/0]OUT ms@0.7.1 /tmp/staged/app/node_modules/ms
+2016-07-11T17:55:40.913+0800[STG/0]OUT async@1.5.0 /tmp/staged/app/node_modules/async
+2016-07-11T17:55:40.913+0800[STG/0]OUT http-errors@1.4.0 /tmp/staged/app/node_modules/http-errors
+2016-07-11T17:55:40.921+0800[STG/0]OUT unpipe@1.0.0 /tmp/staged/app/node_modules/unpipe
+2016-07-11T17:55:40.921+0800[STG/0]OUT type-is@1.6.13 /tmp/staged/app/node_modules/type-is
+2016-07-11T17:55:40.921+0800[STG/0]OUT clone@1.0.2 /tmp/staged/app/node_modules/clone
+2016-07-11T17:55:40.921+0800[STG/0]OUT raw-body@2.1.7 /tmp/staged/app/node_modules/body-parser/node_modules/raw-body
+2016-07-11T17:55:40.921+0800[STG/0]OUT mime-types@2.1.11 /tmp/staged/app/node_modules/mime-types
+2016-07-11T17:55:40.921+0800[STG/0]OUT inherits@2.0.1 /tmp/staged/app/node_modules/inherits
+2016-07-11T17:55:40.921+0800[STG/0]OUT bytes@2.4.0 /tmp/staged/app/node_modules/body-parser/node_modules/raw-body/node_modules/bytes
+2016-07-11T17:55:40.921+0800[STG/0]OUT mime-db@1.23.0 /tmp/staged/app/node_modules/mime-db
+2016-07-11T17:55:40.921+0800[STG/0]OUT statuses@1.3.0 /tmp/staged/app/node_modules/statuses
+2016-07-11T17:55:40.921+0800[STG/0]OUT bcryptjs@2.2.0 /tmp/staged/app/node_modules/bcryptjs
+2016-07-11T17:55:40.921+0800[STG/0]OUT on-finished@2.3.0 /tmp/staged/app/node_modules/on-finished
+2016-07-11T17:55:40.921+0800[STG/0]OUT qs@6.1.0 /tmp/staged/app/node_modules/qs
+2016-07-11T17:55:40.921+0800[STG/0]OUT ee-first@1.1.1 /tmp/staged/app/node_modules/ee-first
+2016-07-11T17:55:40.921+0800[STG/0]OUT media-typer@0.3.0 /tmp/staged/app/node_modules/media-typer
+2016-07-11T17:55:40.921+0800[STG/0]OUT iconv-lite@0.4.13 /tmp/staged/app/node_modules/iconv-lite
+2016-07-11T17:55:40.923+0800[STG/0]OUT moment-timezone@0.3.1 /tmp/staged/app/node_modules/moment-timezone
+2016-07-11T17:55:40.923+0800[STG/0]OUT cron@1.0.9 /tmp/staged/app/node_modules/cron
+2016-07-11T17:55:40.926+0800[STG/0]OUT moment@2.13.0 /tmp/staged/app/node_modules/moment
+2016-07-11T17:55:40.928+0800[STG/0]OUT cfenv@1.0.3 /tmp/staged/app/node_modules/cfenv
+2016-07-11T17:55:40.930+0800[STG/0]OUT js-yaml@3.4.6 /tmp/staged/app/node_modules/js-yaml
+2016-07-11T17:55:40.927+0800[STG/0]OUT cors@2.7.1 /tmp/staged/app/node_modules/cors
+2016-07-11T17:55:40.928+0800[STG/0]OUT vary@1.1.0 /tmp/staged/app/node_modules/vary
+2016-07-11T17:55:40.930+0800[STG/0]OUT argparse@1.0.7 /tmp/staged/app/node_modules/argparse
+2016-07-11T17:55:40.933+0800[STG/0]OUT sprintf-js@1.0.3 /tmp/staged/app/node_modules/sprintf-js
+2016-07-11T17:55:40.933+0800[STG/0]OUT inherit@2.2.3 /tmp/staged/app/node_modules/inherit
+2016-07-11T17:55:40.933+0800[STG/0]OUT ports@1.1.0 /tmp/staged/app/node_modules/ports
+2016-07-11T17:55:40.933+0800[STG/0]OUT esprima@2.7.2 /tmp/staged/app/node_modules/esprima
+2016-07-11T17:55:40.936+0800[STG/0]OUT cheerio@0.19.0 /tmp/staged/app/node_modules/cheerio
+2016-07-11T17:55:40.936+0800[STG/0]OUT underscore@1.8.3 /tmp/staged/app/node_modules/underscore
+2016-07-11T17:55:40.937+0800[STG/0]OUT css-select@1.0.0 /tmp/staged/app/node_modules/css-select
+2016-07-11T17:55:40.939+0800[STG/0]OUT boolbase@1.0.0 /tmp/staged/app/node_modules/boolbase
+2016-07-11T17:55:40.939+0800[STG/0]OUT css-what@1.0.0 /tmp/staged/app/node_modules/css-what
+2016-07-11T17:55:40.940+0800[STG/0]OUT domutils@1.4.3 /tmp/staged/app/node_modules/domutils
+2016-07-11T17:55:40.943+0800[STG/0]OUT nth-check@1.0.1 /tmp/staged/app/node_modules/nth-check
+2016-07-11T17:55:40.941+0800[STG/0]OUT domelementtype@1.3.0 /tmp/staged/app/node_modules/domelementtype
+2016-07-11T17:55:40.943+0800[STG/0]OUT dom-serializer@0.1.0 /tmp/staged/app/node_modules/dom-serializer
+2016-07-11T17:55:40.946+0800[STG/0]OUT entities@1.1.1 /tmp/staged/app/node_modules/entities
+2016-07-11T17:55:40.946+0800[STG/0]OUT domelementtype@1.1.3 /tmp/staged/app/node_modules/dom-serializer/node_modules/domelementtype
+2016-07-11T17:55:40.948+0800[STG/0]OUT htmlparser2@3.8.3 /tmp/staged/app/node_modules/htmlparser2
+2016-07-11T17:55:40.948+0800[STG/0]OUT domhandler@2.3.0 /tmp/staged/app/node_modules/domhandler
+2016-07-11T17:55:40.949+0800[STG/0]OUT domutils@1.5.1 /tmp/staged/app/node_modules/htmlparser2/node_modules/domutils
+2016-07-11T17:55:40.952+0800[STG/0]OUT entities@1.0.0 /tmp/staged/app/node_modules/htmlparser2/node_modules/entities
+2016-07-11T17:55:40.952+0800[STG/0]OUT readable-stream@1.1.14 /tmp/staged/app/node_modules/readable-stream
+2016-07-11T17:55:40.953+0800[STG/0]OUT core-util-is@1.0.2 /tmp/staged/app/node_modules/core-util-is
+2016-07-11T17:55:40.955+0800[STG/0]OUT string_decoder@0.10.31 /tmp/staged/app/node_modules/string_decoder
+2016-07-11T17:55:40.955+0800[STG/0]OUT isarray@0.0.1 /tmp/staged/app/node_modules/isarray
+2016-07-11T17:55:40.957+0800[STG/0]OUT express@4.14.0 /tmp/staged/app/node_modules/express
+2016-07-11T17:55:40.956+0800[STG/0]OUT lodash@3.10.1 /tmp/staged/app/node_modules/lodash
+2016-07-11T17:55:40.958+0800[STG/0]OUT accepts@1.3.3 /tmp/staged/app/node_modules/accepts
+2016-07-11T17:55:40.959+0800[STG/0]OUT negotiator@0.6.1 /tmp/staged/app/node_modules/negotiator
+2016-07-11T17:55:40.961+0800[STG/0]OUT content-disposition@0.5.1 /tmp/staged/app/node_modules/content-disposition
+2016-07-11T17:55:40.961+0800[STG/0]OUT array-flatten@1.1.1 /tmp/staged/app/node_modules/array-flatten
+2016-07-11T17:55:40.964+0800[STG/0]OUT cookie@0.3.1 /tmp/staged/app/node_modules/cookie
+2016-07-11T17:55:40.965+0800[STG/0]OUT encodeurl@1.0.1 /tmp/staged/app/node_modules/encodeurl
+2016-07-11T17:55:40.965+0800[STG/0]OUT escape-html@1.0.3 /tmp/staged/app/node_modules/escape-html
+2016-07-11T17:55:40.966+0800[STG/0]OUT finalhandler@0.5.0 /tmp/staged/app/node_modules/finalhandler
+2016-07-11T17:55:40.964+0800[STG/0]OUT cookie-signature@1.0.6 /tmp/staged/app/node_modules/cookie-signature
+2016-07-11T17:55:40.965+0800[STG/0]OUT etag@1.7.0 /tmp/staged/app/node_modules/etag
+2016-07-11T17:55:40.966+0800[STG/0]OUT fresh@0.3.0 /tmp/staged/app/node_modules/fresh
+2016-07-11T17:55:40.968+0800[STG/0]OUT path-to-regexp@0.1.7 /tmp/staged/app/node_modules/path-to-regexp
+2016-07-11T17:55:40.968+0800[STG/0]OUT proxy-addr@1.1.2 /tmp/staged/app/node_modules/proxy-addr
+2016-07-11T17:55:40.968+0800[STG/0]OUT forwarded@0.1.0 /tmp/staged/app/node_modules/forwarded
+2016-07-11T17:55:40.968+0800[STG/0]OUT qs@6.2.0 /tmp/staged/app/node_modules/express/node_modules/qs
+2016-07-11T17:55:40.969+0800[STG/0]OUT send@0.14.1 /tmp/staged/app/node_modules/send
+2016-07-11T17:55:40.969+0800[STG/0]OUT destroy@1.0.4 /tmp/staged/app/node_modules/destroy
+2016-07-11T17:55:40.969+0800[STG/0]OUT range-parser@1.2.0 /tmp/staged/app/node_modules/range-parser
+2016-07-11T17:55:40.968+0800[STG/0]OUT methods@1.1.2 /tmp/staged/app/node_modules/methods
+2016-07-11T17:55:40.968+0800[STG/0]OUT merge-descriptors@1.0.1 /tmp/staged/app/node_modules/merge-descriptors
+2016-07-11T17:55:40.968+0800[STG/0]OUT ipaddr.js@1.1.1 /tmp/staged/app/node_modules/ipaddr.js
+2016-07-11T17:55:40.973+0800[STG/0]OUT http-errors@1.5.0 /tmp/staged/app/node_modules/send/node_modules/http-errors
+2016-07-11T17:55:40.973+0800[STG/0]OUT serve-static@1.11.1 /tmp/staged/app/node_modules/serve-static
+2016-07-11T17:55:40.973+0800[STG/0]OUT mime@1.3.4 /tmp/staged/app/node_modules/mime
+2016-07-11T17:55:40.973+0800[STG/0]OUT cookies@0.6.1 /tmp/staged/app/node_modules/cookies
+2016-07-11T17:55:40.973+0800[STG/0]OUT is-utf8@0.2.0 /tmp/staged/app/node_modules/is-utf8
+2016-07-11T17:55:40.973+0800[STG/0]OUT setprototypeof@1.0.1 /tmp/staged/app/node_modules/setprototypeof
+2016-07-11T17:55:40.973+0800[STG/0]OUT utils-merge@1.0.0 /tmp/staged/app/node_modules/utils-merge
+2016-07-11T17:55:40.973+0800[STG/0]OUT i18next@1.10.2 /tmp/staged/app/node_modules/i18next
+2016-07-11T17:55:40.976+0800[STG/0]OUT keygrip@1.0.1 /tmp/staged/app/node_modules/keygrip
+2016-07-11T17:55:40.980+0800[STG/0]OUT i18next-client@1.10.2 /tmp/staged/app/node_modules/i18next-client
+2016-07-11T17:55:40.980+0800[STG/0]OUT fs-extra@0.22.1 /tmp/staged/app/node_modules/fs-extra
+2016-07-11T17:55:40.980+0800[STG/0]OUT once@1.3.3 /tmp/staged/app/node_modules/once
+2016-07-11T17:55:40.980+0800[STG/0]OUT graceful-fs@4.1.4 /tmp/staged/app/node_modules/graceful-fs
+2016-07-11T17:55:40.980+0800[STG/0]OUT inflight@1.0.5 /tmp/staged/app/node_modules/inflight
+2016-07-11T17:55:40.980+0800[STG/0]OUT jsonfile@2.3.1 /tmp/staged/app/node_modules/jsonfile
+2016-07-11T17:55:40.980+0800[STG/0]OUT json5@0.2.0 /tmp/staged/app/node_modules/json5
+2016-07-11T17:55:40.980+0800[STG/0]OUT rimraf@2.5.2 /tmp/staged/app/node_modules/rimraf
+2016-07-11T17:55:40.980+0800[STG/0]OUT wrappy@1.0.2 /tmp/staged/app/node_modules/wrappy
+2016-07-11T17:55:40.980+0800[STG/0]OUT minimatch@3.0.2 /tmp/staged/app/node_modules/minimatch
+2016-07-11T17:55:40.980+0800[STG/0]OUT fs.realpath@1.0.0 /tmp/staged/app/node_modules/fs.realpath
+2016-07-11T17:55:40.980+0800[STG/0]OUT glob@7.0.4 /tmp/staged/app/node_modules/glob
+2016-07-11T17:55:40.984+0800[STG/0]OUT retry@0.6.1 /tmp/staged/app/node_modules/retry
+2016-07-11T17:55:40.984+0800[STG/0]OUT async@0.1.22 /tmp/staged/app/node_modules/fs.notify/node_modules/async
+2016-07-11T17:55:40.984+0800[STG/0]OUT resanitize@0.3.0 /tmp/staged/app/node_modules/resanitize
+2016-07-11T17:55:40.984+0800[STG/0]OUT feedparser@0.19.2 /tmp/staged/app/node_modules/feedparser
+2016-07-11T17:55:40.984+0800[STG/0]OUT follow-redirects@0.0.6 /tmp/staged/app/node_modules/follow-redirects
+2016-07-11T17:55:40.986+0800[STG/0]OUT sax@0.6.1 /tmp/staged/app/node_modules/sax
+2016-07-11T17:55:40.984+0800[STG/0]OUT brace-expansion@1.1.5 /tmp/staged/app/node_modules/brace-expansion
+2016-07-11T17:55:40.984+0800[STG/0]OUT concat-map@0.0.1 /tmp/staged/app/node_modules/concat-map
+2016-07-11T17:55:40.984+0800[STG/0]OUT balanced-match@0.4.1 /tmp/staged/app/node_modules/balanced-match
+2016-07-11T17:55:40.986+0800[STG/0]OUT js2xmlparser@1.0.0 /tmp/staged/app/node_modules/js2xmlparser
+2016-07-11T17:55:40.984+0800[STG/0]OUT fs.notify@0.0.4 /tmp/staged/app/node_modules/fs.notify
+2016-07-11T17:55:40.984+0800[STG/0]OUT readable-stream@1.0.34 /tmp/staged/app/node_modules/feedparser/node_modules/readable-stream
+2016-07-11T17:55:40.968+0800[STG/0]OUT parseurl@1.3.1 /tmp/staged/app/node_modules/parseurl
+2016-07-11T17:55:40.984+0800[STG/0]OUT path-is-absolute@1.0.0 /tmp/staged/app/node_modules/path-is-absolute
+2016-07-11T17:55:40.984+0800[STG/0]OUT array-indexofobject@0.0.1 /tmp/staged/app/node_modules/array-indexofobject
+2016-07-11T17:55:40.986+0800[STG/0]OUT validator@1.5.1 /tmp/staged/app/node_modules/validator
+2016-07-11T17:55:40.984+0800[STG/0]OUT addressparser@0.1.3 /tmp/staged/app/node_modules/addressparser
+2016-07-11T17:55:40.989+0800[STG/0]OUT confortable@0.2.2 /tmp/staged/app/node_modules/confortable
+2016-07-11T17:55:40.989+0800[STG/0]OUT logule@2.1.0 /tmp/staged/app/node_modules/logule
+2016-07-11T17:55:40.989+0800[STG/0]OUT mustache@2.1.2 /tmp/staged/app/node_modules/mustache
+2016-07-11T17:55:40.989+0800[STG/0]OUT mqtt@0.3.13 /tmp/staged/app/node_modules/mqtt
+2016-07-11T17:55:40.989+0800[STG/0]OUT readable-stream@1.0.34 /tmp/staged/app/node_modules/mqtt/node_modules/readable-stream
+2016-07-11T17:55:40.991+0800[STG/0]OUT nano@5.11.2 /tmp/staged/app/node_modules/nano
+2016-07-11T17:55:40.989+0800[STG/0]OUT autonomy@0.5.2 /tmp/staged/app/node_modules/autonomy
+2016-07-11T17:55:40.989+0800[STG/0]OUT subset@0.1.7 /tmp/staged/app/node_modules/subset
+2016-07-11T17:55:40.989+0800[STG/0]OUT dye@0.1.0 /tmp/staged/app/node_modules/dye
+2016-07-11T17:55:40.989+0800[STG/0]OUT typr@0.2.1 /tmp/staged/app/node_modules/typr
+2016-07-11T17:55:40.989+0800[STG/0]OUT needle@1.0.0 /tmp/staged/app/node_modules/needle
+2016-07-11T17:55:40.995+0800[STG/0]OUT debug@0.7.4 /tmp/staged/app/node_modules/follow/node_modules/debug
+2016-07-11T17:55:40.994+0800[STG/0]OUT follow@0.11.4 /tmp/staged/app/node_modules/follow
+2016-07-11T17:55:40.994+0800[STG/0]OUT errs@0.3.2 /tmp/staged/app/node_modules/errs
+2016-07-11T17:55:40.995+0800[STG/0]OUT request@2.72.0 /tmp/staged/app/node_modules/request
+2016-07-11T17:55:40.995+0800[STG/0]OUT browser-request@0.3.3 /tmp/staged/app/node_modules/browser-request
+2016-07-11T17:55:40.997+0800[STG/0]OUT aws-sign2@0.6.0 /tmp/staged/app/node_modules/aws-sign2
+2016-07-11T17:55:40.997+0800[STG/0]OUT isarray@1.0.0 /tmp/staged/app/node_modules/bl/node_modules/isarray
+2016-07-11T17:55:40.997+0800[STG/0]OUT bl@1.1.2 /tmp/staged/app/node_modules/bl
+2016-07-11T17:55:40.997+0800[STG/0]OUT aws4@1.4.1 /tmp/staged/app/node_modules/aws4
+2016-07-11T17:55:40.998+0800[STG/0]OUT process-nextick-args@1.0.7 /tmp/staged/app/node_modules/process-nextick-args
+2016-07-11T17:55:40.997+0800[STG/0]OUT readable-stream@2.0.6 /tmp/staged/app/node_modules/bl/node_modules/readable-stream
+2016-07-11T17:55:40.999+0800[STG/0]OUT util-deprecate@1.0.2 /tmp/staged/app/node_modules/util-deprecate
+2016-07-11T17:55:40.999+0800[STG/0]OUT extend@3.0.0 /tmp/staged/app/node_modules/extend
+2016-07-11T17:55:41.000+0800[STG/0]OUT forever-agent@0.6.1 /tmp/staged/app/node_modules/forever-agent
+2016-07-11T17:55:40.999+0800[STG/0]OUT caseless@0.11.0 /tmp/staged/app/node_modules/caseless
+2016-07-11T17:55:41.001+0800[STG/0]OUT form-data@1.0.0-rc4 /tmp/staged/app/node_modules/form-data
+2016-07-11T17:55:40.999+0800[STG/0]OUT delayed-stream@1.0.0 /tmp/staged/app/node_modules/delayed-stream
+2016-07-11T17:55:41.001+0800[STG/0]OUT async@1.5.2 /tmp/staged/app/node_modules/form-data/node_modules/async
+2016-07-11T17:55:41.002+0800[STG/0]OUT escape-string-regexp@1.0.5 /tmp/staged/app/node_modules/escape-string-regexp
+2016-07-11T17:55:41.002+0800[STG/0]OUT has-ansi@2.0.0 /tmp/staged/app/node_modules/has-ansi
+2016-07-11T17:55:41.002+0800[STG/0]OUT ansi-styles@2.2.1 /tmp/staged/app/node_modules/ansi-styles
+2016-07-11T17:55:41.002+0800[STG/0]OUT har-validator@2.0.6 /tmp/staged/app/node_modules/har-validator
+2016-07-11T17:55:41.002+0800[STG/0]OUT chalk@1.1.3 /tmp/staged/app/node_modules/chalk
+2016-07-11T17:55:41.004+0800[STG/0]OUT strip-ansi@3.0.1 /tmp/staged/app/node_modules/strip-ansi
+2016-07-11T17:55:41.004+0800[STG/0]OUT commander@2.9.0 /tmp/staged/app/node_modules/commander
+2016-07-11T17:55:41.004+0800[STG/0]OUT supports-color@2.0.0 /tmp/staged/app/node_modules/supports-color
+2016-07-11T17:55:41.004+0800[STG/0]OUT graceful-readlink@1.0.1 /tmp/staged/app/node_modules/graceful-readlink
+2016-07-11T17:55:41.007+0800[STG/0]OUT generate-function@2.0.0 /tmp/staged/app/node_modules/generate-function
+2016-07-11T17:55:41.007+0800[STG/0]OUT is-my-json-valid@2.13.1 /tmp/staged/app/node_modules/is-my-json-valid
+2016-07-11T17:55:41.007+0800[STG/0]OUT is-property@1.0.2 /tmp/staged/app/node_modules/is-property
+2016-07-11T17:55:41.007+0800[STG/0]OUT pinkie@2.0.4 /tmp/staged/app/node_modules/pinkie
+2016-07-11T17:55:41.007+0800[STG/0]OUT jsonpointer@2.0.0 /tmp/staged/app/node_modules/jsonpointer
+2016-07-11T17:55:41.009+0800[STG/0]OUT boom@2.10.1 /tmp/staged/app/node_modules/boom
+2016-07-11T17:55:41.009+0800[STG/0]OUT sntp@1.0.9 /tmp/staged/app/node_modules/sntp
+2016-07-11T17:55:41.007+0800[STG/0]OUT hawk@3.1.3 /tmp/staged/app/node_modules/hawk
+2016-07-11T17:55:41.009+0800[STG/0]OUT hoek@2.16.3 /tmp/staged/app/node_modules/hoek
+2016-07-11T17:55:41.009+0800[STG/0]OUT http-signature@1.1.1 /tmp/staged/app/node_modules/http-signature
+2016-07-11T17:55:41.009+0800[STG/0]OUT assert-plus@0.2.0 /tmp/staged/app/node_modules/assert-plus
+2016-07-11T17:55:41.011+0800[STG/0]OUT jsprim@1.2.2 /tmp/staged/app/node_modules/jsprim
+2016-07-11T17:55:41.012+0800[STG/0]OUT asn1@0.2.3 /tmp/staged/app/node_modules/asn1
+2016-07-11T17:55:41.012+0800[STG/0]OUT dashdash@1.14.0 /tmp/staged/app/node_modules/dashdash
+2016-07-11T17:55:41.004+0800[STG/0]OUT ansi-regex@2.0.0 /tmp/staged/app/node_modules/ansi-regex
+2016-07-11T17:55:41.007+0800[STG/0]OUT xtend@4.0.1 /tmp/staged/app/node_modules/xtend
+2016-07-11T17:55:41.012+0800[STG/0]OUT sshpk@1.8.3 /tmp/staged/app/node_modules/sshpk
+2016-07-11T17:55:41.012+0800[STG/0]OUT assert-plus@1.0.0 /tmp/staged/app/node_modules/sshpk/node_modules/assert-plus
+2016-07-11T17:55:41.012+0800[STG/0]OUT verror@1.3.6 /tmp/staged/app/node_modules/verror
+2016-07-11T17:55:41.012+0800[STG/0]OUT extsprintf@1.0.2 /tmp/staged/app/node_modules/extsprintf
+2016-07-11T17:55:41.012+0800[STG/0]OUT json-schema@0.2.2 /tmp/staged/app/node_modules/json-schema
+2016-07-11T17:55:41.013+0800[STG/0]OUT getpass@0.1.6 /tmp/staged/app/node_modules/getpass
+2016-07-11T17:55:41.012+0800[STG/0]OUT assert-plus@1.0.0 /tmp/staged/app/node_modules/dashdash/node_modules/assert-plus
+2016-07-11T17:55:41.013+0800[STG/0]OUT isstream@0.1.2 /tmp/staged/app/node_modules/isstream
+2016-07-11T17:55:41.013+0800[STG/0]OUT json-stringify-safe@5.0.1 /tmp/staged/app/node_modules/json-stringify-safe
+2016-07-11T17:55:41.013+0800[STG/0]OUT assert-plus@1.0.0 /tmp/staged/app/node_modules/getpass/node_modules/assert-plus
+2016-07-11T17:55:41.016+0800[STG/0]OUT node-uuid@1.4.7 /tmp/staged/app/node_modules/node-uuid
+2016-07-11T17:55:41.016+0800[STG/0]OUT tunnel-agent@0.4.3 /tmp/staged/app/node_modules/tunnel-agent
+2016-07-11T17:55:41.016+0800[STG/0]OUT stringstream@0.0.5 /tmp/staged/app/node_modules/stringstream
+2016-07-11T17:55:41.016+0800[STG/0]OUT readable-stream@1.0.34 /tmp/staged/app/node_modules/nano/node_modules/readable-stream
+2016-07-11T17:55:41.016+0800[STG/0]OUT request@2.42.0 /tmp/staged/app/node_modules/nano/node_modules/request
+2016-07-11T17:55:41.016+0800[STG/0]OUT bl@0.9.5 /tmp/staged/app/node_modules/nano/node_modules/bl
+2016-07-11T17:55:41.016+0800[STG/0]OUT oauth-sign@0.8.2 /tmp/staged/app/node_modules/oauth-sign
+2016-07-11T17:55:41.017+0800[STG/0]OUT caseless@0.6.0 /tmp/staged/app/node_modules/nano/node_modules/caseless
+2016-07-11T17:55:41.019+0800[STG/0]OUT underscore@1.7.0 /tmp/staged/app/node_modules/nano/node_modules/underscore
+2016-07-11T17:55:41.019+0800[STG/0]OUT mime-types@1.0.2 /tmp/staged/app/node_modules/nano/node_modules/mime-types
+2016-07-11T17:55:41.019+0800[STG/0]OUT assert-plus@0.1.5 /tmp/staged/app/node_modules/nano/node_modules/assert-plus
+2016-07-11T17:55:41.019+0800[STG/0]OUT qs@1.2.2 /tmp/staged/app/node_modules/nano/node_modules/qs
+2016-07-11T17:55:41.021+0800[STG/0]OUT combined-stream@0.0.7 /tmp/staged/app/node_modules/nano/node_modules/combined-stream
+2016-07-11T17:55:41.022+0800[STG/0]OUT delayed-stream@0.0.5 /tmp/staged/app/node_modules/nano/node_modules/delayed-stream
+2016-07-11T17:55:41.020+0800[STG/0]OUT aws-sign2@0.5.0 /tmp/staged/app/node_modules/nano/node_modules/aws-sign2
+2016-07-11T17:55:41.020+0800[STG/0]OUT async@0.9.2 /tmp/staged/app/node_modules/nano/node_modules/async
+2016-07-11T17:55:41.024+0800[STG/0]OUT boom@0.4.2 /tmp/staged/app/node_modules/nano/node_modules/boom
+2016-07-11T17:55:41.024+0800[STG/0]OUT sntp@0.2.4 /tmp/staged/app/node_modules/nano/node_modules/sntp
+2016-07-11T17:55:41.024+0800[STG/0]OUT hoek@0.9.1 /tmp/staged/app/node_modules/nano/node_modules/hoek
+2016-07-11T17:55:41.024+0800[STG/0]OUT mime@1.2.11 /tmp/staged/app/node_modules/nano/node_modules/mime
+2016-07-11T17:55:41.025+0800[STG/0]OUT http-signature@0.10.1 /tmp/staged/app/node_modules/nano/node_modules/http-signature
+2016-07-11T17:55:41.024+0800[STG/0]OUT hawk@1.1.1 /tmp/staged/app/node_modules/nano/node_modules/hawk
+2016-07-11T17:55:41.024+0800[STG/0]OUT cryptiles@0.2.2 /tmp/staged/app/node_modules/nano/node_modules/cryptiles
+2016-07-11T17:55:41.024+0800[STG/0]OUT form-data@0.1.4 /tmp/staged/app/node_modules/nano/node_modules/form-data
+2016-07-11T17:55:41.027+0800[STG/0]OUT nopt@3.0.3 /tmp/staged/app/node_modules/nopt
+2016-07-11T17:55:41.027+0800[STG/0]OUT on-headers@1.0.0 /tmp/staged/app/node_modules/on-headers
+2016-07-11T17:55:41.027+0800[STG/0]OUT abbrev@1.0.9 /tmp/staged/app/node_modules/abbrev
+2016-07-11T17:55:41.027+0800[STG/0]OUT oauth-sign@0.4.0 /tmp/staged/app/node_modules/nano/node_modules/oauth-sign
+2016-07-11T17:55:41.027+0800[STG/0]OUT debug@0.7.4 /tmp/staged/app/node_modules/oauth2orize/node_modules/debug
+2016-07-11T17:55:41.027+0800[STG/0]OUT asn1@0.1.11 /tmp/staged/app/node_modules/nano/node_modules/asn1
+2016-07-11T17:55:41.029+0800[STG/0]OUT passport-strategy@1.0.0 /tmp/staged/app/node_modules/passport-strategy
+2016-07-11T17:55:41.029+0800[STG/0]OUT pause@0.0.1 /tmp/staged/app/node_modules/pause
+2016-07-11T17:55:41.030+0800[STG/0]OUT bytes@2.1.0 /tmp/staged/app/node_modules/raw-body/node_modules/bytes
+2016-07-11T17:55:41.030+0800[STG/0]OUT raw-body@2.1.2 /tmp/staged/app/node_modules/raw-body
+2016-07-11T17:55:41.029+0800[STG/0]OUT passport-http-bearer@1.0.1 /tmp/staged/app/node_modules/passport-http-bearer
+2016-07-11T17:55:41.029+0800[STG/0]OUT passport@0.2.2 /tmp/staged/app/node_modules/passport
+2016-07-11T17:55:41.029+0800[STG/0]OUT passport-oauth2-client-password@0.1.2 /tmp/staged/app/node_modules/passport-oauth2-client-password
+2016-07-11T17:55:41.033+0800[STG/0]OUT semver@5.0.1 /tmp/staged/app/node_modules/semver
+2016-07-11T17:55:41.033+0800[STG/0]OUT amdefine@1.0.0 /tmp/staged/app/node_modules/amdefine
+2016-07-11T17:55:41.033+0800[STG/0]OUT source-map@0.1.34 /tmp/staged/app/node_modules/source-map
+2016-07-11T17:55:41.033+0800[STG/0]OUT iconv-lite@0.4.11 /tmp/staged/app/node_modules/raw-body/node_modules/iconv-lite
+2016-07-11T17:55:41.033+0800[STG/0]OUT uglify-js@2.4.24 /tmp/staged/app/node_modules/uglify-js
+2016-07-11T17:55:41.033+0800[STG/0]OUT yargs@3.5.4 /tmp/staged/app/node_modules/yargs
+2016-07-11T17:55:41.035+0800[STG/0]OUT camelcase@1.2.1 /tmp/staged/app/node_modules/camelcase
+2016-07-11T17:55:41.035+0800[STG/0]OUT wordwrap@0.0.2 /tmp/staged/app/node_modules/wordwrap
+2016-07-11T17:55:41.033+0800[STG/0]OUT uglify-to-browserify@1.0.2 /tmp/staged/app/node_modules/uglify-to-browserify
+2016-07-11T17:55:41.036+0800[STG/0]OUT xml2js@0.4.12 /tmp/staged/app/node_modules/xml2js
+2016-07-11T17:55:41.035+0800[STG/0]OUT options@0.0.6 /tmp/staged/app/node_modules/options
+2016-07-11T17:55:41.035+0800[STG/0]OUT window-size@0.1.0 /tmp/staged/app/node_modules/window-size
+2016-07-11T17:55:41.035+0800[STG/0]OUT when@3.7.7 /tmp/staged/app/node_modules/when
+2016-07-11T17:55:41.035+0800[STG/0]OUT ultron@1.0.2 /tmp/staged/app/node_modules/ultron
+2016-07-11T17:55:41.035+0800[STG/0]OUT decamelize@1.2.0 /tmp/staged/app/node_modules/decamelize
+2016-07-11T17:55:41.037+0800[STG/0]OUT grunt@0.4.5 /tmp/staged/app/node_modules/grunt
+2016-07-11T17:55:41.037+0800[STG/0]OUT xmlbuilder@8.2.2 /tmp/staged/app/node_modules/xmlbuilder
+2016-07-11T17:55:41.035+0800[STG/0]OUT ws@0.7.2 /tmp/staged/app/node_modules/ws
+2016-07-11T17:55:41.037+0800[STG/0]OUT async@0.1.22 /tmp/staged/app/node_modules/grunt/node_modules/async
+2016-07-11T17:55:41.039+0800[STG/0]OUT findup-sync@0.1.3 /tmp/staged/app/node_modules/findup-sync
+2016-07-11T17:55:41.039+0800[STG/0]OUT exit@0.1.2 /tmp/staged/app/node_modules/exit
+2016-07-11T17:55:41.039+0800[STG/0]OUT dateformat@1.0.2-1.2.3 /tmp/staged/app/node_modules/dateformat
+2016-07-11T17:55:41.039+0800[STG/0]OUT eventemitter2@0.4.14 /tmp/staged/app/node_modules/eventemitter2
+2016-07-11T17:55:41.039+0800[STG/0]OUT colors@0.6.2 /tmp/staged/app/node_modules/colors
+2016-07-11T17:55:41.041+0800[STG/0]OUT sigmund@1.0.1 /tmp/staged/app/node_modules/sigmund
+2016-07-11T17:55:41.039+0800[STG/0]OUT glob@3.2.11 /tmp/staged/app/node_modules/findup-sync/node_modules/glob
+2016-07-11T17:55:41.041+0800[STG/0]OUT lodash@2.4.2 /tmp/staged/app/node_modules/findup-sync/node_modules/lodash
+2016-07-11T17:55:41.041+0800[STG/0]OUT glob@3.1.21 /tmp/staged/app/node_modules/grunt/node_modules/glob
+2016-07-11T17:55:41.041+0800[STG/0]OUT minimatch@0.3.0 /tmp/staged/app/node_modules/findup-sync/node_modules/minimatch
+2016-07-11T17:55:41.041+0800[STG/0]OUT getobject@0.1.0 /tmp/staged/app/node_modules/getobject
+2016-07-11T17:55:41.041+0800[STG/0]OUT lru-cache@2.7.3 /tmp/staged/app/node_modules/lru-cache
+2016-07-11T17:55:41.042+0800[STG/0]OUT graceful-fs@1.2.3 /tmp/staged/app/node_modules/grunt/node_modules/graceful-fs
+2016-07-11T17:55:41.042+0800[STG/0]OUT inherits@1.0.2 /tmp/staged/app/node_modules/grunt/node_modules/inherits
+2016-07-11T17:55:41.044+0800[STG/0]OUT grunt-legacy-log@0.1.3 /tmp/staged/app/node_modules/grunt-legacy-log
+2016-07-11T17:55:41.044+0800[STG/0]OUT lodash@2.4.2 /tmp/staged/app/node_modules/grunt-legacy-log-utils/node_modules/lodash
+2016-07-11T17:55:41.044+0800[STG/0]OUT underscore.string@2.3.3 /tmp/staged/app/node_modules/grunt-legacy-log-utils/node_modules/underscore.string
+2016-07-11T17:55:41.045+0800[STG/0]OUT lodash@2.4.2 /tmp/staged/app/node_modules/grunt-legacy-log/node_modules/lodash
+2016-07-11T17:55:41.044+0800[STG/0]OUT minimatch@0.2.14 /tmp/staged/app/node_modules/grunt/node_modules/minimatch
+2016-07-11T17:55:41.044+0800[STG/0]OUT hooker@0.2.3 /tmp/staged/app/node_modules/hooker
+2016-07-11T17:55:41.047+0800[STG/0]OUT which@1.0.9 /tmp/staged/app/node_modules/which
+2016-07-11T17:55:41.048+0800[STG/0]OUT iconv-lite@0.2.11 /tmp/staged/app/node_modules/grunt/node_modules/iconv-lite
+2016-07-11T17:55:41.047+0800[STG/0]OUT lodash@0.9.2 /tmp/staged/app/node_modules/grunt-legacy-util/node_modules/lodash
+2016-07-11T17:55:41.047+0800[STG/0]OUT async@0.1.22 /tmp/staged/app/node_modules/grunt-legacy-util/node_modules/async
+2016-07-11T17:55:41.047+0800[STG/0]OUT underscore.string@2.2.1 /tmp/staged/app/node_modules/underscore.string
+2016-07-11T17:55:41.049+0800[STG/0]OUT js-yaml@2.0.5 /tmp/staged/app/node_modules/grunt/node_modules/js-yaml
+2016-07-11T17:55:41.047+0800[STG/0]OUT grunt-legacy-util@0.2.0 /tmp/staged/app/node_modules/grunt-legacy-util
+2016-07-11T17:55:41.049+0800[STG/0]OUT underscore@1.7.0 /tmp/staged/app/node_modules/grunt/node_modules/underscore
+2016-07-11T17:55:41.050+0800[STG/0]OUT underscore.string@2.4.0 /tmp/staged/app/node_modules/grunt/node_modules/argparse/node_modules/underscore.string
+2016-07-11T17:55:41.050+0800[STG/0]OUT nopt@1.0.10 /tmp/staged/app/node_modules/grunt/node_modules/nopt
+2016-07-11T17:55:41.049+0800[STG/0]OUT argparse@0.1.16 /tmp/staged/app/node_modules/grunt/node_modules/argparse
+2016-07-11T17:55:41.050+0800[STG/0]OUT lodash@0.9.2 /tmp/staged/app/node_modules/grunt/node_modules/lodash
+2016-07-11T17:55:41.050+0800[STG/0]OUT esprima@1.0.4 /tmp/staged/app/node_modules/grunt/node_modules/esprima
+2016-07-11T17:55:41.053+0800[STG/0]OUT diff@1.4.0 /tmp/staged/app/node_modules/diff
+2016-07-11T17:55:41.052+0800[STG/0]OUT grunt-cli@0.1.13 /tmp/staged/app/node_modules/grunt-cli
+2016-07-11T17:55:41.052+0800[STG/0]OUT resolve@0.3.1 /tmp/staged/app/node_modules/resolve
+2016-07-11T17:55:41.052+0800[STG/0]OUT nopt@1.0.10 /tmp/staged/app/node_modules/grunt-cli/node_modules/nopt
+2016-07-11T17:55:41.052+0800[STG/0]OUT rimraf@2.2.8 /tmp/staged/app/node_modules/grunt/node_modules/rimraf
+2016-07-11T17:55:41.052+0800[STG/0]OUT component-emitter@1.1.2 /tmp/staged/app/node_modules/component-emitter
+2016-07-11T17:55:41.056+0800[STG/0]OUT jodid25519@1.0.2 /tmp/staged/app/node_modules/jodid25519
+2016-07-11T17:55:41.056+0800[STG/0]OUT lolex@1.1.0 /tmp/staged/app/node_modules/lolex
+2016-07-11T17:55:41.056+0800[STG/0]OUT formidable@1.0.14 /tmp/staged/app/node_modules/formidable
+2016-07-11T17:55:41.056+0800[STG/0]OUT minimist@0.0.8 /tmp/staged/app/node_modules/minimist
+2016-07-11T17:55:41.057+0800[STG/0]OUT should-type@0.0.4 /tmp/staged/app/node_modules/should-type
+2016-07-11T17:55:41.056+0800[STG/0]OUT reduce-component@1.0.1 /tmp/staged/app/node_modules/reduce-component
+2016-07-11T17:55:41.056+0800[STG/0]OUT mkdirp@0.5.0 /tmp/staged/app/node_modules/mkdirp
+2016-07-11T17:55:41.056+0800[STG/0]OUT growl@1.8.1 /tmp/staged/app/node_modules/growl
+2016-07-11T17:55:41.057+0800[STG/0]OUT should@6.0.3 /tmp/staged/app/node_modules/should
+2016-07-11T17:55:41.044+0800[STG/0]OUT grunt-legacy-log-utils@0.1.1 /tmp/staged/app/node_modules/grunt-legacy-log-utils
+2016-07-11T17:55:41.057+0800[STG/0]OUT should-equal@0.3.1 /tmp/staged/app/node_modules/should-equal
+2016-07-11T17:55:41.058+0800[STG/0]OUT should-format@0.0.7 /tmp/staged/app/node_modules/should-format
+2016-07-11T17:55:41.059+0800[STG/0]OUT supertest@1.0.1 /tmp/staged/app/node_modules/supertest
+2016-07-11T17:55:41.058+0800[STG/0]OUT sinon@1.15.4 /tmp/staged/app/node_modules/sinon
+2016-07-11T17:55:41.058+0800[STG/0]OUT util@0.10.3 /tmp/staged/app/node_modules/util
+2016-07-11T17:55:41.059+0800[STG/0]OUT superagent@1.2.0 /tmp/staged/app/node_modules/superagent
+2016-07-11T17:55:41.060+0800[STG/0]OUT extend@1.2.1 /tmp/staged/app/node_modules/superagent/node_modules/extend
+2016-07-11T17:55:41.061+0800[STG/0]OUT combined-stream@0.0.7 /tmp/staged/app/node_modules/superagent/node_modules/combined-stream
+2016-07-11T17:55:41.061+0800[STG/0]OUT delayed-stream@0.0.5 /tmp/staged/app/node_modules/superagent/node_modules/delayed-stream
+2016-07-11T17:55:41.060+0800[STG/0]OUT form-data@0.2.0 /tmp/staged/app/node_modules/superagent/node_modules/form-data
+2016-07-11T17:55:41.061+0800[STG/0]OUT async@0.9.2 /tmp/staged/app/node_modules/superagent/node_modules/async
+2016-07-11T17:55:41.064+0800[STG/0]OUT qs@2.3.3 /tmp/staged/app/node_modules/superagent/node_modules/qs
+2016-07-11T17:55:41.062+0800[STG/0]OUT mime-types@2.0.14 /tmp/staged/app/node_modules/superagent/node_modules/mime-types
+2016-07-11T17:55:41.063+0800[STG/0]OUT mime-db@1.12.0 /tmp/staged/app/node_modules/superagent/node_modules/mime-db
+2016-07-11T17:55:41.065+0800[STG/0]OUT jade@0.26.3 /tmp/staged/app/node_modules/jade
+2016-07-11T17:55:41.065+0800[STG/0]OUT tweetnacl@0.13.3 /tmp/staged/app/node_modules/tweetnacl
+2016-07-11T17:55:41.066+0800[STG/0]OUT mkdirp@0.3.0 /tmp/staged/app/node_modules/jade/node_modules/mkdirp
+2016-07-11T17:55:41.066+0800[STG/0]OUT commander@0.6.1 /tmp/staged/app/node_modules/jade/node_modules/commander
+2016-07-11T17:55:41.068+0800[STG/0]OUT mocha@2.2.5 /tmp/staged/app/node_modules/mocha
+2016-07-11T17:55:41.068+0800[STG/0]OUT commander@2.3.0 /tmp/staged/app/node_modules/mocha/node_modules/commander
+2016-07-11T17:55:41.068+0800[STG/0]OUT glob@3.2.3 /tmp/staged/app/node_modules/mocha/node_modules/glob
+2016-07-11T17:55:41.068+0800[STG/0]OUT ms@0.6.2 /tmp/staged/app/node_modules/mocha/node_modules/ms
+2016-07-11T17:55:41.068+0800[STG/0]OUT escape-string-regexp@1.0.2 /tmp/staged/app/node_modules/mocha/node_modules/escape-string-regexp
+2016-07-11T17:55:41.068+0800[STG/0]OUT debug@2.0.0 /tmp/staged/app/node_modules/mocha/node_modules/debug
+2016-07-11T17:55:41.070+0800[STG/0]OUT minimatch@0.2.14 /tmp/staged/app/node_modules/mocha/node_modules/minimatch
+2016-07-11T17:55:41.070+0800[STG/0]OUT Installing any new modules (package.json)
+2016-07-11T17:55:41.070+0800[STG/0]OUT supports-color@1.2.1 /tmp/staged/app/node_modules/mocha/node_modules/supports-color
+2016-07-11T17:55:41.063+0800[STG/0]OUT methods@1.0.1 /tmp/staged/app/node_modules/superagent/node_modules/methods
+2016-07-11T17:55:40.999+0800[STG/0]OUT combined-stream@1.0.5 /tmp/staged/app/node_modules/combined-stream
+2016-07-11T17:55:41.027+0800[STG/0]OUT oauth2orize@1.0.1 /tmp/staged/app/node_modules/oauth2orize
+2016-07-11T17:55:41.056+0800[STG/0]OUT jsbn@0.1.0 /tmp/staged/app/node_modules/jsbn
+2016-07-11T17:55:41.070+0800[STG/0]OUT graceful-fs@2.0.3 /tmp/staged/app/node_modules/mocha/node_modules/graceful-fs
+2016-07-11T17:55:41.009+0800[STG/0]OUT cryptiles@2.0.5 /tmp/staged/app/node_modules/cryptiles
+2016-07-11T17:55:41.007+0800[STG/0]OUT pinkie-promise@2.0.1 /tmp/staged/app/node_modules/pinkie-promise
+2016-07-11T17:55:41.007+0800[STG/0]OUT generate-object-property@1.2.0 /tmp/staged/app/node_modules/generate-object-property
+2016-07-11T17:55:41.013+0800[STG/0]OUT is-typedarray@1.0.0 /tmp/staged/app/node_modules/is-typedarray
+2016-07-11T17:55:41.016+0800[STG/0]OUT tough-cookie@2.2.2 /tmp/staged/app/node_modules/tough-cookie
+2016-07-11T17:55:45.652+0800[STG/0]OUT > cd node-red;npm install;grunt build
+2016-07-11T17:55:45.652+0800[STG/0]OUT > humix-ng-think@0.9.0 postinstall /tmp/staged/app
+2016-07-11T17:55:49.674+0800[STG/0]OUT > bcrypt@0.8.3 install /tmp/staged/app/node-red/node_modules/bcrypt
+2016-07-11T17:55:49.674+0800[STG/0]OUT > node-gyp rebuild
+2016-07-11T17:55:52.263+0800[STG/0]OUT make: Entering directory `/tmp/staged/app/node-red/node_modules/bcrypt/build'
+2016-07-11T17:55:52.263+0800[STG/0]OUT CXX(target) Release/obj.target/bcrypt_lib/src/blowfish.o
+2016-07-11T17:55:52.763+0800[STG/0]OUT CXX(target) Release/obj.target/bcrypt_lib/src/bcrypt.o
+2016-07-11T17:55:53.066+0800[STG/0]OUT CXX(target) Release/obj.target/bcrypt_lib/src/bcrypt_node.o
+2016-07-11T17:55:53.525+0800[STG/0]OUT ../node_modules/nan/nan.h:261:25: error: redefinition of ‘template<class T> v8::Local<T> _NanEnsureLocal(v8::Local<T>)’
+2016-07-11T17:55:53.524+0800[STG/0]OUT In file included from ../src/bcrypt_node.cc:1:0:
+2016-07-11T17:55:53.528+0800[STG/0]OUT NAN_INLINE v8::Local<T> _NanEnsureLocal(v8::Handle<T> val) {
+2016-07-11T17:55:53.528+0800[STG/0]OUT NAN_INLINE v8::Local<T> _NanEnsureLocal(v8::Local<T> val) {
+2016-07-11T17:55:53.528+0800[STG/0]OUT ^
+2016-07-11T17:55:53.529+0800[STG/0]OUT ^
+2016-07-11T17:55:53.528+0800[STG/0]OUT ../node_modules/nan/nan.h:256:25: error: ‘template<class T> v8::Local<T> _NanEnsureLocal(v8::Handle<T>)’ previously declared here
+2016-07-11T17:55:53.532+0800[STG/0]OUT ../node_modules/nan/nan.h:661:13: error: ‘node::smalloc’ has not been declared
+2016-07-11T17:55:53.532+0800[STG/0]OUT , node::smalloc::FreeCallback callback
+2016-07-11T17:55:53.532+0800[STG/0]OUT ^
+2016-07-11T17:55:53.534+0800[STG/0]OUT ../node_modules/nan/nan.h: In function ‘v8::Local<v8::Object> NanNewBufferHandle(char*, size_t, int)’:
+2016-07-11T17:55:53.534+0800[STG/0]OUT ^
+2016-07-11T17:55:53.534+0800[STG/0]OUT ../node_modules/nan/nan.h:661:35: error: expected ‘,’ or ‘...’ before ‘callback’
+2016-07-11T17:55:53.535+0800[STG/0]OUT ../node_modules/nan/nan.h:665:50: error: ‘callback’ was not declared in this scope
+2016-07-11T17:55:53.534+0800[STG/0]OUT , node::smalloc::FreeCallback callback
+2016-07-11T17:55:53.536+0800[STG/0]OUT ^
+2016-07-11T17:55:53.536+0800[STG/0]OUT v8::Isolate::GetCurrent(), data, length, callback, hint);
+2016-07-11T17:55:53.537+0800[STG/0]OUT ../node_modules/nan/nan.h:665:60: error: ‘hint’ was not declared in this scope
+2016-07-11T17:55:53.538+0800[STG/0]OUT v8::Isolate::GetCurrent(), data, length, callback, hint);
+2016-07-11T17:55:53.538+0800[STG/0]OUT ^
+2016-07-11T17:55:53.539+0800[STG/0]OUT ../node_modules/nan/nan.h: In function ‘v8::Local<v8::Object> NanNewBufferHandle(const char*, uint32_t)’:
+2016-07-11T17:55:53.541+0800[STG/0]OUT ^
+2016-07-11T17:55:53.540+0800[STG/0]OUT ../node_modules/nan/nan.h:672:67: error: call of overloaded ‘New(v8::Isolate*, const char*&, uint32_t&)’ is ambiguous
+2016-07-11T17:55:53.540+0800[STG/0]OUT return node::Buffer::New(v8::Isolate::GetCurrent(), data, size);
+2016-07-11T17:55:53.542+0800[STG/0]OUT ../node_modules/nan/nan.h:672:67: note: candidates are:
+2016-07-11T17:55:53.542+0800[STG/0]OUT In file included from ../node_modules/nan/nan.h:25:0,
+2016-07-11T17:55:53.545+0800[STG/0]OUT /home/vcap/.node-gyp/4.4.5/include/node/node_buffer.h:31:40: note: v8::MaybeLocal<v8::Object> node::Buffer::New(v8::Isolate*, v8::Local<v8::String>, node::encoding) <near match>
+2016-07-11T17:55:53.546+0800[STG/0]OUT ^
+2016-07-11T17:55:53.545+0800[STG/0]OUT from ../src/bcrypt_node.cc:1:
+2016-07-11T17:55:53.545+0800[STG/0]OUT NODE_EXTERN v8::MaybeLocal<v8::Object> New(v8::Isolate* isolate,
+2016-07-11T17:55:53.547+0800[STG/0]OUT /home/vcap/.node-gyp/4.4.5/include/node/node_buffer.h:31:40: note: no known conversion for argument 3 from ‘uint32_t {aka unsigned int}’ to ‘node::encoding’
+2016-07-11T17:55:53.549+0800[STG/0]OUT ^
+2016-07-11T17:55:53.548+0800[STG/0]OUT /home/vcap/.node-gyp/4.4.5/include/node/node_buffer.h:43:40: note: v8::MaybeLocal<v8::Object> node::Buffer::New(v8::Isolate*, char*, size_t) <near match>
+2016-07-11T17:55:53.548+0800[STG/0]OUT NODE_EXTERN v8::MaybeLocal<v8::Object> New(v8::Isolate* isolate,
+2016-07-11T17:55:53.549+0800[STG/0]OUT /home/vcap/.node-gyp/4.4.5/include/node/node_buffer.h:43:40: note: no known conversion for argument 2 from ‘const char*’ to ‘char*’
+2016-07-11T17:55:53.549+0800[STG/0]OUT In file included from ../src/bcrypt_node.cc:1:0:
+2016-07-11T17:55:53.550+0800[STG/0]OUT ../node_modules/nan/nan.h: In function ‘v8::Local<v8::Object> NanNewBufferHandle(uint32_t)’:
+2016-07-11T17:55:53.553+0800[STG/0]OUT ../node_modules/nan/nan.h: In function ‘v8::Local<v8::Object> NanBufferUse(char*, uint32_t)’:
+2016-07-11T17:55:53.553+0800[STG/0]OUT return node::Buffer::Use(v8::Isolate::GetCurrent(), data, size);
+2016-07-11T17:55:53.553+0800[STG/0]OUT ../node_modules/nan/nan.h:683:12: error: ‘Use’ is not a member of ‘node::Buffer’
+2016-07-11T17:55:53.553+0800[STG/0]OUT ^
+2016-07-11T17:55:53.550+0800[STG/0]OUT ../node_modules/nan/nan.h:676:61: error: could not convert ‘node::Buffer::New(v8::Isolate::GetCurrent(), ((size_t)size))’ from ‘v8::MaybeLocal<v8::Object>’ to ‘v8::Local<v8::Object>’
+2016-07-11T17:55:53.553+0800[STG/0]OUT ^
+2016-07-11T17:55:53.553+0800[STG/0]OUT return node::Buffer::New(v8::Isolate::GetCurrent(), size);
+2016-07-11T17:55:53.594+0800[STG/0]OUT ../src/bcrypt_node.cc: In member function ‘virtual void {anonymous}::SaltAsyncWorker::HandleOKCallback()’:
+2016-07-11T17:55:53.594+0800[STG/0]OUT ../src/bcrypt_node.cc:85:59: warning: ‘v8::Local<v8::Value> node::Encode(const void*, size_t, node::encoding)’ is deprecated (declared at /home/vcap/.node-gyp/4.4.5/include/node/node.h:298): Use Encode(isolate, ...) [-Wdeprecated-declarations]
+2016-07-11T17:55:53.594+0800[STG/0]OUT argv[1] = Encode(salt.c_str(), salt.size(), BINARY);
+2016-07-11T17:55:53.594+0800[STG/0]OUT ^
+2016-07-11T17:55:53.597+0800[STG/0]OUT ../src/bcrypt_node.cc: In function ‘void {anonymous}::GenerateSaltSync(const v8::FunctionCallbackInfo<v8::Value>&)’:
+2016-07-11T17:55:53.597+0800[STG/0]OUT ^
+2016-07-11T17:55:53.598+0800[STG/0]OUT ../src/bcrypt_node.cc:172:67: warning: ‘v8::Local<v8::Value> node::Encode(const void*, size_t, node::encoding)’ is deprecated (declared at /home/vcap/.node-gyp/4.4.5/include/node/node.h:298): Use Encode(isolate, ...) [-Wdeprecated-declarations]
+2016-07-11T17:55:53.597+0800[STG/0]OUT ../node_modules/nan/nan.h:401:81: note: in definition of macro ‘NanReturnValue’
+2016-07-11T17:55:53.597+0800[STG/0]OUT NanReturnValue(Encode(salt, strlen(salt), BINARY));
+2016-07-11T17:55:53.597+0800[STG/0]OUT ../src/bcrypt_node.cc:139:53: warning: ‘v8::Local<v8::Value> node::Encode(const void*, size_t, node::encoding)’ is deprecated (declared at /home/vcap/.node-gyp/4.4.5/include/node/node.h:298): Use Encode(isolate, ...) [-Wdeprecated-declarations]
+2016-07-11T17:55:53.597+0800[STG/0]OUT ^
+2016-07-11T17:55:53.599+0800[STG/0]OUT ^
+2016-07-11T17:55:53.597+0800[STG/0]OUT In file included from ../src/bcrypt_node.cc:1:0:
+2016-07-11T17:55:53.597+0800[STG/0]OUT ../src/bcrypt_node.cc: In member function ‘virtual void {anonymous}::EncryptAsyncWorker::HandleOKCallback()’:
+2016-07-11T17:55:53.597+0800[STG/0]OUT # define NanReturnValue(value) return args.GetReturnValue().Set(_NanEnsureLocal(value))
+2016-07-11T17:55:53.599+0800[STG/0]OUT argv[1] = Encode(output.c_str(), output.size(), BINARY);
+2016-07-11T17:55:53.599+0800[STG/0]OUT In file included from ../src/bcrypt_node.cc:1:0:
+2016-07-11T17:55:53.600+0800[STG/0]OUT ../src/bcrypt_node.cc: In function ‘void {anonymous}::EncryptSync(const v8::FunctionCallbackInfo<v8::Value>&)’:
+2016-07-11T17:55:53.600+0800[STG/0]OUT ../src/bcrypt_node.cc:223:61: warning: ‘v8::Local<v8::Value> node::Encode(const void*, size_t, node::encoding)’ is deprecated (declared at /home/vcap/.node-gyp/4.4.5/include/node/node.h:298): Use Encode(isolate, ...) [-Wdeprecated-declarations]
+2016-07-11T17:55:53.602+0800[STG/0]OUT ../node_modules/nan/nan.h:401:81: note: in definition of macro ‘NanReturnValue’
+2016-07-11T17:55:53.601+0800[STG/0]OUT NanReturnValue(Encode(bcrypted, strlen(bcrypted), BINARY));
+2016-07-11T17:55:53.602+0800[STG/0]OUT ^
+2016-07-11T17:55:53.603+0800[STG/0]OUT ^
+2016-07-11T17:55:53.603+0800[STG/0]OUT # define NanReturnValue(value) return args.GetReturnValue().Set(_NanEnsureLocal(value))
+2016-07-11T17:55:53.676+0800[STG/0]OUT make: *** [Release/obj.target/bcrypt_lib/src/bcrypt_node.o] Error 1
+2016-07-11T17:55:53.676+0800[STG/0]OUT make: Leaving directory `/tmp/staged/app/node-red/node_modules/bcrypt/build'
+2016-07-11T17:55:53.685+0800[STG/0]OUT gyp ERR! build error
+2016-07-11T17:55:53.688+0800[STG/0]OUT gyp ERR! stack at ChildProcess.emit (events.js:172:7)
+2016-07-11T17:55:53.688+0800[STG/0]OUT gyp ERR! stack at Process.ChildProcess._handle.onexit (internal/child_process.js:200:12)
+2016-07-11T17:55:53.688+0800[STG/0]OUT gyp ERR! stack at emitTwo (events.js:87:13)
+2016-07-11T17:55:53.688+0800[STG/0]OUT gyp ERR! stack at ChildProcess.onExit (/tmp/staged/app/vendor/node/lib/node_modules/npm/node_modules/node-gyp/lib/build.js:276:23)
+2016-07-11T17:55:53.692+0800[STG/0]OUT gyp ERR! System Linux 3.19.0-33-generic
+2016-07-11T17:55:53.688+0800[STG/0]OUT gyp ERR! stack Error: `make` failed with exit code: 2
+2016-07-11T17:55:53.692+0800[STG/0]OUT gyp ERR! command "/tmp/staged/app/vendor/node/bin/node" "/tmp/staged/app/vendor/node/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js" "rebuild"
+2016-07-11T17:55:53.692+0800[STG/0]OUT gyp ERR! not ok
+2016-07-11T17:55:53.692+0800[STG/0]OUT gyp ERR! node-gyp -v v3.3.1
+2016-07-11T17:55:53.692+0800[STG/0]OUT gyp ERR! cwd /tmp/staged/app/node-red/node_modules/bcrypt
+2016-07-11T17:55:53.692+0800[STG/0]OUT gyp ERR! node -v v4.4.5
+2016-07-11T17:56:08.120+0800[STG/0]OUT > node scripts/install.js
+2016-07-11T17:56:08.120+0800[STG/0]OUT > node-sass@3.8.0 install /tmp/staged/app/node-red/node_modules/node-sass
+2016-07-11T17:56:09.908+0800[STG/0]OUT Binary downloaded and installed at /tmp/staged/app/node-red/node_modules/node-sass/vendor/linux-x64-46/binding.node
+2016-07-11T17:56:09.931+0800[STG/0]OUT > node-sass@3.8.0 postinstall /tmp/staged/app/node-red/node_modules/node-sass
+2016-07-11T17:56:09.931+0800[STG/0]OUT > node scripts/build.js
+2016-07-11T17:56:10.137+0800[STG/0]OUT "/tmp/staged/app/node-red/node_modules/node-sass/vendor/linux-x64-46/binding.node" exists.
+2016-07-11T17:56:10.137+0800[STG/0]OUT testing binary.
+2016-07-11T17:56:10.162+0800[STG/0]OUT Binary is fine; exiting.
+2016-07-11T17:56:13.459+0800[STG/0]OUT > websocket@1.0.23 install /tmp/staged/app/node-red/node_modules/websocket
+2016-07-11T17:56:13.459+0800[STG/0]OUT > (node-gyp rebuild 2> builderror.log) || (exit 0)
+2016-07-11T17:56:14.448+0800[STG/0]OUT make: Entering directory `/tmp/staged/app/node-red/node_modules/websocket/build'
+2016-07-11T17:56:14.450+0800[STG/0]OUT CXX(target) Release/obj.target/bufferutil/src/bufferutil.o
+2016-07-11T17:56:15.586+0800[STG/0]OUT make: Leaving directory `/tmp/staged/app/node-red/node_modules/websocket/build'
+2016-07-11T17:56:17.603+0800[STG/0]OUT └── cookie@0.2.4
+2016-07-11T17:56:17.603+0800[STG/0]OUT └── http-errors@1.5.0 (setprototypeof@1.0.1)
+2016-07-11T17:56:17.603+0800[STG/0]OUT body-parser@1.15.2 node_modules/body-parser
+2016-07-11T17:56:17.603+0800[STG/0]OUT watson-developer-cloud@1.12.0 node_modules/watson-developer-cloud
+2016-07-11T17:56:17.603+0800[STG/0]OUT ├── qs@6.2.0
+2016-07-11T17:56:17.603+0800[STG/0]OUT ├── raw-body@2.1.7
+2016-07-11T17:56:17.603+0800[STG/0]OUT ├── bytes@2.4.0
+2016-07-11T17:56:19.891+0800[STG/0]OUT [4mRunning "clean:build" (clean) task[24m
+2016-07-11T17:56:19.925+0800[STG/0]OUT [4mRunning "concat:build" (concat) task[24m
+2016-07-11T17:56:19.924+0800[STG/0]OUT [32m>> [39m4 paths cleaned.
+2016-07-11T17:56:19.969+0800[STG/0]OUT [4mRunning "concat:vendor" (concat) task[24m
+2016-07-11T17:56:19.968+0800[STG/0]OUT File public/red/red.js created.
+2016-07-11T17:56:20.013+0800[STG/0]OUT File public/vendor/vendor.css created.
+2016-07-11T17:56:20.013+0800[STG/0]OUT File public/vendor/vendor.js created.
+2016-07-11T17:56:20.014+0800[STG/0]OUT [4mRunning "uglify:build" (uglify) task[24m
+2016-07-11T17:56:23.213+0800[STG/0]OUT [4mRunning "sass:build" (sass) task[24m
+2016-07-11T17:56:23.213+0800[STG/0]OUT [32m>> [39m1 file created.
+2016-07-11T17:56:23.416+0800[STG/0]OUT [4mRunning "jsonlint:messages" (jsonlint) task[24m
+2016-07-11T17:56:23.490+0800[STG/0]OUT [4mRunning "copy:build" (copy) task[24m
+2016-07-11T17:56:23.490+0800[STG/0]OUT [32m>> [39m3 files lint free.
+2016-07-11T17:56:23.729+0800[STG/0]OUT Created 11 directories, copied 93 files
+2016-07-11T17:56:23.731+0800[STG/0]OUT [4mRunning "attachCopyright:js" (attachCopyright) task[24m
+2016-07-11T17:56:23.733+0800[STG/0]OUT [4mRunning "attachCopyright:css" (attachCopyright) task[24m
+2016-07-11T17:56:23.735+0800[STG/0]OUT Attached copyright to public/red/style.min.css
+2016-07-11T17:56:23.736+0800[STG/0]OUT [32mDone, without errors.[39m
+2016-07-11T17:56:23.732+0800[STG/0]OUT Attached copyright to public/red/red.min.js
+2016-07-11T17:56:24.640+0800[STG/0]OUT ├── http-errors@1.5.0
+2016-07-11T17:56:24.640+0800[STG/0]OUT body-parser@1.15.2 node_modules/body-parser
+2016-07-11T17:56:24.640+0800[STG/0]OUT ├── raw-body@2.1.7
+2016-07-11T17:56:24.640+0800[STG/0]OUT ├── bytes@2.4.0
+2016-07-11T17:56:24.640+0800[STG/0]OUT └── qs@6.2.0
+2016-07-11T17:56:24.687+0800[STG/0]OUT-----> Checking and configuring service extensions after installing dependencies
+2016-07-11T17:56:25.279+0800[STG/0]OUT-----> Installing App Management
+2016-07-11T17:56:38.481+0800[STG/0]OUT-----> Caching build
+2016-07-11T17:56:38.508+0800[STG/0]OUT Clearing previous node cache
+2016-07-11T17:56:38.894+0800[STG/0]OUT Saving 2 cacheDirectories (default):
+2016-07-11T17:56:38.895+0800[STG/0]OUT - node_modules
+2016-07-11T17:56:43.637+0800[STG/0]OUT - bower_components (nothing to cache)
+2016-07-11T17:56:43.938+0800[STG/0]OUT-----> Build succeeded!
+2016-07-11T17:56:45.288+0800[STG/0]OUT ├── abbrev@1.0.9
+2016-07-11T17:56:45.288+0800[STG/0]OUT ├── ansi-regex@2.0.0
+2016-07-11T17:56:45.288+0800[STG/0]OUT ├── array-flatten@1.1.1
+2016-07-11T17:56:45.288+0800[STG/0]OUT ├── assert-plus@0.2.0
+2016-07-11T17:56:45.288+0800[STG/0]OUT ├── addressparser@0.1.3
+2016-07-11T17:56:45.289+0800[STG/0]OUT ├── aws4@1.4.1
+2016-07-11T17:56:45.288+0800[STG/0]OUT ├── ansi-styles@2.2.1
+2016-07-11T17:56:45.288+0800[STG/0]OUT ├── async@1.5.0
+2016-07-11T17:56:45.288+0800[STG/0]OUT ├── amdefine@1.0.0
+2016-07-11T17:56:45.288+0800[STG/0]OUT ├── array-indexofobject@0.0.1
+2016-07-11T17:56:45.288+0800[STG/0]OUT ├── argparse@1.0.7
+2016-07-11T17:56:45.288+0800[STG/0]OUT ├── autonomy@0.5.2
+2016-07-11T17:56:45.288+0800[STG/0]OUT ├── asn1@0.2.3
+2016-07-11T17:56:45.289+0800[STG/0]OUT ├── bl@1.1.2
+2016-07-11T17:56:45.289+0800[STG/0]OUT ├── balanced-match@0.4.1
+2016-07-11T17:56:45.288+0800[STG/0]OUT ├── accepts@1.3.3
+2016-07-11T17:56:45.289+0800[STG/0]OUT ├── aws-sign2@0.6.0
+2016-07-11T17:56:45.291+0800[STG/0]OUT ├── boom@2.10.1
+2016-07-11T17:56:45.290+0800[STG/0]OUT ├── body-parser@1.15.2
+2016-07-11T17:56:45.289+0800[STG/0]OUT ├── bcryptjs@2.2.0
+2016-07-11T17:56:45.292+0800[STG/0]OUT ├── bytes@2.3.0
+2016-07-11T17:56:45.290+0800[STG/0]OUT ├── boolbase@1.0.0
+2016-07-11T17:56:45.292+0800[STG/0]OUT ├── browser-request@0.3.3
+2016-07-11T17:56:45.291+0800[STG/0]OUT ├── brace-expansion@1.1.5
+2016-07-11T17:56:45.292+0800[STG/0]OUT ├── camelcase@1.2.1
+2016-07-11T17:56:45.293+0800[STG/0]OUT ├── caseless@0.11.0
+2016-07-11T17:56:45.293+0800[STG/0]OUT ├── cfenv@1.0.3
+2016-07-11T17:56:45.294+0800[STG/0]OUT ├── cheerio@0.19.0
+2016-07-11T17:56:45.293+0800[STG/0]OUT ├── chalk@1.1.3
+2016-07-11T17:56:45.294+0800[STG/0]OUT ├── clone@1.0.2
+2016-07-11T17:56:45.294+0800[STG/0]OUT ├── coffee-script@1.3.3
+2016-07-11T17:56:45.295+0800[STG/0]OUT ├── commander@2.9.0
+2016-07-11T17:56:45.295+0800[STG/0]OUT ├── concat-map@0.0.1
+2016-07-11T17:56:45.295+0800[STG/0]OUT ├── combined-stream@1.0.5
+2016-07-11T17:56:45.296+0800[STG/0]OUT ├── content-type@1.0.2
+2016-07-11T17:56:45.295+0800[STG/0]OUT ├── confortable@0.2.2
+2016-07-11T17:56:45.294+0800[STG/0]OUT ├── colors@0.6.2
+2016-07-11T17:56:45.296+0800[STG/0]OUT ├── cookie@0.3.1
+2016-07-11T17:56:45.296+0800[STG/0]OUT ├── cookiejar@2.0.1
+2016-07-11T17:56:45.295+0800[STG/0]OUT ├── component-emitter@1.1.2
+2016-07-11T17:56:45.296+0800[STG/0]OUT ├── cookie-signature@1.0.6
+2016-07-11T17:56:45.296+0800[STG/0]OUT ├── content-disposition@0.5.1
+2016-07-11T17:56:45.297+0800[STG/0]OUT ├── core-util-is@1.0.2
+2016-07-11T17:56:45.297+0800[STG/0]OUT ├── cookies@0.6.1
+2016-07-11T17:56:45.298+0800[STG/0]OUT ├── dashdash@1.14.0
+2016-07-11T17:56:45.300+0800[STG/0]OUT ├── delayed-stream@1.0.0
+2016-07-11T17:56:45.300+0800[STG/0]OUT ├── depd@1.1.0
+2016-07-11T17:56:45.300+0800[STG/0]OUT ├── dateformat@1.0.2-1.2.3
+2016-07-11T17:56:45.297+0800[STG/0]OUT ├── cors@2.7.1
+2016-07-11T17:56:45.298+0800[STG/0]OUT ├── css-select@1.0.0
+2016-07-11T17:56:45.298+0800[STG/0]OUT ├── css-what@1.0.0
+2016-07-11T17:56:45.298+0800[STG/0]OUT ├── ctype@0.5.3 extraneous
+2016-07-11T17:56:45.300+0800[STG/0]OUT ├── decamelize@1.2.0
+2016-07-11T17:56:45.297+0800[STG/0]OUT ├── cryptiles@2.0.5
+2016-07-11T17:56:45.300+0800[STG/0]OUT ├── debug@2.2.0
+2016-07-11T17:56:45.297+0800[STG/0]OUT ├── cron@1.0.9
+2016-07-11T17:56:45.303+0800[STG/0]OUT ├── destroy@1.0.4
+2016-07-11T17:56:45.304+0800[STG/0]OUT ├── diff@1.4.0
+2016-07-11T17:56:45.304+0800[STG/0]OUT ├── domelementtype@1.3.0
+2016-07-11T17:56:45.304+0800[STG/0]OUT ├── domhandler@2.3.0
+2016-07-11T17:56:45.304+0800[STG/0]OUT ├── dye@0.1.0
+2016-07-11T17:56:45.304+0800[STG/0]OUT ├── dom-serializer@0.1.0
+2016-07-11T17:56:45.305+0800[STG/0]OUT ├── errs@0.3.2
+2016-07-11T17:56:45.304+0800[STG/0]OUT ├── domutils@1.4.3
+2016-07-11T17:56:45.304+0800[STG/0]OUT ├── ee-first@1.1.1
+2016-07-11T17:56:45.304+0800[STG/0]OUT ├── ecc-jsbn@0.1.1
+2016-07-11T17:56:45.304+0800[STG/0]OUT ├── encodeurl@1.0.1
+2016-07-11T17:56:45.306+0800[STG/0]OUT ├── etag@1.7.0
+2016-07-11T17:56:45.306+0800[STG/0]OUT ├── exit@0.1.2
+2016-07-11T17:56:45.306+0800[STG/0]OUT ├── extsprintf@1.0.2
+2016-07-11T17:56:45.305+0800[STG/0]OUT ├── entities@1.1.1
+2016-07-11T17:56:45.305+0800[STG/0]OUT ├── escape-string-regexp@1.0.5
+2016-07-11T17:56:45.307+0800[STG/0]OUT ├── findup-sync@0.1.3
+2016-07-11T17:56:45.306+0800[STG/0]OUT ├── eventemitter2@0.4.14
+2016-07-11T17:56:45.307+0800[STG/0]OUT ├── follow@0.11.4
+2016-07-11T17:56:45.305+0800[STG/0]OUT ├── escape-html@1.0.3
+2016-07-11T17:56:45.306+0800[STG/0]OUT ├── extend@3.0.0
+2016-07-11T17:56:45.306+0800[STG/0]OUT ├── express@4.14.0
+2016-07-11T17:56:45.307+0800[STG/0]OUT ├── finalhandler@0.5.0
+2016-07-11T17:56:45.306+0800[STG/0]OUT ├── feedparser@0.19.2
+2016-07-11T17:56:45.305+0800[STG/0]OUT ├── esprima@2.7.2
+2016-07-11T17:56:45.307+0800[STG/0]OUT ├── follow-redirects@0.0.6
+2016-07-11T17:56:45.319+0800[STG/0]OUT ├── form-data@1.0.0-rc4
+2016-07-11T17:56:45.319+0800[STG/0]OUT ├── formatio@1.1.1
+2016-07-11T17:56:45.320+0800[STG/0]OUT ├── fs.realpath@1.0.0
+2016-07-11T17:56:45.320+0800[STG/0]OUT ├── generate-function@2.0.0
+2016-07-11T17:56:45.320+0800[STG/0]OUT ├── fresh@0.3.0
+2016-07-11T17:56:45.323+0800[STG/0]OUT ├── growl@1.8.1
+2016-07-11T17:56:45.320+0800[STG/0]OUT ├── fs-extra@0.22.1
+2016-07-11T17:56:45.323+0800[STG/0]OUT ├── graceful-fs@4.1.4
+2016-07-11T17:56:45.323+0800[STG/0]OUT ├── graceful-readlink@1.0.1
+2016-07-11T17:56:45.321+0800[STG/0]OUT ├── generate-object-property@1.2.0
+2016-07-11T17:56:45.323+0800[STG/0]OUT ├── has-ansi@2.0.0
+2016-07-11T17:56:45.323+0800[STG/0]OUT ├── grunt-legacy-util@0.2.0
+2016-07-11T17:56:45.323+0800[STG/0]OUT ├── grunt-legacy-log-utils@0.1.1
+2016-07-11T17:56:45.323+0800[STG/0]OUT ├── har-validator@2.0.6
+2016-07-11T17:56:45.319+0800[STG/0]OUT ├── forever-agent@0.6.1
+2016-07-11T17:56:45.320+0800[STG/0]OUT ├── fs.notify@0.0.4
+2016-07-11T17:56:45.324+0800[STG/0]OUT ├── hawk@3.1.3
+2016-07-11T17:56:45.323+0800[STG/0]OUT ├── grunt@0.4.5
+2016-07-11T17:56:45.319+0800[STG/0]OUT ├── formidable@1.0.14
+2016-07-11T17:56:45.320+0800[STG/0]OUT ├── forwarded@0.1.0
+2016-07-11T17:56:45.321+0800[STG/0]OUT ├── getobject@0.1.0
+2016-07-11T17:56:45.323+0800[STG/0]OUT ├── grunt-cli@0.1.13
+2016-07-11T17:56:45.323+0800[STG/0]OUT ├── grunt-legacy-log@0.1.3
+2016-07-11T17:56:45.322+0800[STG/0]OUT ├── glob@7.0.4
+2016-07-11T17:56:45.325+0800[STG/0]OUT ├── i18next-client@1.10.2
+2016-07-11T17:56:45.325+0800[STG/0]OUT ├── http-signature@1.1.1
+2016-07-11T17:56:45.324+0800[STG/0]OUT ├── hoek@2.16.3
+2016-07-11T17:56:45.322+0800[STG/0]OUT ├── getpass@0.1.6
+2016-07-11T17:56:45.326+0800[STG/0]OUT ├── inflight@1.0.5
+2016-07-11T17:56:45.325+0800[STG/0]OUT ├── i18next@1.10.2
+2016-07-11T17:56:45.325+0800[STG/0]OUT ├── http-errors@1.4.0
+2016-07-11T17:56:45.324+0800[STG/0]OUT ├── htmlparser2@3.8.3
+2016-07-11T17:56:45.324+0800[STG/0]OUT ├── hooker@0.2.3
+2016-07-11T17:56:45.327+0800[STG/0]OUT ├── is-typedarray@1.0.0
+2016-07-11T17:56:45.326+0800[STG/0]OUT ├── inherit@2.2.3
+2016-07-11T17:56:45.326+0800[STG/0]OUT ├── inherits@2.0.1
+2016-07-11T17:56:45.325+0800[STG/0]OUT ├── iconv-lite@0.4.13
+2016-07-11T17:56:45.328+0800[STG/0]OUT ├── js-yaml@3.4.6
+2016-07-11T17:56:45.326+0800[STG/0]OUT ├── is-my-json-valid@2.13.1
+2016-07-11T17:56:45.326+0800[STG/0]OUT ├── ipaddr.js@1.1.1
+2016-07-11T17:56:45.328+0800[STG/0]OUT ├── jsbn@0.1.0
+2016-07-11T17:56:45.327+0800[STG/0]OUT ├── is-utf8@0.2.0
+2016-07-11T17:56:45.327+0800[STG/0]OUT ├── isarray@0.0.1
+2016-07-11T17:56:45.327+0800[STG/0]OUT ├── isstream@0.1.2
+2016-07-11T17:56:45.327+0800[STG/0]OUT ├── is-property@1.0.2
+2016-07-11T17:56:45.327+0800[STG/0]OUT ├── jade@0.26.3
+2016-07-11T17:56:45.327+0800[STG/0]OUT ├── jodid25519@1.0.2
+2016-07-11T17:56:45.328+0800[STG/0]OUT ├── js2xmlparser@1.0.0
+2016-07-11T17:56:45.328+0800[STG/0]OUT ├── json-stringify-safe@5.0.1
+2016-07-11T17:56:45.328+0800[STG/0]OUT ├── json-schema@0.2.2
+2016-07-11T17:56:45.330+0800[STG/0]OUT ├── json5@0.2.0
+2016-07-11T17:56:45.331+0800[STG/0]OUT ├── jsonfile@2.3.1
+2016-07-11T17:56:45.331+0800[STG/0]OUT ├── jsonpointer@2.0.0
+2016-07-11T17:56:45.331+0800[STG/0]OUT ├── jsprim@1.2.2
+2016-07-11T17:56:45.332+0800[STG/0]OUT ├── lolex@1.1.0
+2016-07-11T17:56:45.331+0800[STG/0]OUT ├── lodash@3.10.1
+2016-07-11T17:56:45.333+0800[STG/0]OUT ├── methods@1.1.2
+2016-07-11T17:56:45.332+0800[STG/0]OUT ├── lru-cache@2.7.3 extraneous
+2016-07-11T17:56:45.332+0800[STG/0]OUT ├── logule@2.1.0
+2016-07-11T17:56:45.331+0800[STG/0]OUT ├── keygrip@1.0.1
+2016-07-11T17:56:45.332+0800[STG/0]OUT ├── media-typer@0.3.0
+2016-07-11T17:56:45.333+0800[STG/0]OUT ├── mime@1.3.4
+2016-07-11T17:56:45.333+0800[STG/0]OUT ├── mime-db@1.23.0
+2016-07-11T17:56:45.334+0800[STG/0]OUT ├── moment-timezone@0.3.1
+2016-07-11T17:56:45.334+0800[STG/0]OUT ├── minimist@0.0.8
+2016-07-11T17:56:45.334+0800[STG/0]OUT ├── mqtt@0.3.13
+2016-07-11T17:56:45.333+0800[STG/0]OUT ├── merge-descriptors@1.0.1
+2016-07-11T17:56:45.334+0800[STG/0]OUT ├── mkdirp@0.5.0
+2016-07-11T17:56:45.335+0800[STG/0]OUT ├── needle@1.0.0
+2016-07-11T17:56:45.333+0800[STG/0]OUT ├── minimatch@3.0.2
+2016-07-11T17:56:45.335+0800[STG/0]OUT ├── node-uuid@1.4.7
+2016-07-11T17:56:45.334+0800[STG/0]OUT ├── moment@2.13.0
+2016-07-11T17:56:45.333+0800[STG/0]OUT ├── mime-types@2.1.11
+2016-07-11T17:56:45.335+0800[STG/0]OUT ├── nano@5.11.2
+2016-07-11T17:56:45.336+0800[STG/0]OUT ├── nth-check@1.0.1
+2016-07-11T17:56:45.334+0800[STG/0]OUT ├── ms@0.7.1
+2016-07-11T17:56:45.335+0800[STG/0]OUT ├── mustache@2.1.2
+2016-07-11T17:56:45.335+0800[STG/0]OUT ├── negotiator@0.6.1
+2016-07-11T17:56:45.336+0800[STG/0]OUT ├── nopt@3.0.3
+2016-07-11T17:56:45.337+0800[STG/0]OUT ├── on-headers@1.0.0
+2016-07-11T17:56:45.337+0800[STG/0]OUT ├── once@1.3.3
+2016-07-11T17:56:45.338+0800[STG/0]OUT ├── passport@0.2.2
+2016-07-11T17:56:45.338+0800[STG/0]OUT ├── parseurl@1.3.1
+2016-07-11T17:56:45.338+0800[STG/0]OUT ├── passport-http-bearer@1.0.1
+2016-07-11T17:56:45.336+0800[STG/0]OUT ├── oauth-sign@0.8.2
+2016-07-11T17:56:45.336+0800[STG/0]OUT ├── oauth2orize@1.0.1
+2016-07-11T17:56:45.337+0800[STG/0]OUT ├── options@0.0.6
+2016-07-11T17:56:45.337+0800[STG/0]OUT ├── on-finished@2.3.0
+2016-07-11T17:56:45.339+0800[STG/0]OUT ├── ports@1.1.0
+2016-07-11T17:56:45.338+0800[STG/0]OUT ├── passport-strategy@1.0.0
+2016-07-11T17:56:45.340+0800[STG/0]OUT ├── proxy-addr@1.1.2
+2016-07-11T17:56:45.339+0800[STG/0]OUT ├── path-to-regexp@0.1.7
+2016-07-11T17:56:45.338+0800[STG/0]OUT ├── passport-oauth2-client-password@0.1.2
+2016-07-11T17:56:45.339+0800[STG/0]OUT ├── pause@0.0.1
+2016-07-11T17:56:45.338+0800[STG/0]OUT ├── path-is-absolute@1.0.0
+2016-07-11T17:56:45.340+0800[STG/0]OUT ├── range-parser@1.2.0
+2016-07-11T17:56:45.339+0800[STG/0]OUT ├── pinkie-promise@2.0.1
+2016-07-11T17:56:45.339+0800[STG/0]OUT ├── pinkie@2.0.4
+2016-07-11T17:56:45.341+0800[STG/0]OUT ├── resolve@0.3.1
+2016-07-11T17:56:45.340+0800[STG/0]OUT ├── raw-body@2.1.2
+2016-07-11T17:56:45.341+0800[STG/0]OUT ├── resanitize@0.3.0
+2016-07-11T17:56:45.341+0800[STG/0]OUT ├── request@2.72.0
+2016-07-11T17:56:45.340+0800[STG/0]OUT ├── reduce-component@1.0.1
+2016-07-11T17:56:45.340+0800[STG/0]OUT ├── qs@6.1.0
+2016-07-11T17:56:45.340+0800[STG/0]OUT ├── readable-stream@1.1.14
+2016-07-11T17:56:45.340+0800[STG/0]OUT ├── process-nextick-args@1.0.7 extraneous
+2016-07-11T17:56:45.342+0800[STG/0]OUT ├── sax@0.6.1
+2016-07-11T17:56:45.342+0800[STG/0]OUT ├── semver@5.0.1
+2016-07-11T17:56:45.341+0800[STG/0]OUT ├── retry@0.6.1
+2016-07-11T17:56:45.341+0800[STG/0]OUT ├── samsam@1.1.2
+2016-07-11T17:56:45.342+0800[STG/0]OUT ├── setprototypeof@1.0.1 extraneous
+2016-07-11T17:56:45.343+0800[STG/0]OUT ├── should-format@0.0.7
+2016-07-11T17:56:45.343+0800[STG/0]OUT ├── should-type@0.0.4
+2016-07-11T17:56:45.342+0800[STG/0]OUT ├── serve-static@1.11.1
+2016-07-11T17:56:45.342+0800[STG/0]OUT ├── send@0.14.1
+2016-07-11T17:56:45.343+0800[STG/0]OUT ├── should-equal@0.3.1
+2016-07-11T17:56:45.343+0800[STG/0]OUT ├── sigmund@1.0.1 extraneous
+2016-07-11T17:56:45.344+0800[STG/0]OUT ├── sprintf-js@1.0.3
+2016-07-11T17:56:45.341+0800[STG/0]OUT ├── rimraf@2.5.2
+2016-07-11T17:56:45.343+0800[STG/0]OUT ├── source-map@0.1.34
+2016-07-11T17:56:45.344+0800[STG/0]OUT ├── statuses@1.3.0
+2016-07-11T17:56:45.345+0800[STG/0]OUT ├── subset@0.1.7
+2016-07-11T17:56:45.344+0800[STG/0]OUT ├── stringstream@0.0.5
+2016-07-11T17:56:45.344+0800[STG/0]OUT ├── string_decoder@0.10.31
+2016-07-11T17:56:45.346+0800[STG/0]OUT ├── tunnel-agent@0.4.3
+2016-07-11T17:56:45.344+0800[STG/0]OUT ├── strip-ansi@3.0.1
+2016-07-11T17:56:45.346+0800[STG/0]OUT ├── tweetnacl@0.13.3
+2016-07-11T17:56:45.345+0800[STG/0]OUT ├── supports-color@2.0.0
+2016-07-11T17:56:45.347+0800[STG/0]OUT ├── uid2@0.0.3
+2016-07-11T17:56:45.344+0800[STG/0]OUT ├── sshpk@1.8.3
+2016-07-11T17:56:45.343+0800[STG/0]OUT ├── sntp@1.0.9
+2016-07-11T17:56:45.347+0800[STG/0]OUT ├── uglify-js@2.4.24
+2016-07-11T17:56:45.346+0800[STG/0]OUT ├── typr@0.2.1
+2016-07-11T17:56:45.346+0800[STG/0]OUT ├── tough-cookie@2.2.2
+2016-07-11T17:56:45.346+0800[STG/0]OUT ├── type-is@1.6.13
+2016-07-11T17:56:45.347+0800[STG/0]OUT ├── uglify-to-browserify@1.0.2
+2016-07-11T17:56:45.353+0800[STG/0]OUT ├── underscore.string@2.2.1
+2016-07-11T17:56:45.353+0800[STG/0]OUT ├── ultron@1.0.2
+2016-07-11T17:56:45.353+0800[STG/0]OUT ├── util-deprecate@1.0.2 extraneous
+2016-07-11T17:56:45.353+0800[STG/0]OUT ├── window-size@0.1.0
+2016-07-11T17:56:45.353+0800[STG/0]OUT ├── validator@1.5.1
+2016-07-11T17:56:45.353+0800[STG/0]OUT ├── ws@0.7.2
+2016-07-11T17:56:45.353+0800[STG/0]OUT ├── util@0.10.3
+2016-07-11T17:56:45.353+0800[STG/0]OUT ├── unpipe@1.0.0
+2016-07-11T17:56:45.353+0800[STG/0]OUT ├── utils-merge@1.0.0
+2016-07-11T17:56:45.353+0800[STG/0]OUT ├── wrappy@1.0.2
+2016-07-11T17:56:45.353+0800[STG/0]OUT ├── which@1.0.9
+2016-07-11T17:56:45.353+0800[STG/0]OUT ├── when@3.7.7
+2016-07-11T17:56:45.353+0800[STG/0]OUT ├── underscore@1.8.3
+2016-07-11T17:56:45.353+0800[STG/0]OUT ├── wordwrap@0.0.2
+2016-07-11T17:56:45.353+0800[STG/0]OUT ├── verror@1.3.6
+2016-07-11T17:56:45.353+0800[STG/0]OUT ├── vary@1.1.0
+2016-07-11T17:56:45.354+0800[STG/0]OUT ├── xml2js@0.4.12
+2016-07-11T17:56:45.354+0800[STG/0]OUT ├── xmlbuilder@8.2.2
+2016-07-11T17:56:45.354+0800[STG/0]OUT ├── xtend@4.0.1
+2016-07-11T17:56:45.355+0800[STG/0]OUT └── yargs@3.5.4
+2016-07-11T17:56:45.369+0800[STG/0]ERR
+2016-07-11T17:57:28.654+0800[STG/105]OUT-----> Uploading droplet (100M)
+2016-07-11T17:57:42.525+0800[DEA/105]OUTStarting app instance (index 0) with guid ebed8991-19f1-4fc1-8354-c53c09350c17
+2016-07-11T17:58:01.030+0800[App/0]OUTvcap application:{"limits":{"fds":16384,"mem":512,"disk":1024},"application_name":"humix-cflin","application_uris":["humix-cflin.mybluemix.net"],"name":"humix-cflin","space_name":"test","space_id":"bccf551b-b908-47e9-a750-3950b21ccb3c","uris":["humix-cflin.mybluemix.net"],"users":null,"version":"0bbb314e-aeae-4bd0-a3eb-d46a3114846e","application_version":"0bbb314e-aeae-4bd0-a3eb-d46a3114846e","application_id":"ebed8991-19f1-4fc1-8354-c53c09350c17","instance_id":"151462b9ef024e8298a342a197493ea8","instance_index":0,"host":"0.0.0.0","port":61692,"started_at":"2016-07-11 09:57:42 +0000","started_at_timestamp":1468231062,"start":"2016-07-11 09:57:42 +0000","state_timestamp":1468231062}
+2016-07-11T17:58:01.029+0800[App/0]OUTvcap service:{"dialog":[{"name":"Humix-Dialog-Service","label":"dialog","tags":["watson","ibm_created","ibm_dedicated_public"],"plan":"standard","credentials":{"url":"https://gateway.watsonplatform.net/dialog/api","password":"N8yo4BQuEa3N","username":"a5778e95-f696-4343-87ad-9c267d9ef425"}}],"cloudantNoSQLDB":[{"name":"Humix-Cloudant-Service","label":"cloudantNoSQLDB","tags":["data_management","ibm_created","ibm_dedicated_public"],"plan":"Shared","credentials":{"username":"04f7792d-3c15-47c6-9ae5-35ac7ce1e3ff-bluemix","password":"6d535f7258b3c01281e9ec140b1b2a32d2b20fc96515ac3e7bd4000f83d9e84d","host":"04f7792d-3c15-47c6-9ae5-35ac7ce1e3ff-bluemix.cloudant.com","port":443,"url":"https://04f7792d-3c15-47c6-9ae5-35ac7ce1e3ff-bluemix:6d535f7258b3c01281e9ec140b1b2a32d2b20fc96515ac3e7bd4000f83d9e84d@04f7792d-3c15-47c6-9ae5-35ac7ce1e3ff-bluemix.cloudant.com"}}],"natural_language_classifier":[{"name":"Humix-NLC-Service","label":"natural_language_classifier","tags":["watson","ibm_created","ibm_dedicated_public"],"plan":"standard","credentials":{"url":"https://gateway.watsonplatform.net/natural-language-classifier/api","password":"2qrwhnc3EzYj","username":"32aaf24c-9afd-4393-9771-ed67f6c659ce"}}],"speech_to_text":[{"name":"Humix-Speech-Service","label":"speech_to_text","tags":["watson","ibm_created","ibm_dedicated_public"],"plan":"standard","credentials":{"url":"https://stream.watsonplatform.net/speech-to-text/api","password":"MXLxbP0FfCUh","username":"9b4a291c-170a-40b7-86cb-e2e9fbe0c009"}}],"text_to_speech":[{"name":"Humix-TTS-Service","label":"text_to_speech","tags":["watson","ibm_created","ibm_dedicated_public"],"plan":"standard","credentials":{"url":"https://stream.watsonplatform.net/text-to-speech/api","password":"zsLZrihvAk38","username":"6a7a5b14-a02c-426b-8dcd-14189dd9d249"}}]}
+2016-07-11T17:58:01.364+0800[App/0]OUT[90m9:58:01 AM[39m[32m - [39mINFO [32m - [39m[34m[1mAPP[22m[39m[32m - [39mServer listening on port: 61692
+2016-07-11T17:58:01.546+0800[App/0]OUTWelcome to Node-RED
+2016-07-11T17:58:01.546+0800[App/0]OUT===================
+2016-07-11T17:58:01.550+0800[App/0]OUT11 Jul 09:58:01 - [info] Node-RED version: v0.11.2
+2016-07-11T17:58:01.551+0800[App/0]OUT11 Jul 09:58:01 - [info] Node.js version: v4.4.5
+2016-07-11T17:58:01.551+0800[App/0]OUT11 Jul 09:58:01 - [info] Loading palette nodes
+2016-07-11T17:58:02.114+0800[App/0]ERR(node) sys is deprecated. Use util instead.
+2016-07-11T17:58:02.837+0800[App/0]OUT11 Jul 09:58:02 - [info] Flows file : config/flow.json
+2016-07-11T17:58:02.836+0800[App/0]OUT11 Jul 09:58:02 - [info] Settings file : undefined
+2016-07-11T17:58:02.836+0800[App/0]OUT11 Jul 09:58:02 - [info] User directory : ./config/
+2016-07-11T17:58:02.838+0800[App/0]OUTcreate db and view on cloudant
+2016-07-11T17:58:02.964+0800[App/0]OUTsubscription start
+2016-07-11T17:58:02.996+0800[App/0]OUT11 Jul 09:58:02 - [info] Creating new flow file
+2016-07-11T17:58:02.999+0800[App/0]OUT11 Jul 09:58:02 - [info] Started flows
+2016-07-11T17:58:02.998+0800[App/0]OUT11 Jul 09:58:02 - [info] Starting flows
+2016-07-11T17:58:03.198+0800[App/0]OUTfailed to create design doc
+2016-07-11T17:58:03.211+0800[App/0]OUTdatabase humix created!
+2016-07-11T17:58:16.839+0800[RTR/2]OUThumix-cflin.mybluemix.net - [11/07/2016:09:58:16.817 +0000] "GET / HTTP/1.1" 200 0 669 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.153:31606 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:8b728524-f14f-43be-4a49-a3b711a913c5 response_time:0.02076325 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"514522477"
+2016-07-11T17:58:17.249+0800[RTR/0]OUThumix-cflin.mybluemix.net - [11/07/2016:09:58:17.234 +0000] "GET /scripts/app-b8e0f1dfbb.js HTTP/1.1" 200 0 9332 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.151:36850 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:77a6800b-71b6-4916-5ce5-703807609b9d response_time:0.014215392 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"1664559567"
+2016-07-11T17:58:17.250+0800[RTR/0]OUThumix-cflin.mybluemix.net - [11/07/2016:09:58:17.232 +0000] "GET /styles/vendor-c2769e81fe.css HTTP/1.1" 200 0 60713 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.151:38194 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:f14edf38-ebaf-49c9-77a1-e63f7367e3e5 response_time:0.018042154 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"3344615613"
+2016-07-11T17:58:17.263+0800[RTR/1]OUThumix-cflin.mybluemix.net - [11/07/2016:09:58:17.235 +0000] "GET /styles/app-e491a68364.css HTTP/1.1" 200 0 116829 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.154:14439 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:fbea7406-ea99-47e0-5f45-0ed9d5eed2b5 response_time:0.027256729 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"1137032321"
+2016-07-11T17:58:17.280+0800[RTR/0]OUThumix-cflin.mybluemix.net - [11/07/2016:09:58:17.234 +0000] "GET /scripts/vendor-ed8ad392fe.js HTTP/1.1" 200 0 389039 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.155:47254 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:5c48c4d9-bd3a-4735-521d-0730b910a802 response_time:0.045822026 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"1526090119"
+2016-07-11T17:58:19.083+0800[App/0]OUT[90m9:58:19 AM[39m[32m - [39mINFO [32m - [39m[34m[1mAPP[22m[39m[32m - [39m[34m[1mDevice[22m[39m[32m - [39mget all devices invoked
+2016-07-11T17:58:19.099+0800[RTR/0]OUThumix-cflin.mybluemix.net - [11/07/2016:09:58:19.092 +0000] "GET /assets/images/IBM_IoT_cloud2.png HTTP/1.1" 200 0 8286 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.153:36987 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:f0623177-5e54-4b02-74bc-0bb83cac03a2 response_time:0.006588156 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"3914215623"
+2016-07-11T17:58:19.101+0800[App/0]OUTdoc:undefined
+2016-07-11T17:58:19.103+0800[App/0]ERR at emitOne (events.js:82:20)
+2016-07-11T17:58:19.103+0800[App/0]ERR at /home/vcap/app/api/devices.js:127:11
+2016-07-11T17:58:19.103+0800[App/0]ERR docs.rows.forEach(function(doc) {
+2016-07-11T17:58:19.103+0800[App/0]ERR at Request.emit (events.js:169:7)
+2016-07-11T17:58:19.103+0800[App/0]ERR at Request.<anonymous> (/home/vcap/app/node_modules/nano/node_modules/request/request.js:1142:14)
+2016-07-11T17:58:19.103+0800[App/0]ERRTypeError: Cannot read property 'rows' of undefined
+2016-07-11T17:58:19.103+0800[App/0]ERR at Object.exports.handle (/home/vcap/app/node_modules/errs/lib/errs.js:206:5)
+2016-07-11T17:58:19.103+0800[App/0]ERR at Request.emit (events.js:172:7)
+2016-07-11T17:58:19.103+0800[App/0]ERR at IncomingMessage.<anonymous> (/home/vcap/app/node_modules/nano/node_modules/request/request.js:1096:12)
+2016-07-11T17:58:19.103+0800[App/0]ERR at Request._callback (/home/vcap/app/node_modules/nano/nano.js:319:16)
+2016-07-11T17:58:19.103+0800[App/0]ERR at emitTwo (events.js:87:13)
+2016-07-11T17:58:19.103+0800[App/0]ERR ^
+2016-07-11T17:58:19.103+0800[App/0]ERR at Request.self.callback (/home/vcap/app/node_modules/nano/node_modules/request/request.js:236:22)
+2016-07-11T17:58:19.103+0800[App/0]ERR/home/vcap/app/api/devices.js:127
+2016-07-11T17:58:19.130+0800[RTR/0]OUThumix-cflin.mybluemix.net - [11/07/2016:09:58:19.079 +0000] "GET /api/devices HTTP/1.1" 502 0 67 "http://humix-cflin.mybluemix.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.155:47130 x_forwarded_for:"203.196.98.32" x_forwarded_proto:"http" vcap_request_id:550b4632-6de5-4769-64d5-6b82aa026ad6 response_time:0.050987025 app_id:ebed8991-19f1-4fc1-8354-c53c09350c17 x_global_transaction_id:"1649088335"
+2016-07-11T17:58:19.246+0800[API/0]OUTApp instance exited with guid ebed8991-19f1-4fc1-8354-c53c09350c17 payload: {"cc_partition"=>"default", "droplet"=>"ebed8991-19f1-4fc1-8354-c53c09350c17", "version"=>"0bbb314e-aeae-4bd0-a3eb-d46a3114846e", "instance"=>"151462b9ef024e8298a342a197493ea8", "index"=>0, "reason"=>"CRASHED", "exit_status"=>1, "exit_description"=>"app instance exited", "crash_timestamp"=>1468231099}

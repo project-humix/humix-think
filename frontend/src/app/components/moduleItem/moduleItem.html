@@ -1,0 +1,44 @@
+<tr>
+    <!-- Image Icon -->
+    <th scope="row" class="vert-align">
+
+    </th>
+
+    <!-- Module ID -->
+    <td class="vert-align">
+        {{sense.moduleId}}
+    </td>
+
+    <td class="vert-align">
+
+    </td>
+    <!-- Sense Status -->
+    <td class="vert-align">
+      <div class="sense-status-icon-cell">
+        <div class="sense-status-{{ sense.moduleStatus }}"></div>
+      </div>
+      <div class="sense-status-text-cell">{{ sense.moduleStatus }}</div>
+    </td>
+
+    <td class="vert-align">
+
+    </td>
+
+    <!-- Log -->
+    <!-- <td class="vert-align">
+      <button ng-click="displayLog()">{{logButtonText}}</button>
+    </td> -->
+
+    <!-- Remove -->
+    <td class="vert-align">
+      <input type="image" src="assets/images/trash.png" ng-click="">
+    </td>
+</tr>
+
+<!-- <tr ng-show="showLogViewer">
+  <td colspan='5' class="no-top-border">
+    <div class="log-viewer-container">
+      <iframe src="logViewer/" width="100%" height="100%" scrolling="yes" frameborder="0" />
+    </div>
+  </td>
+</tr> -->

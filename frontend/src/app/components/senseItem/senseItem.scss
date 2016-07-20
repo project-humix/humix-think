@@ -6,3 +6,37 @@
 		height:auto;
 	}
 }
+
+.sense-status-Running {
+    background: green;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.sense-status-Sleeping {
+		background: yellow;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.sense-status-Stopped {
+		background: red;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.sense-status-icon-cell {
+    //top: 10px;
+		width: 10%;
+    left: 5px;
+		float: left;
+}
+
+.sense-status-text-cell {
+    //top: 5px;
+    width: 90%;
+		float: right;
+}

@@ -160,6 +160,23 @@ module.exports = {
 
   },
 
+  getDeviceStatus: function(req, res) {
+
+    //log.info('get device status invoked');
+
+    var senseId = req.params.senseId;
+
+    // TODO return real status of a sense device
+    var statusSet = ['Running', 'Sleeping', 'Stopped'];
+    var status = statusSet[Math.floor(Math.random() * statusSet.length)];
+
+    res.send({
+      result: JSON.stringify(status)
+    });
+
+
+  },
+
   getDeviceModules: function(req, res) {
     log.info('get device modules invoked');
 

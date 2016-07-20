@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!-- Copyright (c) 2012 Daniel Richman; GNU GPL 3 -->
+<html>
+    <head>
+        <title>habitat parser log viewer</title>
+        <script type="text/javascript" src="jquery.min.js"></script>
+        <script type="text/javascript" src="logtail.js"></script>
+    </head>
+    <body>
+        <div id="header">
+            <a href="./">Reversed</a> or
+            <a href="./?noreverse">chronological</a> view.
+            <a id="pause" href='#'>Pause</a>.<br>
+            Filter by:
+            <a href="./?out">OUT</a> or
+            <a href="./?err">ERR</a>.
+            <a href="./?all"> No Filter</a>.
+
+        </div>
+        <pre id="data">Loading...</pre>
+    </body>
+</html>

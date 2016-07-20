@@ -1,39 +1,36 @@
 var log = require('logule').init(module, 'Status');
 
+var senseWS = require('../node-red/red/api/comms_sense.js');
+
+var sense;
+
 module.exports = {
+    init: function (AdminApp) {
+        if (AdminApp) { 
+            sense = AdminApp.RED.sense;
+        }   
+    },
 
     getSenseStatus: function(req, res) {
 
         log.info('getSenseStatus');
 
         var senseId = req.params.senseId;
+        var status = sense.getSenseStatus(senseId);
+        log.info('sense status: ' + JSON.stringify(status));
 
-        // get senseId status
-        var result = {
-            senseId: senseId,
-            status: 'connected'
-        };
-
-        res.send(result);        
+        res.send(status);        
     },
 
     getAllModuleStatus: function (req, res) { 
 
         log.info('getAllModuleStatus');        
 
-        var senseId = req.params.senseId;
-        
-        var result = {
-            senseId: senseId,
-            modules: [
-                { moduleId: 'module1', status: 'connected' },
-                { moduleId: 'module2', status: 'connected' },
-                { moduleId: 'module3', status: 'disconnected' }
-            ]
+        var senseId = req.params.senseId;    
+        var status = sense.getAllModuleStatus(senseId);
+        log.info('all module status: ' + JSON.stringify(status));
 
-        };
-        
-        res.send(result);
+        res.send(status);
     },
 
      getModuleStatus: function (req, res) { 
@@ -42,15 +39,10 @@ module.exports = {
 
         var senseId =  req.params.senseId;
         var moduleId = req.params.moduleId;
+        var status = sense.getModuleStatus(senseId, moduleId);
+        log.info('module status: ' + JSON.stringify(status));
 
-        var result = {
-            senseId: senseId,
-            moduleId: moduleId,
-            status: 'connected'
-        };
-        
-        res.send(result);         
-         
+        res.send(status);               
     },
 
 

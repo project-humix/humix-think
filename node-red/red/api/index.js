@@ -192,6 +192,7 @@ module.exports = {
         unsubscribe_sense: comms_sense.unsubscribe,
         getAll: comms_sense.getAll
     },
+    sense: sense,
     get adminApp() { return adminApp; },
     get nodeApp() { return nodeApp; },
     get server() { return server; }

@@ -10,6 +10,7 @@ var bluemixNodeRedSettings = require('./bluemix-settings.js');
 
 var app = module.exports = express();
 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname,'frontend/dist')));
@@ -34,7 +35,7 @@ RED.init(httpServer, bluemixNodeRedSettings);
 
 app.use(bluemixNodeRedSettings.httpAdminRoot, RED.httpAdmin);
 app.use(bluemixNodeRedSettings.httpNodeRoot, RED.httpNode);
-
+app.RED = RED;
 // api init
 api.init(app);
 

@@ -4,6 +4,9 @@ var apiRoutes = require('express').Router(),
 
 
 function init(adminApp) {
+
+    status.init(adminApp);    
+
     // Devices
     apiRoutes.post  ('/registerDevice',     devices.register);
     apiRoutes.delete('/devices/',           devices.unregisterall);

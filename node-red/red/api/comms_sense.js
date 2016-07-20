@@ -14,7 +14,7 @@
  * limitations under the License.
  **/
 
-var ws = require("ws");
+var WS = require("ws");
 var log = require("logule");
 
 var server;
@@ -47,12 +47,15 @@ function start() {
         Users.default().then(function(anonymousUser) {
             var webSocketKeepAliveTime = settings.webSocketKeepAliveTime || 15000;
             var path = settings.httpAdminRoot || "/";
-            path = (path.slice(0,1) != "/" ? "/":"") + path + (path.slice(-1) == "/" ? "":"/") + "comms_sense";
-            wsServer = new ws.Server({server:server,path:path,});
+            path = (path.slice(0, 1) != "/" ? "/" : "") + path + (path.slice(-1) == "/" ? "" : "/") + "comms_sense";
+            log.info('websocket url path:' + path);
+            wsServer = new WS.Server({server:server,path:path});
 
             wsServer.on('connection',function(ws) {
                 log.audit({event: "comms.open"});
                 var pendingAuth = (settings.adminAuth != null);
+
+                log.info('new ws connection, state:'+ws.readyState+", ws state open :"+WS.OPEN);
                 if (!pendingAuth) {
                     activeConnections.push(ws);
                 } else {
@@ -67,6 +70,9 @@ function start() {
                     var msg = null;
                     try {
                         msg = JSON.parse(data);
+                        if(msg.senseId){
+                            ws.senseId = msg.senseId;
+                        }
                     } catch(err) {
                         log.trace("comms received malformed message : "+err.toString());
                         return;
@@ -244,5 +250,6 @@ module.exports = {
     stop:stop,
     publish:publish,
     subscribe:subscribe,
-    unsubscribe:unsubscribe
+    unsubscribe: unsubscribe,
+    activeConnections: activeConnections
 }

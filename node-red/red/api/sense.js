@@ -1,14 +1,10 @@
 var comms = require('./comms_sense');
-// var comms_sense = require('./comms');
-
-/* TODO : replace with cloudant
-    redis = require('redis'),
-    client = redis.createClient();
-*/
+var WS = require('ws');
 var settings = require('../../../bluemix-settings.js'),
     nano = require('nano')(settings.couchUrl);
 
 var humixdb;
+var moduleStatus = {};
 
 var senseEventHandler = function(data) {
     try {
@@ -17,10 +13,25 @@ var senseEventHandler = function(data) {
         var senseId = data.senseId,
             event = data.data;
         console.log('event.eventType:'+ event.eventType);
-
+       
         if (event.eventType === 'humix-think') {
-            console.log('receive module registration:'+JSON.stringify(data));
+            if (event.eventName === 'sense.status') {
+                
+
+            } else if (event.eventName === 'module.status') { 
+
+                var statusList = event.message;
+
+                                                
+                statusList.map(function (module) {
+                    var key = senseId + "_" + module.moduleId;
+                    moduleStatus[key] = module.status;                    
+
+                });              
+
+            }
             if (event.eventName === 'registerModule') {
+                console.log('receive module registration:'+JSON.stringify(data));
                 var module = event.message;
                 if (module) {
 
@@ -75,6 +86,68 @@ var senseEventHandler = function(data) {
     }
 };
 
+var getSenseStatus = function (senseId) { 
+
+    // get senseId status
+   
+    var status = 'disconnected';
+    var activeConnections = comms.activeConnections;
+
+    activeConnections.map(function (ws) {
+
+             
+        if (ws.senseId === senseId && ws.readyState == WS.OPEN) { 
+
+            status = 'connected';
+        }
+    });
+    
+
+    return { senseId: senseId, status: status };
+}
+
+var getModuleStatus = function (senseId, moduleId) { 
+
+    var key = senseId + "_" + moduleId;    
+    var status = moduleStatus[key];
+
+    if (!status) { 
+
+        status = 'disconnected';
+    }
+    
+    var result = {
+            senseId: senseId,
+            moduleId: moduleId,
+            status: status
+        };
+
+    return result;    
+}
+
+
+var getAllModuleStatus = function (senseId) {
+    
+    var resultArr = [];
+
+    for (var key in moduleStatus) { 
+
+        var moduleName = key.substring(key.indexOf("_") + 1);
+        var status = moduleStatus[key];
+
+        resultArr.push({ moduleId: moduleName, status: status });
+    }
+
+    var result = {
+            senseId: senseId,
+            modules: resultArr
+
+        };
+
+    return result;    
+
+}
+
 module.exports = {
     start: function() {
 
@@ -124,5 +197,9 @@ module.exports = {
     },
     stop: function() {
         comms.unsubscribe('*', senseEventHandler);
-    }
+    }, 
+
+    getSenseStatus: getSenseStatus,
+    getModuleStatus: getModuleStatus,
+    getAllModuleStatus : getAllModuleStatus
 };

@@ -21,10 +21,12 @@
 
         attrs.$observe('senseId', function(senseId) {
           scope.sense.senseId = senseId;
+          scope.getModuleStatus();
         });
 
         attrs.$observe('moduleId', function(moduleId) {
           scope.sense.moduleId = moduleId;
+          scope.getModuleStatus();
         });
       },
       controller: moduleItemController,
@@ -35,17 +37,26 @@
     return directive;
 
     /** @ngInject */
-    function moduleItemController(deviceStatus, $scope, $interval) {
+    function moduleItemController(status, $scope, $interval) {
+      $scope.showLogViewer = false;
 
-      $interval( function(){
-        deviceStatus.get({senseId: $scope.sense.senseId}, function(response) {
-          $scope.sense.moduleStatus = angular.fromJson(response.result);
-        });
-      }, 1000);
+      $interval($scope.getModuleStatus, 10000);
+
+      $scope.getModuleStatus = function() {
+        if ($scope.sense.senseId && $scope.sense.moduleId) {
+          status.ModuleStatus.get({senseId: $scope.sense.senseId, moduleId: $scope.sense.moduleId}, function(response) {
+            $scope.sense.moduleStatus = response.status;
+          });
+        }
+      };
 
       $scope.displayLog = function () {
-          $scope.$parent.displayLog();
+          $scope.showLogViewer = !$scope.showLogViewer;
       };
+
+      // $scope.displayLog = function () {
+      //     $scope.$parent.displayLog();
+      // };
 
     }
   }

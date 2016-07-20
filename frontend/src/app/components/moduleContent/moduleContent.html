@@ -1,12 +1,15 @@
 <table class="table">
-  <tr ng-module-item ng-repeat-start="key in modules" module-id="{{ key }}" sense-id="{{ senseId }}">
-  </tr>
-  <tr ng-repeat-end></tr>
-  <tr ng-show="moduleEmpty">
-    <td colspan='6' class="empty-text">
-      You have not yet registered any modules yet.
-    </td>
-  </tr>
+  <thead></thead>
+  <tbody ng-module-item ng-repeat="key in modules" module-id="{{ key }}" sense-id="{{ senseId }}">
+  <!-- <tr ng-module-item ng-repeat-start="key in modules" module-id="{{ key }}" sense-id="{{ senseId }}"> -->
+  </tbody>
+  <tbody ng-show="moduleEmpty">
+    <tr>
+      <td colspan='6' class="empty-text">
+        You have not yet registered any modules yet.
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 

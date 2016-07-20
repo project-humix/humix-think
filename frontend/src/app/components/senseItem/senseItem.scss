@@ -7,7 +7,7 @@
 	}
 }
 
-.sense-status-Running {
+.sense-status-connected {
     background: green;
     width: 10px;
     height: 10px;
@@ -21,7 +21,7 @@
     border-radius: 50%;
 }
 
-.sense-status-Stopped {
+.sense-status-disconnected {
 		background: red;
     width: 10px;
     height: 10px;
@@ -29,9 +29,8 @@
 }
 
 .sense-status-icon-cell {
-    //top: 10px;
+    margin-top: 5px;
 		width: 10%;
-    left: 5px;
 		float: left;
 }
 

@@ -29,21 +29,13 @@
     return directive;
 
     /** @ngInject */
-    function moduleContentController(moduleList, $log, $scope) {
+    function moduleContentController(moduleList, $scope) {
 
       $scope.getModules = function () {
         moduleList.get({senseId: $scope.senseId}, function(response) {
           $scope.modules = angular.fromJson(response.result);
           $scope.moduleEmpty = $scope.modules.length == 0;
-          $log.info('$scope.modules: ' + $scope.modules);
-          $log.info('$scope.moduleEmpty: ' + $scope.moduleEmpty);
         });
-      };
-
-      $scope.showLogViewer = false;
-
-      $scope.displayLog = function () {
-          $scope.showLogViewer = !$scope.showLogViewer;
       };
 
       // $scope.$watch(function(){ return moduleList.getModules}, function(newVal, oldVal){

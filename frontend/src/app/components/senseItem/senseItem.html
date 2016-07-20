@@ -1,39 +1,39 @@
 <tr>
-<!-- Image Icon -->
-<th scope="row" class="vert-align">
-  <img ng-src="assets/images/bluemix-icon-list/i-appicon-{{ sense.imgId }}-50.png" class="img-thumbnail" alt="thumbnail" />
-</th>
+    <!-- Image Icon -->
+    <th scope="row" class="vert-align">
+      <img ng-src="assets/images/bluemix-icon-list/i-appicon-{{ sense.imgId }}-50.png" class="img-thumbnail" alt="thumbnail" />
+    </th>
 
-<!-- Sense ID -->
-<td class="vert-align">
-    <!-- <a ui-sref="module({senseId: sense.senseId})"> -->
-    <button ng-click="displayModules()">{{expandButtonText}}</button>
-    {{sense.senseId}}
-  <!-- </a> -->
-</td>
+    <!-- Sense ID -->
+    <td class="vert-align">
+        <!-- <a ui-sref="module({senseId: sense.senseId})"> -->
+        <button ng-click="displayModules()">{{expandButtonText}}</button>
+        {{sense.senseId}}
+      <!-- </a> -->
+    </td>
 
-<!-- Sense Status -->
-<td class="vert-align">
-  <div class="sense-status-icon-cell">
-    <div class="sense-status-{{ sense.deviceStatus }}"></div>
-  </div>
-  <div class="sense-status-text-cell">{{ sense.deviceStatus }}</div>
-</td>
-<!-- Modules -->
-<td class="vert-align">
-  <!-- <a ui-sref="module({senseId: sense.senseId})"> -->
-    {{moduleCount}}
-  <!-- </a> -->
-</td>
-<!-- Log -->
-<!-- <td class="vert-align">
-  <button ng-click="displayLog()">{{logButtonText}}</button>
-</td> -->
+    <!-- Sense Status -->
+    <td class="vert-align">
+      <div class="sense-status-icon-cell">
+        <div class="sense-status-{{ sense.deviceStatus }}"></div>
+      </div>
+      <div class="sense-status-text-cell">{{ sense.deviceStatus }}</div>
+    </td>
+    <!-- Modules -->
+    <td class="vert-align">
+      <!-- <a ui-sref="module({senseId: sense.senseId})"> -->
+        {{moduleCount}}
+      <!-- </a> -->
+    </td>
+    <!-- Log -->
+    <!-- <td class="vert-align">
+      <button ng-click="displayLog()">{{logButtonText}}</button>
+    </td> -->
 
-<!-- Remove -->
-<td class="vert-align">
-  <input type="image" src="assets/images/trash.png" ng-click="delDevice(sense.senseId)">
-</td>
+    <!-- Remove -->
+    <td class="vert-align">
+      <input type="image" src="assets/images/trash.png" ng-click="delDevice(sense.senseId)">
+    </td>
 </tr>
 
 <tr ng-show="showModules">

@@ -6,3 +6,36 @@
 		height:auto;
 	}
 }
+
+.sense-status-connected {
+    background: green;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.sense-status-Sleeping {
+		background: yellow;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.sense-status-disconnected {
+		background: red;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.sense-status-icon-cell {
+    margin-top: 5px;
+		width: 10%;
+		float: left;
+}
+
+.sense-status-text-cell {
+    //top: 5px;
+    width: 90%;
+		float: right;
+}

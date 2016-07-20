@@ -10,3 +10,25 @@
  	color: gray;
  	text-align: center;
  }
+
+ .log-viewer-container{
+   margin-bottom: 30px;
+	 height: 600px;
+   color: inherit;
+   background-color: #eeeeee; }
+
+.thead-inverse{
+	background-color: #A9B9C2;
+}
+
+.table tbody>tr>td.vert-align{
+    vertical-align: middle;
+}
+
+.table tbody>tr>th.vert-align{
+    vertical-align: middle;
+}
+
+.table tbody>tr>td.no-top-border{
+    border-top: 0px;
+}

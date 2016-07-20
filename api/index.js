@@ -17,12 +17,11 @@ function init(adminApp) {
     apiRoutes.get   ('/devices/:senseId/modules/:moduleName/events',   devices.getDeviceModuleEvents);
     apiRoutes.get   ('/devices/:senseId/modules/:moduleName/commands',   devices.getDeviceModuleCommands);
 
-    // Status    
+    // Status
     apiRoutes.get('/status/:senseId', status.getSenseStatus);
     apiRoutes.get('/status/:senseId/modules', status.getAllModuleStatus);
     apiRoutes.get('/status/:senseId/modules/:moduleId', status.getModuleStatus);
-    
-    
+
     adminApp.use('/api', apiRoutes);
 }
 

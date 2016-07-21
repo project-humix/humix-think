@@ -9,14 +9,22 @@
   function ngModuleItem() {
     var directive = {
       restrict: 'A',
-      replace: false,
-      templateUrl: 'app/components/moduleItem/moduleItem.html',
+      replace: true,
+      template: function (elem, attrs) {
+        if (attrs.gridView == "true") {
+            return '<div ng-include src="dynamicTemplateUrl"></div>';
+        }
+        else {
+            return '<tbody ng-include src="dynamicTemplateUrl"></tbody>';
+        }
+      },
       scope: {
           senseId: '@',
           moduleId: '@',
           moduleStatus: '='
       },
       link: function(scope, element, attrs) {
+        scope.dynamicTemplateUrl = 'app/components/moduleItem/moduleItem-list.html';
         scope.sense = {};
 
         attrs.$observe('senseId', function(senseId) {
@@ -28,6 +36,16 @@
           scope.sense.moduleId = moduleId;
           scope.getModuleStatus();
         });
+
+        attrs.$observe('gridView', function(gridView) {
+          scope.gridView = gridView;
+          if (scope.gridView == "true") {
+              scope.dynamicTemplateUrl = 'app/components/moduleItem/moduleItem-grid.html';
+          }
+          else {
+              scope.dynamicTemplateUrl = 'app/components/moduleItem/moduleItem-list.html';
+          }
+        });
       },
       controller: moduleItemController,
       controllerAs: 'moduleItemController',
@@ -37,7 +55,7 @@
     return directive;
 
     /** @ngInject */
-    function moduleItemController(status, $scope, $interval) {
+    function moduleItemController(moduleList, status, $scope, $interval) {
       $scope.showLogViewer = false;
 
       $interval($scope.getModuleStatus, 10000);
@@ -54,9 +72,12 @@
           $scope.showLogViewer = !$scope.showLogViewer;
       };
 
-      // $scope.displayLog = function () {
-      //     $scope.$parent.displayLog();
-      // };
+      $scope.deleteModule = function(moduleId) {
+        // if (confirm("Do you want to remove " + moduleId + "?")) {
+        //
+        // }
+        alert("Function not implemented yet!");
+      }
 
     }
   }

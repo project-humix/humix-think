@@ -1,9 +1,18 @@
 <div class="sense-container">
-  <div class="title">
-  	<button class="btn btn-default" ng-click="vm.open()">Add Sense</button>
-  	<hr>
-  </div>
+  <div class="sense-btn-container">
+    <div class="title">
+    	<button class="btn btn-default btn-add-sense" ng-click="vm.open()">Add Sense</button>
+    </div>
 
+    <div class="title sense-btn-container">
+      <a ui-sref="sense({viewType: 'grid'})">
+      	<!-- <button class="btn btn-default btn-view"> -->
+          <img class="btn btn-default btn-view" src="assets/images/gridView.png">
+        <!-- </button> -->
+      </a>
+    </div>
+  </div>
+<br>
   <div class="row">
   	<!-- <ng-sense-item class="col-md-4" ng-repeat="(key, val) in vm.getDevices()" sense-id="{{ key }}" img-id="{{ val }}"></ng-sense-item> -->
     <table class="table">

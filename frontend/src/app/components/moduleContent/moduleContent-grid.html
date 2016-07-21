@@ -1,0 +1,10 @@
+<div class="sense-container">
+  <div class="row">
+  	<div ng-module-item class="col-md-4" ng-repeat="key in modules" module-id="{{ key }}" sense-id="{{ senseId }}" grid-view="true"></div>
+  </div>
+
+  <div class="row empty-text" ng-show="moduleEmpty">
+      You have not yet registered any Humix Sense.
+  </div>
+
+</div>

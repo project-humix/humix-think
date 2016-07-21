@@ -2,6 +2,10 @@
 	margin-top: 50px;
 }
 
+.sense-btn-container{
+	height: 50px;
+}
+
  .modal-thumbnail-block{
  	text-align: center;
  }
@@ -31,4 +35,13 @@
 
 .table tbody>tr>td.no-top-border{
     border-top: 0px;
+}
+
+.btn-add-sense {
+	float: left;
+}
+
+.btn-view {
+	float: right;
+	border: 0px;
 }

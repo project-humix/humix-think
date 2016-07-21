@@ -9,9 +9,31 @@
   function senseContent() {
     var directive = {
       restrict: 'E',
-      templateUrl: 'app/components/senseContent/senseContent.html',
+      template: '<ng-include src="dynamicTemplateUrl"></ng-include>',
+      //templateUrl: 'app/components/senseContent/senseContent-table.html',
       scope: {
           creationDate: '='
+      },
+      link: function(scope, element, attrs) {
+        scope.dynamicTemplateUrl = 'app/components/senseContent/senseContent-list.html';
+        attrs.$observe('viewType', function(viewType) {
+          if (viewType == "grid") {
+              scope.gridView = "true";
+          }
+          else {
+              scope.gridView = "false";
+          }
+        });
+
+        scope.$watch('gridView', function(gridView) {
+          scope.gridView = gridView;
+          if (scope.gridView == "true") {
+              scope.dynamicTemplateUrl = 'app/components/senseContent/senseContent-grid.html';
+          }
+          else {
+              scope.dynamicTemplateUrl = 'app/components/senseContent/senseContent-list.html';
+          }
+        });
       },
       controller: senseContentController,
       controllerAs: 'vm',
@@ -31,6 +53,11 @@
       // $scope.$watch(function(){ return deviceList.getDevices}, function(newVal, oldVal){
       //   $log.info('data change'+newVal+' '+oldVal);
       // }, true);
+
+      vm.viewButtonClick = function() {
+          $log.info('org scope.gridView: ' + $scope.gridView);
+          $scope.gridView = !$scope.gridView;
+      };
 
       vm.open = function(){
 

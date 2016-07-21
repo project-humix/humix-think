@@ -32,14 +32,14 @@
 
     <!-- Remove -->
     <td class="vert-align">
-      <input type="image" src="assets/images/trash.png" ng-click="delDevice(sense.senseId)">
+      <input type="image" src="assets/images/trash.png" ng-click="deleteSense(sense.senseId)">
     </td>
 </tr>
 
 <tr ng-show="showModules">
   <td class="no-top-border"></td>
   <td colspan='4' class="no-top-border">
-   <ng-module-content sense-id = "{{ sense.senseId }}"></ng-module-content>
+   <ng-module-content sense-id = "{{ sense.senseId }}" grid-view="false"></ng-module-content>
   </td>
 </tr>
 <!-- <tr ng-show="showLogViewer">

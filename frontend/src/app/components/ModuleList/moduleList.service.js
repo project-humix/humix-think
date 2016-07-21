@@ -4,7 +4,9 @@
   angular.
     module('public').
     factory('moduleList', function ($resource) {
-      return $resource('api/devices/:senseId/modules', {}, {})
+      return {
+        Modules: $resource('api/devices/:senseId/modules', {}, {})
+      };
     });
 
 })();

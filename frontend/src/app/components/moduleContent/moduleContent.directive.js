@@ -9,16 +9,29 @@
   function moduleContent() {
     var directive = {
       restrict: 'E',
-      // replace: false,
-      templateUrl: 'app/components/moduleContent/moduleContent.html',
+      replace: true,
+      template: '<ng-include src="dynamicTemplateUrl"></ng-include>',
+      //templateUrl: 'app/components/moduleContent/moduleContent.html',
       scope: {
           creationDate: '=',
           senseId: '@'
       },
       link: function(scope, element, attrs){
+        scope.dynamicTemplateUrl = 'app/components/moduleContent/moduleContent-list.html';
+
         attrs.$observe('senseId', function(senseId) {
           scope.senseId = senseId;
           scope.getModules();
+        });
+
+        attrs.$observe('gridView', function(gridView) {
+          scope.gridView = gridView;
+          if (scope.gridView == "true") {
+              scope.dynamicTemplateUrl = 'app/components/moduleContent/moduleContent-grid.html';
+          }
+          else {
+              scope.dynamicTemplateUrl = 'app/components/moduleContent/moduleContent-list.html';
+          }
         });
       },
       controller: moduleContentController,
@@ -32,7 +45,7 @@
     function moduleContentController(moduleList, $scope) {
 
       $scope.getModules = function () {
-        moduleList.get({senseId: $scope.senseId}, function(response) {
+        moduleList.Modules.get({senseId: $scope.senseId}, function(response) {
           $scope.modules = angular.fromJson(response.result);
           $scope.moduleEmpty = $scope.modules.length == 0;
         });

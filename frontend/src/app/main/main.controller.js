@@ -6,9 +6,10 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, toastr) {
+  function MainController($stateParams, $timeout, toastr) {
     var vm = this;
 
+    vm.viewType = ($stateParams.viewType == 'grid') ? 'grid' : 'list';
     vm.awesomeThings = [];
     vm.classAnimation = '';
     vm.creationDate = 1445587798203;

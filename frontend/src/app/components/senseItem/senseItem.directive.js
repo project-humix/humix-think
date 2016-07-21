@@ -9,14 +9,22 @@
   function ngSenseItem() {
     var directive = {
       restrict: 'A',
-      replace: false,
-      templateUrl: 'app/components/senseItem/senseItem.html',
+      replace: true,
+      template: function (elem, attrs) {
+        if (attrs.gridView == "true") {
+            return '<div ng-include src="dynamicTemplateUrl"></div>';
+        }
+        else {
+            return '<tbody ng-include src="dynamicTemplateUrl"></tbody>';
+        }
+      },
       scope: {
           senseId: '@',
           imgId: '@',
           deviceStatus: '='
       },
       link: function(scope, element, attrs) {
+        scope.dynamicTemplateUrl = 'app/components/senseItem/senseItem-list.html';
         scope.sense = {};
 
         attrs.$observe('senseId', function(senseId) {
@@ -29,6 +37,16 @@
         attrs.$observe('imgId', function(imgId) {
           scope.sense.imgId = imgId;
         });
+
+        attrs.$observe('gridView', function(gridView) {
+          scope.gridView = gridView;
+          if (scope.gridView == "true") {
+              scope.dynamicTemplateUrl = 'app/components/senseItem/senseItem-grid.html';
+          }
+          else {
+              scope.dynamicTemplateUrl = 'app/components/senseItem/senseItem-list.html';
+          }
+        });
       },
       controller: senseItemController,
       controllerAs: 'senseItemController',
@@ -39,7 +57,6 @@
 
     /** @ngInject */
     function senseItemController(deviceList, status, moduleList, $interval, $scope) {
-      $scope.delDevice = deviceList.delDevice;
       $scope.logButtonText = 'View';
       $scope.expandButtonText = '+';
       $scope.showModules = false;
@@ -48,7 +65,7 @@
       $interval($scope.getSenseStatus, 10000);
 
       $scope.getModules = function () {
-        moduleList.get({senseId: $scope.sense.senseId}, function(response) {
+        moduleList.Modules.get({senseId: $scope.sense.senseId}, function(response) {
           $scope.modules = angular.fromJson(response.result);
           $scope.moduleCount = $scope.modules.length;
         });
@@ -77,6 +94,12 @@
           }
           $scope.showLogViewer = !$scope.showLogViewer;
       };
+
+      $scope.deleteSense = function(senseId) {
+        if (confirm("Do you want to remove " + senseId + "?")) {
+          deviceList.delDevice(senseId);
+        }
+      }
     }
   }
 

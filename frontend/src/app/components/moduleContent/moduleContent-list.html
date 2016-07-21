@@ -1,0 +1,37 @@
+<table class="table">
+  <thead></thead>
+  <tbody ng-module-item ng-repeat="key in modules" module-id="{{ key }}" sense-id="{{ senseId }}" grid-view="false">
+  <!-- <tr ng-module-item ng-repeat-start="key in modules" module-id="{{ key }}" sense-id="{{ senseId }}"> -->
+  </tbody>
+  <tbody ng-show="moduleEmpty">
+    <tr>
+      <td colspan='6' class="empty-text">
+        You have not yet registered any modules yet.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- <script type="text/ng-template" id="addModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Add Sencse</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+        	<div class="form-group">
+        		<div class="col-sm-3 modal-thumbnail-block">
+        			<img ng-src="assets/images/bluemix-icon-list/i-appicon-{{ vm.imgId }}-50.png" class="img-thumbnail" alt="thumbnail" />
+    			</div>
+        		<label class="col-sm-1 control-label" for="sense-id">ID: </label>
+        		<div class="col-sm-8">
+        			<input type="text" id="sense-id" class="form-control" placeholder="Humix-Godzilla" ng-model="vm.senseId"/>
+    			</div>
+    		</div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="vm.ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</script> -->

@@ -62,18 +62,20 @@
       $scope.showModules = false;
       $scope.showLogViewer = false;
 
-      $interval($scope.getSenseStatus, 10000);
+      $interval(getSenseStatus, 10000);
+
+      function getSenseStatus() {
+        status.SenseStatus.get({senseId: $scope.sense.senseId}, function(response) {
+          $scope.sense.deviceStatus = response.status;
+        });
+      }
+
+      $scope.getSenseStatus = getSenseStatus;
 
       $scope.getModules = function () {
         moduleList.Modules.get({senseId: $scope.sense.senseId}, function(response) {
           $scope.modules = angular.fromJson(response.result);
           $scope.moduleCount = $scope.modules.length;
-        });
-      };
-
-      $scope.getSenseStatus = function() {
-        status.SenseStatus.get({senseId: $scope.sense.senseId}, function(response) {
-          $scope.sense.deviceStatus = response.status;
         });
       };
 

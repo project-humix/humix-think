@@ -58,15 +58,17 @@
     function moduleItemController(moduleList, status, $scope, $interval) {
       $scope.showLogViewer = false;
 
-      $interval($scope.getModuleStatus, 10000);
+      $interval(getModuleStatus, 10000);
 
-      $scope.getModuleStatus = function() {
+      function getModuleStatus() {
         if ($scope.sense.senseId && $scope.sense.moduleId) {
           status.ModuleStatus.get({senseId: $scope.sense.senseId, moduleId: $scope.sense.moduleId}, function(response) {
             $scope.sense.moduleStatus = response.status;
           });
         }
       };
+
+      $scope.getModuleStatus = getModuleStatus;
 
       $scope.displayLog = function () {
           $scope.showLogViewer = !$scope.showLogViewer;

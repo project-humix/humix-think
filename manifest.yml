@@ -1,6 +1,6 @@
 applications:
 - path: .
-  memory: 512M
+  memory: 256M
   instances: 1
   domain: mybluemix.net
   name: <your_app_name> 
@@ -10,8 +10,9 @@ applications:
   services:
   - Humix-Cloudant-Service
   - Humix-Speech-Service
-  - Humix-Dialog-Service
-  - Humix-NLC-Service
-  - Humix-TTS-Service
- 
+  - Humix-Conversation-Service
+
+# Add this back if you need Watson TTS service
+#  - Humix-TTS-Service
+# 
   command: node --max-old-space-size=384 app.js --settings ./bluemix-settings.js -v

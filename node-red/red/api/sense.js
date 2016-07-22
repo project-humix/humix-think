@@ -5,14 +5,13 @@ var settings = require('../../../bluemix-settings.js'),
 
 var humixdb;
 var moduleStatus = {};
+var syncCommandCache = {};
 
 var senseEventHandler = function(data) {
     try {
-        console.log('receive module registration event:'+JSON.stringify(data));
         console.log('registration event message:'+JSON.stringify(data.data));
         var senseId = data.senseId,
             event = data.data;
-        console.log('event.eventType:'+ event.eventType);
        
         if (event.eventType === 'humix-think') {
             if (event.eventName === 'sense.status') {
@@ -199,6 +198,7 @@ module.exports = {
         comms.unsubscribe('*', senseEventHandler);
     }, 
 
+//    syncCommandCache: syncCommandCache,    
     getSenseStatus: getSenseStatus,
     getModuleStatus: getModuleStatus,
     getAllModuleStatus : getAllModuleStatus

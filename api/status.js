@@ -17,7 +17,7 @@ module.exports = {
 
         var senseId = req.params.senseId;
         var status = sense.getSenseStatus(senseId);
-        log.info('sense status: ' + JSON.stringify(status));
+        log.debug('sense status: ' + JSON.stringify(status));
 
         res.send(status);        
     },
@@ -28,7 +28,7 @@ module.exports = {
 
         var senseId = req.params.senseId;    
         var status = sense.getAllModuleStatus(senseId);
-        log.info('all module status: ' + JSON.stringify(status));
+        log.debug('all module status: ' + JSON.stringify(status));
 
         res.send(status);
     },
@@ -40,7 +40,7 @@ module.exports = {
         var senseId =  req.params.senseId;
         var moduleId = req.params.moduleId;
         var status = sense.getModuleStatus(senseId, moduleId);
-        log.info('module status: ' + JSON.stringify(status));
+        log.debug('module status: ' + JSON.stringify(status));
 
         res.send(status);               
     },

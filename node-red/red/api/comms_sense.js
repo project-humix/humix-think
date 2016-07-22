@@ -31,6 +31,7 @@ var subscriptions = {};
 var heartbeatTimer;
 var lastSentTime;
 
+var syncCommandCache = {};
 
 function init(_server,runtime) {
     server = _server;
@@ -80,19 +81,30 @@ function start() {
                             handleRemoteSubscription(ws,msg.subscribe);
                         } else if (msg.senseId){
 
-                            for (var t in subscriptions) {
-                                if (subscriptions.hasOwnProperty(t)) {
-                                    var re = new RegExp("^"+t.replace(/([\[\]\?\(\)\\\\$\^\*\.|])/g,"\\$1").replace(/\+/g,"[^/]+").replace(/\/#$/,"(\/.*)?")+"$");
-                                    if (re.test(msg.senseId) || t === '*') {
-                                        console.log('message: '+JSON.stringify(msg.data));
-                                        // var message_obj = JSON.parse(msg);
-                                        var subscribers = subscriptions[t];
-                                        for (var i=0;i<subscribers.length;i++) {
-                                            subscribers[i]({senseId: msg.senseId, data: msg.data});
+                           
+
+                            // Support Async Command
+                            if (msg.syncCmdId) {
+
+                                var defer = syncCommandCache[msg.syncCmdId];
+                                if (defer) {
+                                    defer.resolve(msg.data);
+                                    delete syncCommandCache[msg.syncCmdId];
+                                }
+                            } else { 
+                                for (var t in subscriptions) {
+                                    if (subscriptions.hasOwnProperty(t)) {
+                                        var re = new RegExp("^"+t.replace(/([\[\]\?\(\)\\\\$\^\*\.|])/g,"\\$1").replace(/\+/g,"[^/]+").replace(/\/#$/,"(\/.*)?")+"$");
+                                        if (re.test(msg.senseId) || t === '*') {
+                                            var subscribers = subscriptions[t];
+                                            for (var i=0;i<subscribers.length;i++) {
+                                                subscribers[i]({senseId: msg.senseId, data: msg.data});
+                                            }
                                         }
                                     }
                                 }
                             }
+                            
                         }
                     } else {
                         var completeConnection = function(userScope,sendAck) {
@@ -193,7 +205,8 @@ function unsubscribe(topic,callback) {
     }
 }
 
-function publish(topic,data,retain) {
+function publish(topic, data, retain) {
+    
     if (retain) {
         retained[topic] = data;
     } else {
@@ -206,7 +219,7 @@ function publish(topic,data,retain) {
 }
 
 function publishTo(ws,topic,data) {
-    var msg = JSON.stringify({topic:topic,data:data});
+    var msg = JSON.stringify({ topic: topic, data: data });
     try {
         ws.send(msg);
     } catch(err) {
@@ -249,5 +262,6 @@ module.exports = {
     publish:publish,
     subscribe:subscribe,
     unsubscribe: unsubscribe,
-    activeConnections: activeConnections
+    activeConnections: activeConnections,
+    syncCommandCache: syncCommandCache
 }

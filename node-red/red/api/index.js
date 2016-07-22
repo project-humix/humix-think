@@ -190,7 +190,8 @@ module.exports = {
         publish_sense: comms_sense.publish,
         subscribe_sense: comms_sense.subscribe,
         unsubscribe_sense: comms_sense.unsubscribe,
-        getAll: comms_sense.getAll
+        getAll: comms_sense.getAll,
+        syncCommandCache: comms_sense.syncCommandCache
     },
     sense: sense,
     get adminApp() { return adminApp; },

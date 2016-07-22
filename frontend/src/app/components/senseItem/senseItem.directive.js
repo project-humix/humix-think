@@ -98,7 +98,7 @@
       };
 
       $scope.deleteSense = function(senseId) {
-        if (confirm("Do you want to remove " + senseId + "?")) {
+        if (confirm("Do you want to delete " + senseId + " ?")) {
           deviceList.delDevice(senseId);
         }
       }

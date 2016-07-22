@@ -66,7 +66,7 @@
             $scope.sense.moduleStatus = response.status;
           });
         }
-      };
+      }
 
       $scope.getModuleStatus = getModuleStatus;
 
@@ -74,11 +74,12 @@
           $scope.showLogViewer = !$scope.showLogViewer;
       };
 
-      $scope.deleteModule = function(moduleId) {
-        // if (confirm("Do you want to remove " + moduleId + "?")) {
-        //
-        // }
-        alert("Function not implemented yet!");
+      $scope.deleteModule = function(senseId, moduleId) {
+        if (confirm("Do you want to delete module [" + moduleId + "] for sense [" + senseId + "] ?")) {
+            moduleList.Module.delete({senseId: $scope.sense.senseId, moduleId: $scope.sense.moduleId}, function() {
+                $scope.$parent.getModules();
+            });
+        }
       }
 
     }

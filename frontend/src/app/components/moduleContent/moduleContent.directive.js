@@ -14,6 +14,7 @@
       //templateUrl: 'app/components/moduleContent/moduleContent.html',
       scope: {
           creationDate: '=',
+          modules: '=',
           senseId: '@'
       },
       link: function(scope, element, attrs){

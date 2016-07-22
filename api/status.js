@@ -13,7 +13,6 @@ module.exports = {
 
     getSenseStatus: function(req, res) {
 
-        log.info('getSenseStatus');
 
         var senseId = req.params.senseId;
         var status = sense.getSenseStatus(senseId);
@@ -24,7 +23,6 @@ module.exports = {
 
     getAllModuleStatus: function (req, res) { 
 
-        log.info('getAllModuleStatus');        
 
         var senseId = req.params.senseId;    
         var status = sense.getAllModuleStatus(senseId);
@@ -35,7 +33,6 @@ module.exports = {
 
      getModuleStatus: function (req, res) { 
 
-        log.info('getModuleStatus');        
 
         var senseId =  req.params.senseId;
         var moduleId = req.params.moduleId;

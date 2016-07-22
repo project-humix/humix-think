@@ -1,19 +1,30 @@
-<table class="table">
-  <thead></thead>
-  <tbody ng-module-item ng-repeat="key in modules" module-id="{{ key }}" sense-id="{{ senseId }}">
-  <!-- <tr ng-module-item ng-repeat-start="key in modules" module-id="{{ key }}" sense-id="{{ senseId }}"> -->
-  </tbody>
-  <tbody ng-show="moduleEmpty">
-    <tr>
-      <td colspan='6' class="empty-text">
-        You have not yet registered any modules yet.
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="sense-container">
+  <div class="sense-btn-container">
+    <div class="title">
+    	<button class="btn btn-default btn-add-sense" ng-click="vm.open()">Add Sense</button>
+    </div>
+
+    <div class="title sense-btn-container">
+      <a ui-sref="sense({viewType: 'list'})">
+      	<!-- <button class="btn btn-default btn-view"> -->
+          <img class="btn btn-default btn-view" src="assets/images/tableView.png">
+        <!-- </button> -->
+      </a>
+    </div>
+  </div>
+<br>
+  <div class="row">
+  	<div ng-sense-item class="col-md-4" ng-repeat="(key, val) in vm.getDevices()" sense-id="{{ key }}" img-id="{{ val }}" grid-view="true"></div>
+  </div>
+
+  <!-- <div class="row empty-text" ng-show="vm.deviceEmpty">
+      You have not yet registered any Humix Sense.
+  </div> -->
+
+</div>
 
 
-<!-- <script type="text/ng-template" id="addModalContent.html">
+<script type="text/ng-template" id="addModalContent.html">
     <div class="modal-header">
         <h3 class="modal-title">Add Sencse</h3>
     </div>
@@ -34,4 +45,4 @@
         <button class="btn btn-primary" type="button" ng-click="vm.ok()">OK</button>
         <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
     </div>
-</script> -->
+</script>

@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+  <div class="row panel-heading">
+      <div class="col-md-10">
+        <a ui-sref="module({senseId: sense.senseId})">
+          {{sense.senseId}}
+        </a>
+      </div>
+      <div class="col-md-2">
+        <input type="image" src="assets/images/trash.png" ng-click="deleteSense(sense.senseId)">
+      </div>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-4">
+        <a ui-sref="module({senseId: sense.senseId})">
+      	   <img ng-src="assets/images/bluemix-icon-list/i-appicon-{{ sense.imgId }}-50.png" class="img-thumbnail" alt="thumbnail" />
+        </a>
+      </div>
+      <div class="col-md-8">
+        <br>
+    		<div>
+          <div class="sense-status-icon-cell">
+            <div class="sense-status-{{ sense.deviceStatus }}"></div>
+          </div>
+          <div class="sense-status-text-cell">{{ sense.deviceStatus }}</div>
+    		</div>
+      </div>
+    </div>
+  </div>
+</div>

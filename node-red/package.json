@@ -73,13 +73,7 @@
     "watson-developer-cloud": "^1.12.2",
     "when": "3.7.7",
     "ws": "0.8.1",
-    "xml2js": "0.4.16"
-  },
-  "optionalDependencies": {
-    "node-red-node-serialport": "0.2.*",
-    "bcrypt": "0.8.7"
-  },
-  "devDependencies": {
+    "xml2js": "0.4.16",
     "grunt": "1.0.1",
     "grunt-chmod": "1.1.1",
     "grunt-cli": "1.2.0",
@@ -99,6 +93,13 @@
     "should": "8.4.0",
     "sinon": "1.17.4",
     "supertest": "1.2.0"
+  },
+  "optionalDependencies": {
+    "node-red-node-serialport": "0.2.*",
+    "bcrypt": "0.8.7"
+  },
+  "devDependencies": {
+   
   },
   "engines": {
     "node": ">=0.10"

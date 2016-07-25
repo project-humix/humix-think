@@ -1,0 +1,27 @@
+# think (dir: /think)
+.config.json
+.dist
+.jshintignore
+.npm
+.project
+.sessions.json
+.settings
+.tern-project
+*.backup
+*_cred*
+coverage
+credentials.json
+flows*.json
+nodes/node-red-nodes/
+node_modules
+public
+
+# front-end (dir: /think/frontend)
+bower_components
+coverage/
+.sass-cache/
+.idea/
+.tmp/
+
+# other
+npm-debug.log

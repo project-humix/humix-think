@@ -97,6 +97,7 @@ module.exports = {
               humixdb.destroy(docUniqueId, latestRev, function(err, body, header) {
                 if (!err) {
                   console.log("Successfully deleted doc", docUniqueId);
+                  res.send('success');
                 }
               });
             }
@@ -178,6 +179,47 @@ module.exports = {
       res.send({
         result: JSON.stringify(modules)
       });
+    });
+
+  },
+
+  unregisterModule: function(req, res) {
+    var senseId = req.params.senseId;
+    var moduleId = req.params.moduleId;
+    log.info('Unregistering module: [' + moduleId + '] for device: [' + senseId + ']');
+
+    humixdb.view('module', 'get_module_by_senseID_and_moduleID', function(err, docs) {
+
+      console.log('doc:' + JSON.stringify(docs));
+
+      var exist = false;
+
+      for (var i = 0; i < docs.rows.length; i++) {
+
+        var id = docs.rows[i].value;
+        // console.log('docs.rows[i]:' + JSON.stringify(docs.rows[i]));
+        // console.log('checking id :' + JSON.stringify(id));
+        if (id.senseID == senseId && id.moduleID == moduleId) {
+          var docUniqueId = docs.rows[i].id;
+          console.log('SenseId:ModuleId [' + senseId + ':' + moduleId + '] exist. try to delete...' + docUniqueId);
+
+          humixdb.get(docUniqueId, function(err, body) {
+            if (!err) {
+              var latestRev = body._rev;
+              console.log('latestRev=' + latestRev);
+              humixdb.destroy(docUniqueId, latestRev, function(err, body, header) {
+                if (!err) {
+                  console.log("Successfully deleted doc", docUniqueId);
+                  res.send('success');
+                }
+              });
+            }
+          })
+
+        }
+
+      }
+
     });
 
   },

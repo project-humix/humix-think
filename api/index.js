@@ -5,7 +5,7 @@ var apiRoutes = require('express').Router(),
 
 function init(adminApp) {
 
-    status.init(adminApp);    
+    status.init(adminApp);
 
     // Devices
     apiRoutes.post  ('/registerDevice',     devices.register);
@@ -14,6 +14,7 @@ function init(adminApp) {
     apiRoutes.get   ('/devices',            devices.getAllDevices);
     apiRoutes.get   ('/devices/:senseId',   devices.getDevice);
     apiRoutes.get   ('/devices/:senseId/modules',   devices.getDeviceModules);
+    apiRoutes.delete('/devices/:senseId/modules/:moduleId',   devices.unregisterModule);
     apiRoutes.get   ('/devices/:senseId/modules/:moduleName/events',   devices.getDeviceModuleEvents);
     apiRoutes.get   ('/devices/:senseId/modules/:moduleName/commands',   devices.getDeviceModuleCommands);
 

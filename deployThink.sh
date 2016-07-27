@@ -1,6 +1,7 @@
 #!/bin/bash
 
-cf login
+# Set Bluemix API Endpoint. You will need this change this if your account use differnt default api endpoint
+cf login -a https://api.ng.bluemix.net
 
 # create service
 cf create-service cloudantNoSQLDB Shared Humix-Cloudant-Service

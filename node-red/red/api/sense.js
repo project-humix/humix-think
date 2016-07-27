@@ -9,7 +9,6 @@ var syncCommandCache = {};
 
 var senseEventHandler = function(data) {
     try {
-        console.log('registration event message:'+JSON.stringify(data.data));
         var senseId = data.senseId,
             event = data.data;
        

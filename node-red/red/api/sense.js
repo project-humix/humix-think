@@ -40,9 +40,12 @@ var senseEventHandler = function(data) {
                         commands: module.commands,
                         events: module.events
                     }
+                    
+                  
+                  
+                    var keys = [senseId, module.moduleName];
 
-
-                    humixdb.view('module', 'get_module_by_senseID',{key:senseId}, function(err, docs){
+                    humixdb.view('module', 'get_module_by_senseID_and_moduleID',{key:keys}, function(err, docs){
 
                         if(err){
                             console.log('Failed to check module ['+module.moduleName+'], error:'+err);
@@ -57,16 +60,36 @@ var senseEventHandler = function(data) {
                                         console.log('Failed to register module ['+module.moduleName+'], error:'+err);
                                     }
                                     else{
-                                        console.log('Module []'+module.moduleName+'] registered successfully');
+                                        console.log('Module ['+module.moduleName+'] registered successfully');
                                     }
                                 });
 
                             }else{
-                                console.log('Module ['+module.moduleName+'] already registered. Skip !');
+                                //console.log('Module ['+module.moduleName+'] already registered. Skip !');
+
+                                var id = docs.rows[0].id;
+                                var rev = docs.rows[0].value._rev;
+                                if(id && rev){
+
+                                    moduleData._rev = rev;
+                                    moduleData._id = id;
+
+                                    console.log('updating existing module:' + JSON.stringify(moduleData));
+                                    humixdb.insert(moduleData, function(err){
+
+                                        if(err){
+                                            console.log('Failed to register module ['+module.moduleName+'], error:'+err);
+                                        }
+                                        else{
+                                            console.log('Module ['+module.moduleName+'] registered successfully');
+                                        }
+                                    });
+                                }
                             }
                         }
 
                     });
+                  
 
 
 

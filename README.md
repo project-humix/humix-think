@@ -217,8 +217,6 @@ You can now config the basic flow on `humix think`
 
 
 
-
-
 # Copyright and License
 
 Copyright 2016 IBM Corp. Under the Apache 2.0 license.

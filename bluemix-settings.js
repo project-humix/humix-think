@@ -20,6 +20,7 @@ var when = require("when");
 var cfenv = require("cfenv");
 var appEnv = cfenv.getAppEnv();
 
+var humix_setting = require("./humix-settings");
 
 
 
@@ -67,11 +68,7 @@ var settings = module.exports = {
 
     userDir: process.env.PWD + '/node-red', 
     
-    storageModule: require("./couchstorage"), 
-    
-    
 }
-
 
 if (process.env.NODE_RED_USERNAME && process.env.NODE_RED_PASSWORD) {
     settings.adminAuth = {
@@ -94,23 +91,41 @@ if (process.env.NODE_RED_USERNAME && process.env.NODE_RED_PASSWORD) {
     }
 }
 
+  
+if( humix_setting.location === 'bluemix' ){
+
+    settings.couchAppname = process.env.NODE_RED_APPLICATION_NAME || VCAP_APPLICATION['application_name'];
+
+    //var storageServiceName = process.env.NODE_RED_STORAGE_NAME || new RegExp("^"+settings.couchAppname+".cloudantNoSQLDB");
+    var storageServiceName = 'Humix-Cloudant-Service' 
+    var couchService = appEnv.getService(storageServiceName);
 
 
-settings.couchAppname = process.env.NODE_RED_APPLICATION_NAME || VCAP_APPLICATION['application_name'];
+    if (!couchService) {
+        console.log("Failed to find Cloudant service");
+        if (process.env.NODE_RED_STORAGE_NAME) {
+            console.log(" - using NODE_RED_STORAGE_NAME environment variable: "+process.env.NODE_RED_STORAGE_NAME);
+        }
+        throw new Error("No cloudant service found");
+    } 
 
-//var storageServiceName = process.env.NODE_RED_STORAGE_NAME || new RegExp("^"+settings.couchAppname+".cloudantNoSQLDB");
-var storageServiceName = 'Humix-Cloudant-Service' 
-var couchService = appEnv.getService(storageServiceName);
+    settings.couchUrl = couchService.credentials.url;
+    settings.storageModule = 'couchstorage';
 
 
-if (!couchService) {
-    console.log("Failed to find Cloudant service");
-    if (process.env.NODE_RED_STORAGE_NAME) {
-        console.log(" - using NODE_RED_STORAGE_NAME environment variable: "+process.env.NODE_RED_STORAGE_NAME);
+}else{
+
+   
+    if(humix_setting.storage === 'couch' && humix_setting.storageURL){
+ 
+        settings.storageModule = 'couchstorage';
+        settings.couchUrl = humix_setting.storageURL;
+
     }
-    throw new Error("No cloudant service found");
-} 
 
-settings.couchUrl = couchService.credentials.url;
+}
+
+
+
 
 

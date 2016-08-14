@@ -125,10 +125,13 @@ module.exports = {
       console.log('doc:' + JSON.stringify(docs));
 
       var devices = [];
-      docs.rows.forEach(function(doc) {
-        devices.push(doc.value);
 
-      });
+      if(docs){
+        docs.rows.forEach(function(doc) {
+          devices.push(doc.value);
+
+        });
+      }
       res.send({
         result: JSON.stringify(devices)
       });

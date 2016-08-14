@@ -38,16 +38,18 @@ module.exports = {
 
       var exist = false;
 
-      for (var i = 0; i < docs.rows.length; i++) {
+      if(docs){
+        for (var i = 0; i < docs.rows.length; i++) {
 
-        var id = docs.rows[i].value;
-        console.log('checking id :' + JSON.stringify(id));
-        if (id.senseId == senseId) {
-          exist = true;
-          console.log('SenseId [' + senseId + '] already exist. Skip');
-          break;
+          var id = docs.rows[i].value;
+          console.log('checking id :' + JSON.stringify(id));
+          if (id.senseId == senseId) {
+            exist = true;
+            console.log('SenseId [' + senseId + '] already exist. Skip');
+            break;
+          }
+
         }
-
       }
 
       if (!exist) {
@@ -131,7 +133,7 @@ module.exports = {
           devices.push(doc.value);
 
         });
-      }
+      } 
       res.send({
         result: JSON.stringify(devices)
       });

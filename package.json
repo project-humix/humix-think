@@ -61,7 +61,7 @@
     "semver": "5.0.1",
     "uglify-js": "2.4.24",
     "when": "~3.x",
-    "ws": "0.7.2",
+    "ws": "1.1.1",
     "xml2js": "0.4.12"
   },
   "devDependencies": {

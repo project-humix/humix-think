@@ -109,8 +109,8 @@ if( humix_setting.location === 'bluemix' ){
         throw new Error("No cloudant service found");
     } 
 
-    settings.couchUrl = couchService.credentials.url;
     settings.storageModule = 'couchstorage';
+    settings.couchUrl = couchService.credentials.url;
 
 
 }else{

@@ -55,7 +55,7 @@ module.exports = {
       if (!exist) {
         humixdb.insert(req.body, function(err) {
           if (err) {
-            log.error('failed to register humix:' + senseId);
+            log.error('failed to register humix:' + senseId+ " error:" + err);
           } else {
             log.info('humix:' + senseId + ' registered');
           }

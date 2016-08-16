@@ -142,8 +142,7 @@ Then you can visit your local `humix think` via http://localhost:3000
 
 
 
-For steps required to setup `humix sense`, please refer to [here](http://119.81.185.45/humix_image/humix-sense-1.0.gz)
-
+For steps required to setup `humix sense`, please refer to [here](https://github.com/project-humix/humix-sense)
 
 
 # Copyright and License

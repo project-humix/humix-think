@@ -1,5 +1,5 @@
 /**
- * Copyright 2013, 2015 IBM Corp.
+ * Copyright 2013, 2016 IBM Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -165,27 +165,7 @@ RED.nodes = (function() {
                 }
             }
             n.dirty = true;
-            var updatedConfigNode = false;
-            for (var d in n._def.defaults) {
-                if (n._def.defaults.hasOwnProperty(d)) {
-                    var property = n._def.defaults[d];
-                    if (property.type) {
-                        var type = registry.getNodeType(property.type);
-                        if (type && type.category == "config") {
-                            var configNode = configNodes[n[d]];
-                            if (configNode) {
-                                if (configNode.users.indexOf(n) === -1) {
-                                    updatedConfigNode = true;
-                                    configNode.users.push(n);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            if (updatedConfigNode) {
-                // TODO: refresh config tab?
-            }
+            updateConfigNodeUsers(n);
             if (n._def.category == "subflows" && typeof n.i === "undefined") {
                 var nextId = 0;
                 RED.nodes.eachNode(function(node) {
@@ -401,6 +381,17 @@ RED.nodes = (function() {
         return nns;
     }
 
+    function convertWorkspace(n) {
+        var node = {};
+        node.id = n.id;
+        node.type = n.type;
+        for (var d in n._def.defaults) {
+            if (n._def.defaults.hasOwnProperty(d)) {
+                node[d] = n[d];
+            }
+        }
+        return node;
+    }
     /**
      * Converts a node to an exportable JSON Object
      **/
@@ -551,7 +542,7 @@ RED.nodes = (function() {
         var i;
         for (i=0;i<workspacesOrder.length;i++) {
             if (workspaces[workspacesOrder[i]].type == "tab") {
-                nns.push(workspaces[workspacesOrder[i]]);
+                nns.push(convertWorkspace(workspaces[workspacesOrder[i]]));
             }
         }
         for (i in subflows) {
@@ -913,8 +904,14 @@ RED.nodes = (function() {
                     }
                 }
             }
-
-
+            // If importing into a subflow, ensure an outbound-link doesn't
+            // get added
+            if (activeSubflow && /^link /.test(n.type) && n.links) {
+                n.links = n.links.filter(function(id) {
+                    var otherNode = RED.nodes.node(id);
+                    return (otherNode && otherNode.z === activeWorkspace)
+                });
+            }
         }
         for (i=0;i<new_subflows.length;i++) {
             n = new_subflows[i];
@@ -990,6 +987,26 @@ RED.nodes = (function() {
         return result;
     }
 
+    // Update any config nodes referenced by the provided node to ensure their 'users' list is correct
+    function updateConfigNodeUsers(n) {
+        for (var d in n._def.defaults) {
+            if (n._def.defaults.hasOwnProperty(d)) {
+                var property = n._def.defaults[d];
+                if (property.type) {
+                    var type = registry.getNodeType(property.type);
+                    if (type && type.category == "config") {
+                        var configNode = configNodes[n[d]];
+                        if (configNode) {
+                            if (configNode.users.indexOf(n) === -1) {
+                                configNode.users.push(n);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     return {
         registry:registry,
         setNodeList: registry.setNodeList,
@@ -1061,6 +1078,7 @@ RED.nodes = (function() {
         getAllFlowNodes: getAllFlowNodes,
         createExportableNodeSet: createExportableNodeSet,
         createCompleteNodeSet: createCompleteNodeSet,
+        updateConfigNodeUsers: updateConfigNodeUsers,
         id: getID,
         dirty: function(d) {
             if (d == null) {

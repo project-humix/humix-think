@@ -214,22 +214,29 @@ RED.editor = (function() {
         if (input.length === 0 ) {
             return;
         }
-        var existingWidthCSS = input[0].style.width;
-        var newWidth;
-        if (existingWidthCSS !== '') {
-            if (/%/.test(existingWidthCSS)) {
-                newWidth = (input.width()-10)+"%";
-            } else {
-                newWidth = input.width()-50;
-            }
+        var newWidth = input.width();
+        var attrStyle = input.attr('style');
+        var m;
+        if ((m = /width\s*:\s*(\d+(%|[a-z]+))/i.exec(attrStyle)) !== null) {
+            newWidth = m[1];
         } else {
-            newWidth = "60%";
+            newWidth = "70%";
         }
-        var select = $('<select id="'+prefix+'-'+property+'"></select>');
-        select.width(newWidth);
-        input.replaceWith(select);
+        var outerWrap = $("<div></div>").css({display:'inline-block',position:'relative'});
+        var selectWrap = $("<div></div>").css({position:'absolute',left:0,right:'40px'}).appendTo(outerWrap);
+        var select = $('<select id="'+prefix+'-'+property+'"></select>').appendTo(selectWrap);
+
+        outerWrap.width(newWidth).height(input.height());
+        if (outerWrap.width() === 0) {
+            outerWrap.width("70%");
+        }
+        input.replaceWith(outerWrap);
+        // set the style attr directly - using width() on FF causes a value of 114%...
+        select.attr('style',"width:100%");
         updateConfigNodeSelect(property,type,node[property],prefix);
-        select.after(' <a id="'+prefix+'-lookup-'+property+'" class="editor-button"><i class="fa fa-pencil"></i></a>');
+        $('<a id="'+prefix+'-lookup-'+property+'" class="editor-button"><i class="fa fa-pencil"></i></a>')
+            .css({position:'absolute',right:0,top:0})
+            .appendTo(outerWrap);
         $('#'+prefix+'-lookup-'+property).click(function(e) {
             showEditConfigNodeDialog(property,type,select.find(":selected").val(),prefix);
             e.preventDefault();
@@ -717,7 +724,7 @@ RED.editor = (function() {
                 }
             }
         }
-        if (editTrayWidthCache[type]) {
+        if (editTrayWidthCache.hasOwnProperty(type)) {
             trayOptions.width = editTrayWidthCache[type];
         }
 
@@ -766,7 +773,7 @@ RED.editor = (function() {
             }
             for (var d in node_def.defaults) {
                 if (node_def.defaults[d].value) {
-                    editing_config_node[d] = node_def.defaults[d].value;
+                    editing_config_node[d] = JSON.parse(JSON.stringify(node_def.defaults[d].value));
                 }
             }
             editing_config_node["_"] = node_def._;
@@ -791,7 +798,9 @@ RED.editor = (function() {
                 var trayBody = tray.find(".editor-tray-body");
                 var trayFooter = tray.find(".editor-tray-footer");
 
-                trayFooter.prepend('<div id="node-config-dialog-user-count"><i class="fa fa-info-circle"></i> <span></span></div>');
+                if (node_def.hasUsers !== false) {
+                    trayFooter.prepend('<div id="node-config-dialog-user-count"><i class="fa fa-info-circle"></i> <span></span></div>');
+                }
                 trayFooter.append('<span id="node-config-dialog-scope-container"><span id="node-config-dialog-scope-warning" data-i18n="[title]editor.errors.scopeChange"><i class="fa fa-warning"></i></span><select id="node-config-dialog-scope"></select></span>');
 
                 var dialogForm = $('<form id="node-config-dialog-edit-form" class="form-horizontal"></form>').appendTo(trayBody);
@@ -858,9 +867,9 @@ RED.editor = (function() {
                 tabSelect.i18n();
 
                 dialogForm.i18n();
-
-                $("#node-config-dialog-user-count").find("span").html(RED._("editor.nodesUse", {count:editing_config_node.users.length})).parent().show();
-
+                if (node_def.hasUsers !== false) {
+                    $("#node-config-dialog-user-count").find("span").html(RED._("editor.nodesUse", {count:editing_config_node.users.length})).parent().show();
+                }
             },
             close: function() {
                 RED.workspaces.refresh();
@@ -935,7 +944,7 @@ RED.editor = (function() {
                             } else {
                                 newValue = input.val();
                             }
-                            if (newValue !== editing_config_node[d]) {
+                            if (newValue != null && newValue !== editing_config_node[d]) {
                                 if (editing_config_node._def.defaults[d].type) {
                                     if (newValue == "_ADD_") {
                                         newValue = "";

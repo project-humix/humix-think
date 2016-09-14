@@ -1,11 +1,15 @@
 {
-  "name": "humix-ng-think",
-  "version": "0.9.0",
+  "name": "humix-think",
+  "version": "1.0.0",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "postinstall": "cd node-red;npm install;grunt build",
     "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/project-humix/humix-think.git"
   },
   "keywords": [
     "editor",
@@ -15,14 +19,11 @@
     "flow",
     "watson"
   ],
-  "contributors": [
-    {
-      "name": "Richard Chou"
-    },
-    {
-      "name": "Jeffrey Liu"
-    }
-  ],
+  "contributors": [{
+    "name": "Richard Chou"
+  }, {
+    "name": "Jeffrey Liu"
+  }],
   "dependencies": {
     "async": "1.5.0",
     "bcryptjs": "2.2.0",

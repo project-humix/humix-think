@@ -32,8 +32,6 @@ var theme = require("./theme");
 var locales = require("./locales");
 var credentials = require("./credentials");
 var comms = require("./comms");
-var comms_sense = require("./comms_sense");
-var sense = require("./sense");
 
 var auth = require("./auth");
 var needsPermission = auth.needsPermission;
@@ -74,9 +72,7 @@ function init(_server,_runtime) {
         nodeApp = express();
     }
     if (settings.httpAdminRoot !== false) {
-      console.log('#settings.httpAdminRoot');
         comms.init(server,runtime);
-        comms_sense.init(server,runtime);
         adminApp = express();
         auth.init(runtime);
         credentials.init(runtime);
@@ -157,22 +153,14 @@ function init(_server,_runtime) {
         // Error Handler
         //adminApp.use(errorHandler);
     }
-    else {
-      console.log('#!settings.httpAdminRoot');
-    }
 }
 function start() {
-  console.log('##### [RED] server.js, start()');
     return i18n.registerMessageCatalog("editor",path.resolve(path.join(__dirname,"locales")),"editor.json").then(function(){
         comms.start();
-        comms_sense.start();
-        sense.start();
     });
 }
 function stop() {
     comms.stop();
-    comms_sense.stop();
-    sense.stop();
     return when.resolve();
 }
 module.exports = {
@@ -186,14 +174,8 @@ module.exports = {
         needsPermission: auth.needsPermission
     },
     comms: {
-        publish: comms.publish,
-        publish_sense: comms_sense.publish,
-        subscribe_sense: comms_sense.subscribe,
-        unsubscribe_sense: comms_sense.unsubscribe,
-        getAll: comms_sense.getAll,
-        syncCommandCache: comms_sense.syncCommandCache
+        publish: comms.publish
     },
-    sense: sense,
     get adminApp() { return adminApp; },
     get nodeApp() { return nodeApp; },
     get server() { return server; }

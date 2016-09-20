@@ -26,10 +26,6 @@ var activeConnections = [];
 
 var retained = {};
 
-// -- Humix-Sense--begin --
-var subscriptions = {};
-// -- Humix-Sense--end --
-
 var heartbeatTimer;
 var lastSentTime;
 
@@ -90,24 +86,6 @@ function start() {
                         if (msg.subscribe) {
                             handleRemoteSubscription(ws,msg.subscribe);
                         }
-                        // -- Humix-Sense--begin --
-                        // else if (msg.senseId){
-                        //
-                        //     for (var t in subscriptions) {
-                        //         if (subscriptions.hasOwnProperty(t)) {
-                        //             var re = new RegExp("^"+t.replace(/([\[\]\?\(\)\\\\$\^\*\.|])/g,"\\$1").replace(/\+/g,"[^/]+").replace(/\/#$/,"(\/.*)?")+"$");
-                        //             if (re.test(msg.senseId) || t === '*') {
-                        //                 console.log('message: '+JSON.stringify(msg.data));
-                        //                 // var message_obj = JSON.parse(msg);
-                        //                 var subscribers = subscriptions[t];
-                        //                 for (var i=0;i<subscribers.length;i++) {
-                        //                     subscribers[i]({senseId: msg.senseId, data: msg.data});
-                        //                 }
-                        //             }
-                        //         }
-                        //     }
-                        // }
-                        // -- Humix-Sense--end --
                     } else {
                         var completeConnection = function(userScope,sendAck) {
                             try {
@@ -192,29 +170,6 @@ function stop() {
     }
 }
 
-// -- Humix-Sense--begin --
-// function subscribe(topic,callback) {
-//     if (subscriptions[topic] == null) {
-//         subscriptions[topic] = [];
-//     }
-//     subscriptions[topic].push(callback);
-// }
-//
-// function unsubscribe(topic,callback) {
-//     if (subscriptions[topic]) {
-//         for (var i=0;i<subscriptions[topic].length;i++) {
-//             if (subscriptions[topic][i] === callback) {
-//                 subscriptions[topic].splice(i,1);
-//                 break;
-//             }
-//         }
-//         if (subscriptions[topic].length === 0) {
-//             delete subscriptions[topic];
-//         }
-//     }
-// }
-// -- Humix-Sense--end --
-
 function publish(topic,data,retain) {
     if (server) {
         if (retain) {
@@ -271,8 +226,4 @@ module.exports = {
     start:start,
     stop:stop,
     publish:publish
-    // -- Humix-Sense--begin --
-    // , subscribe:subscribe,
-    // unsubscribe:unsubscribe
-    // -- Humix-Sense--end --
 }

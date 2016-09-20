@@ -87,7 +87,6 @@ module.exports = {
     version: runtime.version,
 
     comms: api.comms,
-    sense: api.sense,
     library: api.library,
     auth: api.auth,
 

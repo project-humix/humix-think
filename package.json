@@ -4,8 +4,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "postinstall": "cd node-red;npm install;grunt build",
-    "test": "mocha test"
+    "postinstall": "cd node-red;npm install;grunt build"
   },
   "repository": {
     "type": "git",

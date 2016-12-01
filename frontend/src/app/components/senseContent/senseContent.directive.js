@@ -85,7 +85,7 @@
     function modalController($modalInstance){
       var vm = this;
 
-      vm.imgId = 10 + Math.floor(Math.random() * 42); // random image id
+      vm.imgId = 1 + Math.floor(Math.random() * 9); // random image id
 
       vm.senseId = ""; // sense id
 

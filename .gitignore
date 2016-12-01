@@ -25,3 +25,4 @@ coverage/
 
 # other
 npm-debug.log
+.DS_Store

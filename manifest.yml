@@ -1,6 +1,6 @@
 applications:
 - path: .
-  memory: 2G
+  memory: 512M 
   instances: 1
   domain: mybluemix.net
   name: <your_app_name> 

@@ -132,12 +132,22 @@ var getSenseStatus = function(senseId) {
 
 var getModuleStatus = function(senseId, moduleId) {
 
+
     var key = senseId + "_" + moduleId;
     var status = moduleStatus[key];
 
-    if (!status) {
+    var senseStatus = this.getSenseStatus(senseId);
 
-        status = 'disconnected';
+    if (senseStatus && senseStatus.status != 'connected'){
+
+        status = 'unavailable';
+
+    }else{
+
+         if (!status) {
+            status = 'disconnected';
+        }
+
     }
 
     var result = {
@@ -154,10 +164,17 @@ var getAllModuleStatus = function(senseId) {
 
     var resultArr = [];
 
+    var senseStatus = this.getSenseStatus(senseId);
+
     for (var key in moduleStatus) {
 
         var moduleName = key.substring(key.indexOf("_") + 1);
         var status = moduleStatus[key];
+
+        if(senseStatus && senseStatus.status != 'connected'){
+
+            status = 'unavailable';
+        }
 
         resultArr.push({
             moduleId: moduleName,

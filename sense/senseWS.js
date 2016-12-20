@@ -167,7 +167,10 @@ function publish(topic, data, retain) {
     }
     lastSentTime = Date.now();
     activeConnections.forEach(function(conn) {
-        publishTo(conn, topic, data);
+
+        if(conn.senseId === topic){
+            publishTo(conn, topic, data);
+        }
     });
 }
 

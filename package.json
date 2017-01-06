@@ -21,7 +21,8 @@
   "contributors": [{
     "name": "Richard Chou"
   }, {
-    "name": "Jeffrey Liu"
+    "name": "Jeffrey Liu",
+    "email": "jeffffrey@gmail.com"
   }],
   "dependencies": {
     "async": "1.5.0",
@@ -44,7 +45,6 @@
     "is-utf8": "0.2.0",
     "js2xmlparser": "^1.0.0",
     "logule": "latest",
-    "mocha": "^2.5.3",
     "mqtt": "0.3.x",
     "mustache": "2.1.2",
     "nano": "~5.11.0",
@@ -72,5 +72,7 @@
   },
   "engines": {
     "node": ">=4.2"
-  }
+  },
+  "license": "Apache-2.0"
+
 }

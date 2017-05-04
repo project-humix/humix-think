@@ -25,11 +25,11 @@ var humixSettings = module.exports = {
     port: 3000,
 
     // 'local' or 'bluemix'
-    location: 'bluemix',
+    location: 'local',
 
     // 'couch' , 'redis'
     // NOTE: couch is the only supported option when using bluemix location
-    storage: 'couch',
+    storage: 'redis',
 
 
     /* NodeRed settings */
@@ -103,10 +103,8 @@ if (humixSettings.location === 'bluemix' && humixSettings.storage === 'couch') {
 
     } else if (humixSettings.storage === 'redis') {
 
-        console.log('using redis storage module');
-        humixSettings.storageModule = require('./server/lib/storage/redis.js');
-        humixSettings.storageModule.init(humixSettings);
-        console.log('smodule:'+JSON.stringify(humixSettings.storageModule));
+
+        humixSettings.storageModule = require('./server/lib/storage/redis');
         humixSettings.redisConfig = {
             redisPort: "6379",
             redisIP: "127.0.0.1",

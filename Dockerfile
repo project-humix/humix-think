@@ -7,9 +7,6 @@ RUN apt-get update && apt-get -y install redis-server
 RUN mkdir -p /usr/src/humix
 WORKDIR /usr/src/humix
 
-# Install app dependencies
-#COPY package.json /usr/src/humix/
-
 # Bundle app source
 COPY . /usr/src/humix
 RUN npm install

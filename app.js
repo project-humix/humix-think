@@ -19,12 +19,12 @@ var express = require('express'),
     log = require('logule').init(module, 'APP'),
     path = require('path'),
     bodyParser = require('body-parser'),
-    RED = require('./node-red/red/red.js'),
+    RED = require('node-red'),
     http = require('http'),
     api = require('./api'),
     sense = require('./sense');
 
-var bluemixNodeRedSettings = require('./bluemix-settings.js');
+var humixSettings = require('./humix-settings.js');
 
 var app = module.exports = express();
 
@@ -35,16 +35,18 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static(path.join(__dirname, 'frontend/dist')));
 
-var port = process.env.PORT || 3000;
+var port = humixSettings.port;
 var httpServer = http.createServer(app);
 
-RED.init(httpServer, bluemixNodeRedSettings);
+console.log('Using humix setting:'+JSON.stringify(humixSettings));
 
 
+RED.init(httpServer, humixSettings);
+app.use(humixSettings.httpAdminRoot, RED.httpAdmin);
+app.use(humixSettings.httpNodeRoot, RED.httpNode);
 
-app.use(bluemixNodeRedSettings.httpAdminRoot, RED.httpAdmin);
-app.use(bluemixNodeRedSettings.httpNodeRoot, RED.httpNode);
 app.RED = RED;
+
 // api init
 api.init(app);
 
@@ -63,19 +65,11 @@ app.use(function(err, req, res, next) {
     });
 });
 
-
-// start app
-RED.start().then(function() {
-
-    // Initialize Humix Sense WebSocket Connections
-    sense.start(httpServer, RED);
-});
-
+sense.start(httpServer, RED);
+RED.start();
 
 httpServer.listen(port);
 log.info('Server listening on port: ' + port);
-
-
 
 
 process.on('SIGINT', function() {

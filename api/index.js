@@ -16,7 +16,7 @@
 
 
 var apiRoutes = require('express').Router(),
-    devices = require('./devices'),
+    modules = require('./modules'),
     status = require('./status');
 
 
@@ -24,15 +24,15 @@ function init(adminApp) {
 
 
     // Devices
-    apiRoutes.post('/registerDevice', devices.register);
-    apiRoutes.delete('/devices/', devices.unregisterall);
-    apiRoutes.delete('/devices/:senseId', devices.unregister);
-    apiRoutes.get('/devices', devices.getAllDevices);
-    apiRoutes.get('/devices/:senseId', devices.getDevice);
-    apiRoutes.get('/devices/:senseId/modules', devices.getDeviceModules);
-    apiRoutes.delete('/devices/:senseId/modules/:moduleId', devices.unregisterModule);
-    apiRoutes.get('/devices/:senseId/modules/:moduleName/events', devices.getDeviceModuleEvents);
-    apiRoutes.get('/devices/:senseId/modules/:moduleName/commands', devices.getDeviceModuleCommands);
+    apiRoutes.post('/registerDevice', modules.register);
+    //apiRoutes.delete('/devices/', modules.unregisterall);
+    apiRoutes.delete('/devices/:senseId', modules.unregister);
+    apiRoutes.get('/devices', modules.getAllDevices);
+    apiRoutes.get('/devices/:senseId', modules.getDevice);
+    apiRoutes.get('/devices/:senseId/modules', modules.getDeviceModules);
+    apiRoutes.delete('/devices/:senseId/modules/:moduleId', modules.unregisterModule);
+    apiRoutes.get('/devices/:senseId/modules/:moduleName/events', modules.getDeviceModuleEvents);
+    apiRoutes.get('/devices/:senseId/modules/:moduleName/commands', modules.getDeviceModuleCommands);
 
     // Status
     apiRoutes.get('/status/:senseId', status.getSenseStatus);

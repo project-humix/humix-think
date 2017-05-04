@@ -15,15 +15,19 @@
 **/
 
 
-var humix_setting = require("../humix-settings");
+var humix_setting = require("../../humix-settings");
 var dbModule = require('./' + humix_setting.storage);
+
 var storageModuleInterface = {
-    start: dbModule.start,
-    stop: dbModule.stop,
-    getSenseStatus: dbModule.getSenseStatus,
-    getModuleStatus: dbModule.getModuleStatus,
-    getAllModuleStatus: dbModule.getAllModuleStatus,
-    ws: dbModule.ws
+    register: dbModule.register,
+    unregister: dbModule.unregister,
+    unregisterall: dbModule.unregisterall,
+    getAllDevices: dbModule.getAllDevices,
+    getDevice: dbModule.getDevice,
+    getDeviceModules: dbModule.getDeviceModules,
+    unregisterModule: dbModule.unregisterModule,
+    getDeviceModuleEvents: dbModule.getDeviceModuleEvents,
+    getDeviceModuleCommands: dbModule.getDeviceModuleCommands
 }
 
 

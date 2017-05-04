@@ -21,10 +21,10 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     RED = require('node-red'),
     http = require('http'),
-    api = require('./api'),
+    api = require('./api');
     sense = require('./sense');
 
-var humixSettings = require('./humix-settings.js');
+var humixSettings = require('../humix-settings.js');
 
 var app = module.exports = express();
 
@@ -33,7 +33,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-app.use(express.static(path.join(__dirname, 'frontend/dist')));
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 var port = humixSettings.port;
 var httpServer = http.createServer(app);
@@ -48,7 +48,7 @@ app.use(humixSettings.httpNodeRoot, RED.httpNode);
 app.RED = RED;
 
 // api init
-api.init(app);
+api.init(app, humixSettings);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -64,6 +64,8 @@ app.use(function(err, req, res, next) {
         error: err.message
     });
 });
+
+//var sense = humixSettings.storageModule;
 
 sense.start(httpServer, RED);
 RED.start();

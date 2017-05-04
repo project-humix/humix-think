@@ -16,7 +16,7 @@
 
 var comms = require('./senseWS');
 var WS = require('ws');
-var settings = require('../humix-settings.js');
+var settings = require('../../humix-settings.js');
 var Redis = require('ioredis');
 var Promise = require("bluebird");
 var humixdb;

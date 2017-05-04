@@ -53,6 +53,7 @@ var redisstorage = {
     init: function (_settings) {
         return when.promise(function (resolve, reject) {
 
+            console.log('starting redis storage, config:'+JSON.stringify(_settings));
             var redisConfig = _settings.redisConfig;
             var redisMode = redisConfig.mode || "single";
             var redisPort = redisConfig.redisPort || '6379';

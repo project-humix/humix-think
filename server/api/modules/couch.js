@@ -16,7 +16,7 @@
 
 var log = require('logule').init(module, 'Device'),
     async = require('async'),
-    settings = require('../../bluemix-settings.js'),
+    settings = require('../../../humix-settings.js'),
     nano = require('nano')(settings.couchUrl);
 
 var humixdb = nano.db.use('humix');

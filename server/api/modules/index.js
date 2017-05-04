@@ -15,8 +15,10 @@
 **/
 
 
-var humix_setting = require("../../humix-settings");
+var humix_setting = require("../../../humix-settings");
 var dbModule = require('./' + humix_setting.storage);
+
+var dbModule;
 
 var storageModuleInterface = {
     register: dbModule.register,

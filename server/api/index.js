@@ -20,9 +20,12 @@ var apiRoutes = require('express').Router(),
     status = require('./status');
 
 
-function init(adminApp) {
+function init(adminApp, settings) {
 
-
+    //modules.init(settings);
+    //var modules = settings.storageModule;
+    //console.log('modules:'+JSON.stringify(modules));
+    //status.init(modules);
     // Devices
     apiRoutes.post('/registerDevice', modules.register);
     //apiRoutes.delete('/devices/', modules.unregisterall);

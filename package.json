@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node server/app.js"
   },
   "repository": {
     "type": "git",
@@ -41,6 +41,7 @@
     "logule": "latest",
     "mqtt": "0.3.x",
     "nano": "~5.11.0",
+    "needle": "^1.6.0",
     "node-red": "^0.16.2",
     "node-red-contrib-humix": "^1.0.7",
     "q": "^1.5.0",

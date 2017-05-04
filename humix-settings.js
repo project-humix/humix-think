@@ -25,10 +25,11 @@ var humixSettings = module.exports = {
     port: 3000,
 
     // 'local' or 'bluemix'
-    location: 'local',
+    location: 'bluemix',
 
     // 'couch' , 'redis'
-    storage: 'redis',
+    // NOTE: couch is the only supported option when using bluemix location
+    storage: 'couch',
 
 
     /* NodeRed settings */
@@ -39,7 +40,7 @@ var humixSettings = module.exports = {
     debugMaxLength: 1000,
 
     // Add the bluemix-specific nodes in
-    nodesDir: path.join(__dirname, "nodes"),
+    nodesDir: path.join(__dirname, "server/nodes"),
 
     // Blacklist the non-bluemix friendly nodes
     nodesExcludes: [
@@ -67,7 +68,7 @@ var humixSettings = module.exports = {
     // 5f4dcc3b5aa765d61d8327deb882cf99 ('password') httpAdminAuth:
     // {user:"user",pass:"5f4dcc3b5aa765d61d8327deb882cf99"}, Serve up the welcome
     // page
-    httpStatic: path.join(__dirname, "public"),
+    httpStatic: path.join(__dirname, 'public'),
 
     functionGlobalContext: {},
 
@@ -88,7 +89,7 @@ if (humixSettings.location === 'bluemix' && humixSettings.storage === 'couch') {
         throw new Error("No cloudant service found");
     }
 
-    humixSettings.storageModule = require('./storage/couch');
+    humixSettings.storageModule = require('./server/lib/storage/couch');
     humixSettings.couchUrl = couchService.credentials.url;
 
 } else {
@@ -97,12 +98,15 @@ if (humixSettings.location === 'bluemix' && humixSettings.storage === 'couch') {
 
     if (humixSettings.storage === 'couch') {
 
-        humixSettings.storageModule = require('./storage/couch');
+        humixSettings.storageModule = require('./server/lib/storage/couch');
         humixSettings.couchUrl = 'http://127.0.0.1:5984/';
 
     } else if (humixSettings.storage === 'redis') {
 
-        humixSettings.storageModule = require('./storage/redis');
+        console.log('using redis storage module');
+        humixSettings.storageModule = require('./server/lib/storage/redis.js');
+        humixSettings.storageModule.init(humixSettings);
+        console.log('smodule:'+JSON.stringify(humixSettings.storageModule));
         humixSettings.redisConfig = {
             redisPort: "6379",
             redisIP: "127.0.0.1",

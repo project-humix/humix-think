@@ -20,6 +20,7 @@ var log = require('logule').init(module, 'Status');
 var sense = require('../sense'),
     senseWS = sense.ws;
 
+
 module.exports = {
 
     getSenseStatus: function(req, res) {

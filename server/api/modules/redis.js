@@ -17,7 +17,7 @@
 
 var log = require('logule').init(module, 'Device'),
     async = require('async'),
-    settings = require('../../humix-settings.js');
+    settings = require('../../../humix-settings.js');
 var Redis = require('ioredis');
 var Promise = require("bluebird");
 var humixdb;
@@ -31,6 +31,7 @@ var redisSentinelName = redisConfig.sentinelName;
 var dbSelect = redisConfig.dbSelect || "0";
 var redisPassword = redisConfig.redisPassword;
 var ioRedisConfig = {}
+
 if (redisMode == 'single') {
     ioRedisConfig = {
         port: redisPort, // Redis port

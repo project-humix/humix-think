@@ -123,9 +123,9 @@ var humix_settings = module.exports = {
     location : 'local',
 
     // 'redis' or 'couch'
-    storage : 'couch',
+    storage : 'redis',
 
-    storageURL : 'http://127.0.0.1:5984/'
+    ...
 };
 
 ```

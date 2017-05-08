@@ -24,7 +24,7 @@ module systems that could be enhanced incrementally.
 Currently the core Humix module that comes with Humix framework is ‘humix-dialog-module’.
 This module use speech-recognition and text-to-speech engines  to support basic interaction with robot. Find more information about humix-dialog-module [here](https://github.com/project-humix/humix-dialog-module).
 
-
+To persist various configuration, Humix could use 'Redis' or 'Couchdb' as storage. 'Redis' is currently the default storage because of its lightweight and efficiency. When running humix-think using docker container, the image embeds a 'Redis' server to reduce the dependency. 
 
 # Hardware Requirement
 
@@ -85,7 +85,7 @@ applications:
       command: node --max-old-space-size=384 app.js --settings ./bluemix-settings.js -v
  ```
 
- ** Note : Only the 'Humix-Cloudant-Service' is mandatory. You can comment out other services (e.g "Humix-NLC-Service") if you don't want to use these services for designing the conversation.
+ ** Note : All services listed above are optional. You can comment out other services (e.g "Humix-NLC-Service") if you don't want to use these services for designing the conversation.
 
  #### install cf client
 
@@ -122,6 +122,7 @@ var humix_settings = module.exports = {
     // 'local' or 'bluemix'
     location : 'local',
 
+    // 'redis' or 'couch'
     storage : 'couch',
 
     storageURL : 'http://127.0.0.1:5984/'
@@ -139,6 +140,11 @@ Then install dependencies and build humix-think
 ```
 
 Then you can visit your local `humix think` via http://localhost:3000
+
+### Running Humix-Think docker image
+
+To simplify the deployment, you can also use the humix-think docker image [here](https://hub.docker.com/r/jeffffrey/humix-think/)
+
 
 
 

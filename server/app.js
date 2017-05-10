@@ -35,11 +35,11 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-var port = humixSettings.port;
+var port = process.env.PORT  || humixSettings.port;
 var httpServer = http.createServer(app);
 
-console.log('Using humix setting:'+JSON.stringify(humixSettings));
 
+console.log('Using humix setting:'+JSON.stringify(humixSettings));
 
 RED.init(httpServer, humixSettings);
 app.use(humixSettings.httpAdminRoot, RED.httpAdmin);

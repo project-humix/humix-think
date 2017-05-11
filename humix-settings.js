@@ -14,9 +14,7 @@
 * limitations under the License.
 **/
 
-var path = require('path');
-var cfenv = require('cfenv');
-var appEnv = cfenv.getAppEnv();
+
 
 var humixSettings = module.exports = {
 
@@ -29,7 +27,17 @@ var humixSettings = module.exports = {
 
     // 'couch' , 'redis'
     // NOTE: couch is the only supported option when using bluemix location
+    //storage: 'couch',
+    //couchUrl: 'http://127.0.0.1:5984/',
+
     storage: 'redis',
+    redisConfig: {
+         redisPort: "6379",
+         redisIP: "127.0.0.1",
+         redisPassword: "",
+         dbSelect: "0"
+    },
+
 
 
     /* NodeRed settings */
@@ -75,42 +83,4 @@ var humixSettings = module.exports = {
     //userDir: process.env.PWD + '/humix_data',
 };
 
-if (humixSettings.location === 'bluemix' && humixSettings.storage === 'couch') {
 
-    var storageServiceName = process.env.NODE_RED_STORAGE_NAME || new RegExp("^" + humixSettings.appName + ".cloudantNoSQLDB");
-    var storageServiceName = 'Humix-Cloudant-Service'
-    var couchService = appEnv.getService(storageServiceName);
-
-    if (!couchService) {
-        console.log("Failed to find Cloudant service");
-        if (process.env.NODE_RED_STORAGE_NAME) {
-            console.log(" - using NODE_RED_STORAGE_NAME environment variable: " + process.env.NODE_RED_STORAGE_NAME);
-        }
-        throw new Error("No cloudant service found");
-    }
-
-    humixSettings.storageModule = require('./server/lib/storage/couch');
-    humixSettings.couchUrl = couchService.credentials.url;
-
-} else {
-
-    // settings for local storage
-
-    if (humixSettings.storage === 'couch') {
-
-        humixSettings.storageModule = require('./server/lib/storage/couch');
-        humixSettings.couchUrl = 'http://127.0.0.1:5984/';
-
-    } else if (humixSettings.storage === 'redis') {
-
-
-        humixSettings.storageModule = require('./server/lib/storage/redis');
-        humixSettings.redisConfig = {
-            redisPort: "6379",
-            redisIP: "127.0.0.1",
-            redisPassword: "",
-            dbSelect: "0"
-        }
-    }
-
-}

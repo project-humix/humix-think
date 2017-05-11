@@ -24,7 +24,38 @@ var express = require('express'),
     api = require('./api');
     sense = require('./sense');
 
+var cfenv = require('cfenv');
+var appEnv = cfenv.getAppEnv();
+
 var humixSettings = require('../humix-settings.js');
+
+
+// Adjust Configuration
+
+if(humixSettings.storage === 'couch'){
+    humixSettings.storageModule = require('./lib/storage/couch');
+
+    if(humixSettings.location === 'bluemix' && !humixSettings.couchUrl){
+
+        var storageServiceName = 'Humix-Cloudant-Service'
+        var couchService = appEnv.getService(storageServiceName);
+
+        if (!couchService) {
+            console.log("Failed to find Cloudant service");
+            throw new Error("No cloudant service found");
+
+        }else{
+
+            humixSettings.couchUrl = couchService.credentials.url;
+        }
+    }
+
+}else if(humixSettings.storage === 'redis'){
+    humixSettings.storageModule = require('./lib/storage/redis');
+
+}
+
+humixSettings.storageModule.init(humixSettings);
 
 var app = module.exports = express();
 
@@ -67,7 +98,7 @@ app.use(function(err, req, res, next) {
 
 //var sense = humixSettings.storageModule;
 
-sense.start(httpServer, RED);
+sense.start(httpServer, RED, humixSettings);
 RED.start();
 
 httpServer.listen(port);

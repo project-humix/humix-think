@@ -1,15 +1,28 @@
 var Redis = require('ioredis');
 var Promise = require("bluebird");
 var when = require('when');
-var flowDb = null;
+var humixdb = null;
 var appname;
 var libraryCache = {};
 var fs = require('fs');
 
+
+function errMessage(err) {
+    console.log('err occur :' + err);
+}
+
+function getSenseIdPrefix(senseId) {
+    return 'humix:senseId:' + senseId;
+}
+
+function getSenseIDModuleIDPrefix(senseId, moduleId) {
+    return 'humix:senseID:' + senseId + ':moduleID:' + moduleId;
+}
+
 function prepopulateFlows(resolve) {
     var key = appname + "/flow";
 
-    flowDb.get(key, function (err, res) {
+    humixdb.get(key, function (err, res) {
         if (err || res === null) {
             var promises = [];
             if (fs.existsSync(__dirname + "/defaults/flow.json")) {
@@ -48,12 +61,14 @@ function prepopulateFlows(resolve) {
         }
     });
 }
+
+var ioRedisConfig = {};
+
 var redisstorage = {
 
     init: function (_settings) {
         return when.promise(function (resolve, reject) {
 
-            console.log('starting redis storage, config:'+JSON.stringify(_settings));
             var redisConfig = _settings.redisConfig;
             var redisMode = redisConfig.mode || "single";
             var redisPort = redisConfig.redisPort || '6379';
@@ -62,7 +77,7 @@ var redisstorage = {
             var redisSentinelName = redisConfig.sentinelName;
             var dbSelect = redisConfig.dbSelect || "0";
             var redisPassword = redisConfig.redisPassword;
-            var ioRedisConfig = {}
+
             if (redisMode == 'single') {
                 ioRedisConfig = {
                     port: redisPort, // Redis port
@@ -84,11 +99,11 @@ var redisstorage = {
             var settings = _settings;
             appname = settings.appName; //what this?
             // database 0 for the node-red flows
-            flowDb = new Redis(ioRedisConfig);
-            flowDb.on('connect', function () {
-                console.log('already connected to  node-red Redis');
+            humixdb = new Redis(ioRedisConfig);
+            humixdb.on('connect', function () {
+                console.log('Connected to Redis Server');
                 prepopulateFlows(resolve);
-                flowDb.exists(appname + '/settings', function (err, res) {
+                humixdb.exists(appname + '/settings', function (err, res) {
                     if (res === 1) {
                         resolve();
                     }
@@ -101,7 +116,7 @@ var redisstorage = {
     getFlows: function () {
         var key = appname + "/flow";
         return when.promise(function (resolve, reject) {
-            flowDb
+            humixdb
                 .get(key, function (err, res) {
                     if (err || res === null) {
                         if (err) {
@@ -119,7 +134,7 @@ var redisstorage = {
         var key = appname + "/flow";
         return when.promise(function (resolve, reject) {
 
-            flowDb
+            humixdb
                 .set(key, JSON.stringify(flows), function (err, db) {
                     if (err) {
                         reject(err);
@@ -132,7 +147,7 @@ var redisstorage = {
     getCredentials: function () {
         var key = appname + "/credential";
         return when.promise(function (resolve, reject) {
-            flowDb
+            humixdb
                 .get(key, function (err, res) {
                     if (err) {
                         reject(err);
@@ -155,7 +170,7 @@ var redisstorage = {
             try {
                 credentials = JSON.stringify(credentials);
             } catch (error) {}
-            flowDb
+            humixdb
                 .set(key, credentials, function (err, db) {
                     if (err) {
                         reject(err);
@@ -168,7 +183,7 @@ var redisstorage = {
     getSettings: function () {
         var key = appname + "/settings";
         return when.promise(function (resolve, reject) {
-            flowDb
+            humixdb
                 .get(key, function (err, res) {
                     if (err) {
                         reject(err);
@@ -192,7 +207,7 @@ var redisstorage = {
             try {
                 settings = JSON.stringigy(settings);
             } catch (error) {}
-            flowDb
+            humixdb
                 .set(key, JSON.stringify(settings), function (err, db) {
                     if (err) {
                         reject(err);
@@ -207,7 +222,7 @@ var redisstorage = {
 
         return new Promise(function (resolve, reject) {
 
-            flowDb
+            humixdb
                 .keys(appname + '/*/flow*', function (err, res) {
                     if (err) {
 
@@ -249,7 +264,7 @@ var redisstorage = {
         var key = appname + "/lib/flow" + fn;
 
         return when.promise(function (resolve, reject) {
-            flowDb
+            humixdb
                 .get(key, function (err, res) {
                     if (err) {
                         reject(err);
@@ -266,7 +281,7 @@ var redisstorage = {
         }
         var key = appname + "/lib/flow" + fn;
         return when.promise(function (resolve, reject) {
-            flowDb
+            humixdb
                 .set(key, JSON.stringify(data), function (err, res) {
                     if (err) {
                         reject(err);
@@ -286,14 +301,14 @@ var redisstorage = {
         }
 
         return when.promise(function (resolve, reject) {
-            flowDb
+            humixdb
                 .get(key, function (err, res) {
                     if (err || res === null) {
                         if (path.substr(-1) == "/") {
                             path = path.substr(0, path.length - 1);
                         }
                         var tempArray = [];
-                        flowDb.keys('*/lib/[^f]*', function (err, res) {
+                        humixdb.keys('*/lib/[^f]*', function (err, res) {
 
                             Promise
                                 .map(res, function (value) {
@@ -312,7 +327,7 @@ var redisstorage = {
 
                                         }
                                         var meta = {};
-                                        flowDb.get(value, function (err, res) {
+                                        humixdb.get(value, function (err, res) {
                                             if (err) {
                                                 reject(err);
                                             }
@@ -370,8 +385,8 @@ var redisstorage = {
                 meta: meta,
                 body: body
             };
-            flowDb.get(key, function (err, d) {
-                flowDb
+            humixdb.get(key, function (err, d) {
+                humixdb
                     .set(key, JSON.stringify(doc), function (err, d) {
                         if (err) {
                             reject(err);
@@ -386,6 +401,237 @@ var redisstorage = {
                     });
             });
 
+        });
+    },
+
+    /*  Humix Device Related API */
+
+    register: function (req, res) {
+        var senseId = req.body.senseId;
+
+        if (!senseId) {
+            return res
+                .status(400)
+                .send({error: 'Missing property: senseId'});
+        }
+        console.log('Registering device: ' + senseId);
+
+        humixdb.exists(getSenseIdPrefix(senseId), function (err, rs) {
+            if (err) {
+                console.log('err occur : ' + err);
+            } else {
+                if (rs === 1) {
+                    console.log('SenseId [' + senseId + '] already exist. Skip');
+                } else {
+                    humixdb
+                        .set(getSenseIdPrefix(senseId), JSON.stringify(req.body), function (err) {
+                            if (err) {
+                                console.log('failed to register humix:' + senseId + " error:" + err);
+                            } else {
+                                console.log('humix:' + senseId + ' registered');
+                            }
+                        });
+                }
+            }
+        });
+    },
+
+    unregister: function (req, res) {
+        var senseId = req.params.senseId;
+        console.log('Unregistering device: ' + senseId);
+        humixdb.exists(getSenseIdPrefix(senseId), function (err, rs) {
+            if (err) {
+                console.log('err occur' + err);
+            } else {
+                if (rs === 1) {
+                    humixdb
+                        .del('humix:senseId:' + senseId, function (err, rs) {
+                            if (err) {
+                                errMessage(err);
+                            }
+
+                        });
+                }
+            }
+
+        })
+        // TODO Delete devices
+    },
+    getAllDevices: function (req, res) {
+        var devices = [];
+        console.log('get all devices invoked');
+        humixdb.keys(getSenseIdPrefix('*'), function (err, rs) {
+            if (err) {
+                errMessage(err);
+            } else {
+                Promise
+                    .map(rs, function (key) {
+                        return new Promise(function (resolve, reject) {
+                            humixdb
+                                .get(key, function (err, rs) {
+                                    if (err) {
+                                        errMessage(err);
+                                    } else {
+                                        var data = JSON.parse(rs);
+                                        var device = {
+                                            senseId: data.senseId,
+                                            senseIcon: data.senseIcon
+                                        }
+                                        devices.push(device);
+                                        resolve();
+                                    }
+                                })
+                        })
+                    })
+                    .then(function () {
+                        res.send({
+                            result: JSON.stringify(devices)
+                        });
+                    })
+
+            }
+        });
+
+    },
+
+    getDevice: function (req, res) {
+
+        console.log('get device invoked');
+        var devices = [];
+        var senseId = req.params.senseId;
+        humixdb.get(getSenseIdPrefix(senseId), function (err, rs) {
+            if (err) {
+                errMessage(err);
+            } else {
+                var data = JSON.parse(rs);
+                var device = {
+                    senseId: data.senseId,
+                    senseIcon: data.senseIcon
+                }
+                devices.push(device);
+
+                res.send({
+                    result: JSON.stringify(devices)
+                });
+            }
+        });
+
+    },
+
+    getDeviceModules: function (req, res) {
+        console.log('get device modules invoked');
+        var modules = [];
+        var senseId = req.params.senseId;
+        humixdb.keys(getSenseIDModuleIDPrefix(senseId, '*'), function (err, rs) {
+            if (err) {
+                errMessage(err);
+            } else {
+                if (rs.length === 0) {
+
+                    // do nothing
+
+                } else {
+                    Promise
+                        .map(rs, function (key) {
+                            return new Promise(function (resolve, reject) {
+                                humixdb
+                                    .get(key, function (err, rs) {
+                                        if (err) {
+                                            errMessage(err);
+                                        } else {
+                                            var data = JSON.parse(rs);
+                                            var mod = data.moduleID;
+                                            modules.push(mod);
+                                            resolve();
+                                        }
+                                    })
+                            })
+                        })
+                        .then(function () {
+                            res.send({
+                                result: JSON.stringify(modules)
+                            });
+                        })
+                }
+            }
+        });
+    },
+
+    unregisterModule: function (req, res) {
+        var senseId = req.params.senseId;
+        var moduleId = req.params.moduleId;
+        console.log('Unregistering module: [' + moduleId + '] for device: [' + senseId + ']');
+        humixdb.del(getSenseIDModuleIDPrefix(senseId, moduleId), function (err, res) {
+            if (err) {
+                errMessage(err);
+            } else {
+                if (res === 1) {
+                    console.log("Successfully deleted doc" + moduleId);
+
+                } else {
+                    console.log('fail to unregister ' + moduleId);
+                }
+            }
+
+        });
+    },
+
+    getDeviceModuleEvents: function (req, res) {
+        console.log('get device module events invoked');
+
+        var senseId = req.params.senseId,
+            moduleName = req.params.moduleName;
+        var events = [];
+        humixdb.get(getSenseIDModuleIDPrefix(senseId, moduleName), function (err, rs) {
+
+            if (err) {
+                errMessage(err);
+            } else {
+                if (rs === null) {
+                    console.log('can not find the module :' + moduleName + ' of the :' + senseId);
+                } else {
+                    var data = JSON.parse(rs);
+                    events = data.events;
+                    console.log('got events :' + events);
+                }
+                res.send({
+                    result: JSON.stringify(events)
+                });
+            }
+        });
+    },
+
+    getDeviceModuleCommands: function (req, res) {
+        console.log('get device module command invoked');
+        var senseId = req.params.senseId,
+            moduleName = req.params.moduleName;
+        var commands = [];
+        humixdb.get(getSenseIDModuleIDPrefix(senseId, moduleName), function (err, rs) {
+            if (err) {
+                errMessage(err);
+            } else {
+                if (rs === null) {
+                    console.log('can not find the module :' + moduleName + ' of the :' + senseId);
+                } else {
+                    var data = JSON.parse(rs);
+                    commands = data.commands;
+                }
+                res.send({
+                    result: JSON.stringify(commands)
+                });
+            }
+        });
+
+    },
+
+    registerModule: function (senseId, moduleName, moduleData){
+
+        humixdb.set(getSenseIDModuleIDPrefix(senseId, moduleName), JSON.stringify(moduleData), function (err, res) {
+            if (err) {
+                errMessage(err);
+            } else {
+                console.log('module registration success');
+            }
         });
     }
 

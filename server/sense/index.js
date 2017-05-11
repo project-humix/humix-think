@@ -15,20 +15,171 @@
 **/
 
 
-var humix_setting = require("../../humix-settings");
-var dbModule = require('./' + humix_setting.storage);
+var comms = require('./senseWS');
+var WS = require('ws');
+
+var humixdb = {};
+var storage = {};
+var moduleStatus = {};
+
+function start(httpServer, RED, settings){
+
+    console.log('registering sense..');
+    storage = settings.storageModule;
+    RED.comms["subscribe_sense"] = comms.subscribe;
+    RED.comms["unsubscribe_sense"] = comms.unsubscribe;
+    RED.comms["publish_sense"] = comms.publish;
+    RED.comms["getAll"] = comms.getAll;
+    RED.comms["syncCommandCache"] = comms.syncCommandCache;
+
+    comms.start(httpServer, RED.settings);
+    comms.subscribe('*', senseEventHandler);
+}
+
+function stop(){
+
+    comms.unsubscribe('*', senseEventHandler);
+    comms.stop();
+}
+
+function senseEventHandler (data) {
+    try {
+        var senseId = data.senseId,
+            event = data.data;
+
+        if (event.eventType === 'humix-think') {
+            if (event.eventName === 'sense.status') {} else if (event.eventName === 'module.status') {
 
 
 
-var storageModuleInterface = {
+                var statusList = event.message;
 
-    start: dbModule.start,
-    stop: dbModule.stop,
-    getSenseStatus: dbModule.getSenseStatus,
-    getModuleStatus: dbModule.getModuleStatus,
-    getAllModuleStatus: dbModule.getAllModuleStatus,
-    ws: dbModule.ws
+                statusList.map(function (module) {
+                    console.log('module status :' + module.status);
+                    var key = senseId + "_" + module.moduleId;
+                    moduleStatus[key] = module.status;
+
+                    console.log('key:'+key+', status:'+moduleStatus[key]);
+
+                });
+
+            }
+            if (event.eventName === 'registerModule') {
+                console.log('receive module registration:' + JSON.stringify(data));
+                var module = event.message;
+                if (module) {
+
+                    var moduleData = {
+
+                        senseID: senseId,
+                        moduleID: module.moduleName,
+                        commands: module.commands,
+                        events: module.events
+                    }
+
+                    storage.registerModule(senseId, module.moduleName, moduleData);
+
+                }
+            }
+        }
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+function getSenseStatus (req, res) {
+
+
+    var senseId = req.params.senseId;
+    var result = null;
+
+    // get senseId status
+    console.log('get sense status. sense id:' + senseId)
+    var status = 'disconnected';
+    var activeConnections = comms.activeConnections;
+
+    activeConnections.map(function (ws) {
+
+        if (ws.senseId === senseId && ws.readyState == WS.OPEN) {
+
+            status = 'connected';
+        }
+    });
+
+    result = {senseId: senseId, status: status};
+    if(res)
+        return res.send(result);
+    else
+        return result;
+}
+
+function getModuleStatus (req, res) {
+
+
+    var senseId = req.params.senseId;
+    var moduleId = req.params.moduleId;
+    console.log('get module status. sense id:' + senseId + ', moduleid:'+moduleId);
+
+    var key = senseId + "_" + moduleId;
+    var status = moduleStatus[key];
+
+    var senseStatus = getSenseStatus(req);
+
+    if (senseStatus && senseStatus.status != 'connected'){
+
+        status = 'unavailable';
+
+    }else {
+
+       if (!status) {
+            status = 'disconnected';
+       }
+
+    }
+
+    var result = {
+        senseId: senseId,
+        moduleId: moduleId,
+        status: status
+    };
+
+    console.log('result:'+JSON.stringify(result));
+    res.send(result);
+    return;
+}
+
+function getAllModuleStatus (req, res) {
+
+
+    var senseId = req.params.senseId;
+    console.log('get all module status. sense id:' + senseId);
+
+    var resultArr = [];
+
+    for (var key in moduleStatus) {
+
+        var moduleName = key.substring(key.indexOf('_') + 1);
+        var status = moduleStatus[key];
+
+        resultArr.push({moduleId: moduleName, status: status });
+    }
+
+    var result = {
+        senseId: senseId,
+        modules: resultArr
+
+    };
+    res.send(result);
+    return;
+
 }
 
 
-module.exports = storageModuleInterface;
+module.exports = {
+    start: start,
+    stop: stop,
+    getSenseStatus: getSenseStatus,
+    getModuleStatus: getModuleStatus,
+    getAllModuleStatus: getAllModuleStatus,
+
+}

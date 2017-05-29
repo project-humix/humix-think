@@ -55,11 +55,8 @@ function senseEventHandler (data) {
                 var statusList = event.message;
 
                 statusList.map(function (module) {
-                    console.log('module status :' + module.status);
                     var key = senseId + "_" + module.moduleId;
                     moduleStatus[key] = module.status;
-
-                    console.log('key:'+key+', status:'+moduleStatus[key]);
 
                 });
 

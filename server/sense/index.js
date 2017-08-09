@@ -24,159 +24,144 @@ var moduleStatus = {};
 
 function start(httpServer, RED, settings){
 
-    console.log('registering sense..');
-    storage = settings.storageModule;
-    RED.comms["subscribe_sense"] = comms.subscribe;
-    RED.comms["unsubscribe_sense"] = comms.unsubscribe;
-    RED.comms["publish_sense"] = comms.publish;
-    RED.comms["getAll"] = comms.getAll;
-    RED.comms["syncCommandCache"] = comms.syncCommandCache;
+  console.log('registering sense..');
+  storage = settings.storageModule;
+  RED.comms["subscribe_sense"] = comms.subscribe;
+  RED.comms["unsubscribe_sense"] = comms.unsubscribe;
+  RED.comms["publish_sense"] = comms.publish;
+  RED.comms["getAll"] = comms.getAll;
+  RED.comms["syncCommandCache"] = comms.syncCommandCache;
 
-    comms.start(httpServer, RED.settings);
-    comms.subscribe('*', senseEventHandler);
+  comms.start(httpServer, RED.settings);
+  comms.subscribe('*', senseEventHandler);
 }
 
 function stop(){
-
-    comms.unsubscribe('*', senseEventHandler);
-    comms.stop();
+  comms.unsubscribe('*', senseEventHandler);
+  comms.stop();
 }
 
 function senseEventHandler (data) {
-    try {
-        var senseId = data.senseId,
-            event = data.data;
+  try {
+    var senseId = data.senseId,
+    event = data.data;
 
-        if (event.eventType === 'humix-think') {
-            if (event.eventName === 'sense.status') {} else if (event.eventName === 'module.status') {
+    if (event.eventType === 'humix-think') {
+      if (event.eventName === 'sense.status') {} else if (event.eventName === 'module.status') {
 
+        var statusList = event.message;
 
+        statusList.map(function (module) {
+          var key = senseId + "_" + module.moduleId;
+          moduleStatus[key] = module.status;
 
-                var statusList = event.message;
+        });
 
-                statusList.map(function (module) {
-                    var key = senseId + "_" + module.moduleId;
-                    moduleStatus[key] = module.status;
+      }
+      if (event.eventName === 'registerModule') {
+        console.log('receive module registration:' + JSON.stringify(data));
+        var module = event.message;
+        if (module) {
 
-                });
+          var moduleData = {
 
-            }
-            if (event.eventName === 'registerModule') {
-                console.log('receive module registration:' + JSON.stringify(data));
-                var module = event.message;
-                if (module) {
+            senseID: senseId,
+            moduleID: module.moduleName,
+            commands: module.commands,
+            events: module.events
+          }
 
-                    var moduleData = {
+          storage.registerModule(senseId, module.moduleName, moduleData);
 
-                        senseID: senseId,
-                        moduleID: module.moduleName,
-                        commands: module.commands,
-                        events: module.events
-                    }
-
-                    storage.registerModule(senseId, module.moduleName, moduleData);
-
-                }
-            }
         }
-    } catch (e) {
-        console.log(e);
+      }
     }
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 function getSenseStatus (req, res) {
 
+  var senseId = req.params.senseId;
+  var result = null;
 
-    var senseId = req.params.senseId;
-    var result = null;
+  // get senseId status
+  var status = 'disconnected';
+  var activeConnections = comms.activeConnections;
 
-    // get senseId status
-    console.log('get sense status. sense id:' + senseId)
-    var status = 'disconnected';
-    var activeConnections = comms.activeConnections;
+  activeConnections.map(function (ws) {
 
-    activeConnections.map(function (ws) {
+    if (ws.senseId === senseId && ws.readyState == WS.OPEN) {
+      status = 'connected';
+    }
+  });
 
-        if (ws.senseId === senseId && ws.readyState == WS.OPEN) {
-
-            status = 'connected';
-        }
-    });
-
-    result = {senseId: senseId, status: status};
-    if(res)
-        return res.send(result);
-    else
-        return result;
+  result = {senseId: senseId, status: status};
+  if (res) {
+    return res.send(result);
+  } else {
+    return result;
+  }
 }
 
 function getModuleStatus (req, res) {
 
+  var senseId = req.params.senseId;
+  var moduleId = req.params.moduleId;
+  console.log('get module status. sense id:' + senseId + ', moduleid:'+moduleId);
 
-    var senseId = req.params.senseId;
-    var moduleId = req.params.moduleId;
-    console.log('get module status. sense id:' + senseId + ', moduleid:'+moduleId);
+  var key = senseId + "_" + moduleId;
+  var status = moduleStatus[key];
+  var senseStatus = getSenseStatus(req);
 
-    var key = senseId + "_" + moduleId;
-    var status = moduleStatus[key];
-
-    var senseStatus = getSenseStatus(req);
-
-    if (senseStatus && senseStatus.status != 'connected'){
-
-        status = 'unavailable';
-
-    }else {
-
-       if (!status) {
-            status = 'disconnected';
-       }
-
+  if (senseStatus && senseStatus.status != 'connected'){
+    status = 'unavailable';
+  } else {
+    if (!status) {
+      status = 'disconnected';
     }
+  }
 
-    var result = {
-        senseId: senseId,
-        moduleId: moduleId,
-        status: status
-    };
+  var result = {
+    senseId: senseId,
+    moduleId: moduleId,
+    status: status
+  };
 
-    console.log('result:'+JSON.stringify(result));
-    res.send(result);
-    return;
+  console.log('result:'+JSON.stringify(result));
+  res.send(result);
+  return;
 }
 
 function getAllModuleStatus (req, res) {
 
+  var senseId = req.params.senseId;
+  console.log('get all module status. sense id:' + senseId);
+  var resultArr = [];
 
-    var senseId = req.params.senseId;
-    console.log('get all module status. sense id:' + senseId);
+  for (var key in moduleStatus) {
+    var moduleName = key.substring(key.indexOf('_') + 1);
+    var status = moduleStatus[key];
+    resultArr.push({moduleId: moduleName, status: status });
+  }
 
-    var resultArr = [];
+  var result = {
+    senseId: senseId,
+    modules: resultArr
 
-    for (var key in moduleStatus) {
-
-        var moduleName = key.substring(key.indexOf('_') + 1);
-        var status = moduleStatus[key];
-
-        resultArr.push({moduleId: moduleName, status: status });
-    }
-
-    var result = {
-        senseId: senseId,
-        modules: resultArr
-
-    };
-    res.send(result);
-    return;
+  };
+  res.send(result);
+  return;
 
 }
 
 
 module.exports = {
-    start: start,
-    stop: stop,
-    getSenseStatus: getSenseStatus,
-    getModuleStatus: getModuleStatus,
-    getAllModuleStatus: getAllModuleStatus,
+  start: start,
+  stop: stop,
+  getSenseStatus: getSenseStatus,
+  getModuleStatus: getModuleStatus,
+  getAllModuleStatus: getAllModuleStatus,
 
 }
